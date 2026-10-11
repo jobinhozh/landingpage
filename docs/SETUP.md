@@ -16,7 +16,7 @@ Run from `apps/personal`:
 
 ```sh
 pnpm exec wrangler login
-pnpm exec wrangler d1 create marc-personal      # copy the id into wrangler.jsonc → d1_databases[0].database_id
+pnpm exec wrangler d1 create marc-personal      # already done, id is in wrangler.jsonc
 pnpm exec wrangler r2 bucket create landingpage   # already done
 pnpm exec wrangler d1 migrations apply marc-personal --remote
 ```

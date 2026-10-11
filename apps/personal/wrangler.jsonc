@@ -16,8 +16,7 @@
     {
       "binding": "DB",
       "database_name": "marc-personal",
-      // Replace with the id printed by `wrangler d1 create marc-personal`
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "650dd176-ec62-4bad-a196-782075395fc9",
       "migrations_dir": "migrations"
     }
   ],
