@@ -1,0 +1,70 @@
+---
+import ContactForm from "@marc/ui/ContactForm.astro";
+import { t, ti } from "@marc/i18n/content";
+import { env } from "cloudflare:workers";
+import type { PersonalPage } from "../../../../site.config.ts";
+import type { FormState } from "../lib/contact.ts";
+import Footer from "./Footer.astro";
+import Switcher from "./Switcher.astro";
+
+export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
+const { page, lang, sent, state } = Astro.props;
+const p = (k: string) => t(page.id, k, lang);
+---
+<div class="private">
+  <div class="private__top"><Switcher page={page} lang={lang} /></div>
+  <header class="private__head">
+    <div class="private__id">
+      <img src={`/${page.slug}/photo`} alt={p("photo_alt")} width="64" height="64" class="private__photo" />
+      <h1>{p("title")}</h1>
+    </div>
+    <p class="private__intro" set:html={ti(page.id, "intro", lang)} />
+    <ul class="private__chips">
+      <li>{p("chip_city")}</li>
+      <li>{p("chip_languages")}</li>
+      <li>{p("chip_interest")}</li>
+    </ul>
+  </header>
+  <main class="private__card">
+    {sent ? (
+      <section class="private__sent" role="status">
+        <h2>{p("sent_title")}</h2>
+        <p>{p("sent_body")}</p>
+      </section>
+    ) : (
+      <ContactForm
+        variant="calm"
+        title={p("form_title")}
+        fields={[
+          { name: "name", label: p("form_name"), autocomplete: "name", required: true, half: true },
+          { name: "contact", label: p("form_contact"), type: "email-or-phone", autocomplete: "email", required: true, half: true },
+          { name: "met_where", label: p("form_where") },
+          { name: "message", label: p("form_message"), type: "textarea", rows: 2 },
+        ]}
+        consentLabel={p("form_consent")}
+        submitLabel={p("submit")}
+        sendingLabel={p("form_sending")}
+        values={state?.values}
+        errors={state?.errors}
+        formError={state?.formError}
+        turnstileSiteKey={env.TURNSTILE_SITE_KEY}
+      />
+    )}
+  </main>
+  <Footer page={page} lang={lang} />
+</div>
+<style>
+  .private { max-width: 480px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; box-sizing: border-box; }
+  .private__top { padding: 6px 8px 0; }
+  .private__head { padding: 0 20px; display: flex; flex-direction: column; gap: 8px; }
+  .private__id { display: flex; align-items: center; gap: 14px; }
+  .private__photo { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 999px; object-fit: cover; background: #C2410C; }
+  .private h1 { margin: 0; font-size: clamp(26px, 8.6vw, 34px); line-height: 1; font-weight: 800; letter-spacing: -0.03em; white-space: nowrap; }
+  .private__intro { margin: 0; font-size: 16px; line-height: 1.4; color: #3B4954; }
+  .private__chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .private__chips li { padding: 5px 10px; background: #FFF; border-radius: 999px; font-size: 13px; font-weight: 600; }
+  .private__card { margin: 0 12px; padding: 16px; background: #FFF; border-radius: 18px; }
+  .private__sent h2 { margin: 0 0 8px; font-size: 24px; font-weight: 800; }
+  .private__sent p { margin: 0; font-size: 16px; line-height: 1.45; color: #3B4954; }
+  .private :global(.pfooter) { margin-top: auto; }
+</style>

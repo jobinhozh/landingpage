@@ -1,0 +1,45 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // Neutral name: the workers.dev URL is printed on the QR cards. See docs/SETUP.md.
+  "name": "marc-personal",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS"
+  },
+  "observability": { "enabled": true },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "marc-personal",
+      // Replace with the id printed by `wrangler d1 create marc-personal`
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "marc-personal" }],
+  "send_email": [{ "name": "NOTIFY" }],
+  "ratelimits": [
+    { "name": "RL_IP", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } },
+    { "name": "RL_TOKEN", "namespace_id": "1002", "simple": { "limit": 30, "period": 60 } }
+  ],
+  "triggers": {
+    // Daily 05:45 UTC: cleanup + due reminders. Sunday 02:15 UTC: D1 backup to R2.
+    "crons": ["45 5 * * *", "15 2 * * 0"]
+  },
+  "vars": {
+    // Cloudflare Turnstile test key (always passes). Replace with the real site key.
+    "TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+    "NOTIFY_FROM": "noreply@example.com",
+    "RESEND_FROM": "Marc <hello@example.com>",
+    "ACCESS_TEAM_DOMAIN": "https://example.cloudflareaccess.com",
+    "ACCESS_AUD": "",
+    "NTFY_SERVER": "https://ntfy.sh"
+  }
+  // Secrets (wrangler secret put …): TURNSTILE_SECRET, RESEND_API_KEY, NTFY_TOPIC, COOKIE_SIGNING_KEY,
+  // NOTIFY_EMAIL, OWNER_NAME, OWNER_PHONE, OWNER_EMAIL
+}

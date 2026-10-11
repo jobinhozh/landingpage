@@ -1,0 +1,8 @@
+---
+import LegalPage from "../../components/LegalPage.astro";
+import { langPaths } from "../../lib/i18n.ts";
+
+export const getStaticPaths = langPaths;
+const { code } = Astro.props as { code: string };
+---
+<LegalPage lang={code} kind="privacy" />

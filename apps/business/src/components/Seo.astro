@@ -1,0 +1,31 @@
+---
+import { slugOf, businessLangs } from "../lib/i18n.ts";
+
+export interface Props {
+  title: string;
+  description: string;
+  lang: string;
+  /** Path after the language segment, e.g. "" or "privacy/". */
+  path: string;
+  noindex?: boolean;
+}
+const { title, description, lang, path, noindex } = Astro.props;
+const site = Astro.site ?? new URL("https://example.com");
+const canonical = new URL(`/${slugOf(lang)}/${path}`, site).href;
+const ogImage = new URL("/og.png", site).href;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{businessLangs.map((l) => <link rel="alternate" hreflang={l.code === "gsw" ? "de-CH" : l.code} href={new URL(`/${l.slug}/${path}`, site).href} />)}
+<link rel="alternate" hreflang="x-default" href={new URL(`/${path}`, site).href} />
+{noindex && <meta name="robots" content="noindex" />}
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={lang} />
+<meta name="twitter:card" content="summary_large_image" />

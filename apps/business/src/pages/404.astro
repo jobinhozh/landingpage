@@ -1,0 +1,14 @@
+---
+import { t, setting } from "@marc/i18n/content";
+import Base from "../layouts/Base.astro";
+import { PAGE, businessLangs } from "../lib/i18n.ts";
+
+const lang = businessLangs[0]!.code;
+---
+<Base lang={lang} title={setting("common", "not_found")} description={t(PAGE, "meta_description", lang)} path="" noindex>
+  <section class="mx-auto max-w-5xl px-6 py-24">
+    <p class="font-mono text-accent">404</p>
+    <h1 class="text-3xl font-bold">{setting("common", "not_found")}</h1>
+    <p><a href={`/${businessLangs[0]!.slug}/`} class="inline-flex min-h-11 items-center">{t(PAGE, "back_home", lang)}</a></p>
+  </section>
+</Base>

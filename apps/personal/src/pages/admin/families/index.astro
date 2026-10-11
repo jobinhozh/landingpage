@@ -1,0 +1,55 @@
+---
+import { env } from "cloudflare:workers";
+import Admin from "../../../layouts/Admin.astro";
+import { fmtDate } from "../../../lib/admin.ts";
+import { allTags, searchFamilies } from "../../../lib/crm.ts";
+import { allLanguages } from "../../../lib/pages.ts";
+import { personalPages } from "../../../../../../site.config.ts";
+
+const p = Astro.url.searchParams;
+const filter = {
+  q: p.get("q")?.trim() || undefined,
+  page: p.get("page") || undefined,
+  tag: p.get("tag") || undefined,
+  lang: p.get("lang") || undefined,
+  unseenMonths: Number(p.get("unseen")) || undefined,
+};
+const [rows, tags] = await Promise.all([searchFamilies(env.DB, filter), allTags(env.DB)]);
+const qs = Astro.url.search;
+---
+<Admin title="People" active="families">
+  <div class="row" style="margin-bottom: 12px">
+    <a class="btn primary" href="/admin/families/new">Add manually</a>
+    <a class="btn" href={`/admin/export/contacts.vcf${qs}`}>vCards</a>
+    <a class="btn" href={`/admin/export/contacts.csv${qs}`}>CSV</a>
+  </div>
+  <form method="get" class="card grid2" role="search">
+    <label>Search<input type="search" name="q" value={filter.q ?? ""} placeholder="Name, email, notes…" /></label>
+    <label>Page
+      <select name="page"><option value="">All</option>{[...personalPages.map((x) => x.id), "manual"].map((id) => <option selected={filter.page === id}>{id}</option>)}</select>
+    </label>
+    <label>Tag
+      <select name="tag"><option value="">All</option>{tags.map((t) => <option selected={filter.tag === t}>{t}</option>)}</select>
+    </label>
+    <label>Language
+      <select name="lang"><option value="">All</option>{allLanguages.map((l) => <option value={l.code} selected={filter.lang === l.code}>{l.chip}</option>)}</select>
+    </label>
+    <label>Not seen in
+      <select name="unseen">
+        <option value="">Any time</option>
+        {[1, 3, 6, 12].map((m) => <option value={m} selected={filter.unseenMonths === m}>{m} month{m > 1 ? "s" : ""}</option>)}
+      </select>
+    </label>
+    <div class="row" style="align-items: end"><button class="primary" type="submit">Filter</button><a class="btn" href="/admin/families">Reset</a></div>
+  </form>
+  <p class="meta">{rows.length} famil{rows.length === 1 ? "y" : "ies"}</p>
+  {rows.map((f) => (
+    <a class="card" href={`/admin/families/${f.id}`} style="display: block; text-decoration: none; color: inherit">
+      <div class="row" style="justify-content: space-between">
+        <strong>{f.adults || "(no adult)"}</strong>
+        <span class="meta">last {fmtDate(f.last_at).slice(0, 10)}</span>
+      </div>
+      <div class="meta">{[f.children && `kids: ${f.children}`, f.source_page, f.tags].filter(Boolean).join(" · ")}</div>
+    </a>
+  ))}
+</Admin>

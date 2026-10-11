@@ -1,0 +1,11 @@
+# Copy to .dev.vars for `pnpm dev`. Test values only, never real secrets here.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+COOKIE_SIGNING_KEY=dev-only-signing-key-change-me-0123456789
+RESEND_API_KEY=
+NTFY_TOPIC=
+NOTIFY_EMAIL=
+OWNER_NAME=Marc Example
+OWNER_PHONE=+41000000000
+OWNER_EMAIL=marc@example.com
+# Skips Cloudflare Access on localhost only.
+ADMIN_DEV_BYPASS=true

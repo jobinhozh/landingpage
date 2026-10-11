@@ -1,0 +1,52 @@
+---
+import { env } from "cloudflare:workers";
+import Admin from "../../../layouts/Admin.astro";
+import { adminForm, str } from "../../../lib/admin.ts";
+import { createFamily } from "../../../lib/crm.ts";
+import { allLanguages } from "../../../lib/pages.ts";
+import { normalizeEmail, normalizePhone } from "../../../lib/validation.ts";
+import { personalPages } from "../../../../../../site.config.ts";
+
+let error: string | undefined;
+const form = await adminForm(Astro);
+if (form) {
+  const adultName = str(form, "name", 80);
+  const email = str(form, "email") ? normalizeEmail(str(form, "email")) : null;
+  const phone = str(form, "phone") ? normalizePhone(str(form, "phone")) : null;
+  if (!adultName) error = "Name is required.";
+  else if (str(form, "email") && !email) error = "Email looks wrong.";
+  else if (str(form, "phone") && !phone) error = "Phone looks wrong.";
+  else {
+    const id = await createFamily(env.DB, {
+      adultName,
+      email,
+      phone,
+      language: str(form, "language", 5) || "en",
+      childName: str(form, "child", 40) || null,
+      knows: form.getAll("knows").map(String),
+      metWhere: str(form, "met_where", 120) || null,
+      notes: str(form, "notes", 5000),
+    });
+    return Astro.redirect(`/admin/families/${id}`, 303);
+  }
+}
+---
+<Admin title="Add manually" active="families">
+  {error && <p class="flash err" role="alert">{error}</p>}
+  <form method="post" class="card stack">
+    <div class="grid2">
+      <label>Adult name<input name="name" required /></label>
+      <label>Language<select name="language">{allLanguages.map((l) => <option value={l.code} selected={l.code === "gsw"}>{l.label}</option>)}</select></label>
+      <label>Phone<input name="phone" inputmode="tel" /></label>
+      <label>Email<input name="email" inputmode="email" /></label>
+      <label>Child first name<input name="child" /></label>
+      <label>Met where<input name="met_where" /></label>
+    </div>
+    <fieldset class="row" style="border: 0; padding: 0">
+      <legend class="meta">Child knows</legend>
+      {personalPages.filter((p) => p.style === "comic").map((p) => <label class="inline"><input type="checkbox" name="knows" value={p.id} />{p.id}</label>)}
+    </fieldset>
+    <label>Notes<textarea name="notes"></textarea></label>
+    <div><button class="primary" type="submit">Save</button></div>
+  </form>
+</Admin>

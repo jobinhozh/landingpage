@@ -1,0 +1,53 @@
+---
+import "../styles/global.css";
+import LanguageSwitcher from "@marc/ui/LanguageSwitcher.astro";
+import { t, setting } from "@marc/i18n/content";
+import Seo from "../components/Seo.astro";
+import { PAGE, businessLangs, slugOf } from "../lib/i18n.ts";
+
+export interface Props {
+  lang: string;
+  title: string;
+  description: string;
+  path: string;
+  noindex?: boolean;
+}
+const { lang, title, description, path, noindex } = Astro.props;
+const beacon = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN as string | undefined;
+const switcher = businessLangs.map((l) => ({ code: l.code, chip: l.chip, label: l.label, href: `/${l.slug}/${path}` }));
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0E1620" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" />
+    <Seo title={title} description={description} lang={lang} path={path} noindex={noindex} />
+    {beacon && <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: beacon })} />}
+  </head>
+  <body class="min-h-dvh flex flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-10 focus:bg-ink focus:px-4 focus:py-3">{t(PAGE, "skip_link", lang)}</a>
+    <header class="border-b border-line">
+      <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
+        <a href={`/${slugOf(lang)}/`} class="font-mono text-[15px] font-medium tracking-[0.04em] text-text no-underline py-3">{setting(PAGE, "brand")}</a>
+        <LanguageSwitcher current={lang} items={switcher} label={t("common", "language_label", lang)} variant="business" />
+      </div>
+    </header>
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <footer class="border-t border-line">
+      <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-5 gap-y-1 px-6 py-5 font-mono text-xs text-faint">
+        <span>{t(PAGE, "footer_copyright", lang, { year })}</span>
+        <a class="inline-flex min-h-11 items-center text-faint hover:text-text" href={`/${slugOf(lang)}/impressum/`}>{t(PAGE, "impressum_link", lang)}</a>
+        <a class="inline-flex min-h-11 items-center text-faint hover:text-text" href={`/${slugOf(lang)}/privacy/`}>{t(PAGE, "privacy_link", lang)}</a>
+      </div>
+    </footer>
+  </body>
+</html>

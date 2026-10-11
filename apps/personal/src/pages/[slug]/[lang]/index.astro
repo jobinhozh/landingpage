@@ -1,0 +1,31 @@
+---
+import { t } from "@marc/i18n/content";
+import { themes } from "../../../../../../themes.ts";
+import KidPage from "../../../components/KidPage.astro";
+import PrivatePage from "../../../components/PrivatePage.astro";
+import Personal from "../../../layouts/Personal.astro";
+import { type FormState, handleContact } from "../../../lib/contact.ts";
+import { notFound } from "../../../lib/http.ts";
+import { langFromSlug, pageBySlug } from "../../../lib/pages.ts";
+
+// The middleware already checked the pass cookie for this page.
+const page = pageBySlug(Astro.params.slug);
+const language = langFromSlug(Astro.params.lang);
+if (!page || !language || !Astro.locals.pass) return notFound();
+const lang = language.code;
+
+let state: FormState | undefined;
+if (Astro.request.method === "POST") {
+  const result = await handleContact(Astro, page, lang);
+  if (result instanceof Response) return result;
+  state = result;
+  Astro.response.status = 400;
+} else if (Astro.request.method !== "GET" && Astro.request.method !== "HEAD") {
+  return notFound();
+}
+const sent = Astro.url.searchParams.has("sent");
+const theme = themes[language.theme] ? language.theme : "uk";
+---
+<Personal lang={lang} title={t(page.id, "meta_title", lang)} variant={page.style} theme={theme} slug={page.slug}>
+  {page.style === "comic" ? <KidPage page={page} lang={lang} sent={sent} state={state} /> : <PrivatePage page={page} lang={lang} sent={sent} state={state} />}
+</Personal>

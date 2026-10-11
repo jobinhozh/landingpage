@@ -1,0 +1,150 @@
+---
+/**
+ * Contact form for the private and kid pages. Works without JS (plain POST),
+ * Turnstile and the "sending" state are progressive enhancements.
+ * All labels come from content.md through props.
+ */
+export interface Field {
+  name: string;
+  label: string;
+  type?: "text" | "email-or-phone" | "textarea";
+  autocomplete?: string;
+  required?: boolean;
+  /** Short fields share a row in a 2-column grid. */
+  half?: boolean;
+  rows?: number;
+}
+export interface Props {
+  variant: "calm" | "comic";
+  title: string;
+  fields: Field[];
+  chips?: { name: string; label: string; options: { value: string; label: string }[] };
+  consentLabel: string;
+  submitLabel: string;
+  sendingLabel: string;
+  values?: Record<string, string | string[]>;
+  errors?: Record<string, string>;
+  formError?: string;
+  turnstileSiteKey: string;
+}
+const { variant, title, fields, chips, consentLabel, submitLabel, sendingLabel, values = {}, errors = {}, formError, turnstileSiteKey } = Astro.props;
+const val = (n: string) => {
+  const v = values[n];
+  return Array.isArray(v) ? v.join(",") : (v ?? "");
+};
+const checked = (n: string, v: string) => {
+  const cur = values[n];
+  return Array.isArray(cur) ? cur.includes(v) : cur === v;
+};
+const groups: Field[][] = [];
+for (const f of fields) {
+  const last = groups.at(-1);
+  if (f.half && last && last.length === 1 && last[0]!.half) last.push(f);
+  else groups.push([f]);
+}
+---
+<form method="post" class:list={["cform", `cform--${variant}`]} novalidate data-sending={sendingLabel}>
+  <h2 class="cform__title">{title}</h2>
+  {formError && <p class="cform__alert" role="alert">{formError}</p>}
+  {groups.map((g) => (
+    <div class:list={["cform__row", { "cform__row--2": g.length === 2 }]}>
+      {g.map((f) => (
+        <div class="cform__field">
+          <label for={`f-${f.name}`}>{f.label}</label>
+          {f.type === "textarea" ? (
+            <textarea id={`f-${f.name}`} name={f.name} rows={f.rows ?? 2} maxlength="1000" aria-invalid={errors[f.name] ? "true" : undefined} aria-describedby={errors[f.name] ? `e-${f.name}` : undefined}>{val(f.name)}</textarea>
+          ) : (
+            <input
+              id={`f-${f.name}`}
+              name={f.name}
+              type="text"
+              inputmode={f.type === "email-or-phone" ? "email" : undefined}
+              autocomplete={f.autocomplete}
+              value={val(f.name)}
+              required={f.required}
+              maxlength="120"
+              aria-invalid={errors[f.name] ? "true" : undefined}
+              aria-describedby={errors[f.name] ? `e-${f.name}` : undefined}
+            />
+          )}
+          {errors[f.name] && <p class="cform__error" id={`e-${f.name}`}>{errors[f.name]}</p>}
+        </div>
+      ))}
+    </div>
+  ))}
+  {chips && (
+    <fieldset class="cform__chips">
+      <legend>{chips.label}</legend>
+      <div>
+        {chips.options.map((o) => (
+          <label class="chip"><input type="checkbox" name={chips.name} value={o.value} checked={checked(chips.name, o.value)} /><span>{o.label}</span></label>
+        ))}
+      </div>
+    </fieldset>
+  )}
+  <div class="cform__consent">
+    <input id="f-consent" type="checkbox" name="consent" value="yes" required checked={values.consent === "yes"} aria-invalid={errors.consent ? "true" : undefined} aria-describedby={errors.consent ? "e-consent" : undefined} />
+    <label for="f-consent">{consentLabel}</label>
+  </div>
+  {errors.consent && <p class="cform__error" id="e-consent">{errors.consent}</p>}
+  <div class="cform__hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+  <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-appearance="interaction-only" data-size="flexible"></div>
+  <button type="submit" class="cform__submit">{submitLabel}</button>
+</form>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  for (const form of document.querySelectorAll<HTMLFormElement>("form.cform")) {
+    form.addEventListener("submit", () => {
+      const btn = form.querySelector<HTMLButtonElement>("button[type=submit]");
+      if (!btn) return;
+      btn.disabled = true;
+      btn.textContent = form.dataset.sending ?? btn.textContent;
+    });
+  }
+</script>
+<style>
+  .cform { display: flex; flex-direction: column; gap: 10px; margin: 0; }
+  .cform__title { margin: 0; }
+  .cform__row { display: grid; gap: 10px; }
+  .cform__row--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cform__field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .cform label, .cform legend { font-size: 13px; font-weight: 600; }
+  .cform input[type="text"], .cform textarea { min-height: 44px; min-width: 0; padding: 0 12px; font: inherit; font-size: 16px; color: #111; background: #FFF; box-sizing: border-box; width: 100%; }
+  .cform textarea { padding: 10px 12px; resize: vertical; min-height: 0; }
+  .cform [aria-invalid="true"] { border-color: #B42318 !important; }
+  .cform__error { margin: 0; font-size: 13px; font-weight: 700; color: #B42318; }
+  .cform__alert { margin: 0; padding: 10px 12px; font-weight: 700; color: #7A1A12; background: #FDECEA; border-radius: 8px; }
+  .cform__chips { margin: 0; padding: 0; border: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+  .cform__chips legend { float: left; padding: 0; margin-right: 4px; }
+  .cform__chips > div { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { position: relative; display: inline-flex; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #FFF; }
+  .chip input:focus-visible + span { outline: 3px solid #111; outline-offset: 2px; }
+  .cform__consent { display: flex; gap: 10px; align-items: flex-start; }
+  .cform__consent input { width: 22px; height: 22px; margin: 1px 0 0; flex: 0 0 22px; }
+  .cform__consent label { font-size: 13px; font-weight: 400; line-height: 1.4; }
+  .cform__hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .cf-turnstile:empty { display: none; }
+  .cform__submit { min-height: 50px; border: 0; font: inherit; cursor: pointer; }
+  .cform__submit:disabled { opacity: 0.7; cursor: progress; }
+  .cform :focus-visible { outline: 3px solid #111; outline-offset: 2px; }
+
+  /* calm (private page) */
+  .cform--calm .cform__title { font-size: 21px; font-weight: 800; }
+  .cform--calm input[type="text"], .cform--calm textarea { border: 1.5px solid #C9D1D6; border-radius: 10px; }
+  .cform--calm .cform__consent label { color: #3B4954; }
+  .cform--calm .chip span { border: 1.5px solid #C9D1D6; }
+  .cform--calm .cform__submit { border-radius: 12px; background: var(--accent); color: #FFF; font-size: 17px; font-weight: 700; }
+
+  /* comic (kid pages) */
+  .cform--comic { gap: 9px; }
+  .cform--comic .cform__title { font-family: "Bangers", cursive; font-weight: 400; font-size: 26px; letter-spacing: 0.04em; line-height: 1; }
+  .cform--comic label, .cform--comic legend { font-size: 14px; font-weight: 700; }
+  .cform--comic input[type="text"], .cform--comic textarea { border: 2.5px solid #111; border-radius: 10px; padding-left: 10px; }
+  .cform--comic .chip span { border: 2.5px solid #111; }
+  .cform--comic .chip input:checked + span { background: var(--c-bubble); box-shadow: 2px 2px 0 #111; }
+  .cform--comic .chip input:checked + span::before { content: "✓"; margin-right: 4px; }
+  .cform--comic .cform__submit { min-height: 52px; border: 3px solid #111; border-radius: 14px; background: var(--c-accent); color: var(--c-accent-text); box-shadow: 3px 3px 0 #111; font-family: "Bangers", cursive; font-size: 24px; letter-spacing: 0.05em; }
+  .cform--comic .cform__submit:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #111; }
+</style>
