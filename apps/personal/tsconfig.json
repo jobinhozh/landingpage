@@ -5,6 +5,6 @@
     "noUncheckedIndexedAccess": true,
     "types": ["@cloudflare/workers-types"]
   },
-  "include": [".astro/types.d.ts", "src/**/*", "../../packages/*/src/**/*"],
+  "include": [".astro/types.d.ts", "src/**/*", "test/**/*", "../../packages/*/src/**/*"],
   "exclude": ["dist"]
 }

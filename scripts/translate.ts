@@ -23,7 +23,7 @@ const Result = z.object({
 
 async function translate(client: Anthropic, job: Job): Promise<Record<string, string>> {
   const lang = languages.find((l) => l.code === job.lang)!;
-  const pageTone = tone[contentPages[job.page as keyof typeof contentPages] ?? "private"];
+  const pageTone = tone[contentPages[job.page as keyof typeof contentPages]?.tone ?? "private"];
   const swiss =
     job.lang === "gsw"
       ? " Write Swiss German (Zürich dialect, Schwiizerdütsch) as it is commonly written in messages, not Standard German. Swiss spelling, no ß."

@@ -13,11 +13,22 @@ export function sql(v: string | number | null): string {
 
 /** Runs SQL through wrangler against the remote D1 (or local with `local: true`). */
 export function d1<T = Record<string, unknown>>(command: string, local = false): T[] {
-  const out = execFileSync(
-    "npx",
-    ["wrangler", "d1", "execute", DB_NAME, local ? "--local" : "--remote", "--json", "--command", command],
-    { cwd: PERSONAL_DIR, encoding: "utf8", stdio: ["ignore", "pipe", "inherit"] },
-  );
+  let out: string;
+  try {
+    out = execFileSync(
+      "npx",
+      ["wrangler", "d1", "execute", DB_NAME, local ? "--local" : "--remote", "--json", "--command", command],
+      { cwd: PERSONAL_DIR, encoding: "utf8", stdio: ["ignore", "pipe", "inherit"] },
+    );
+  } catch (e) {
+    const stdout = (e as { stdout?: string }).stdout ?? "";
+    const reason = /"text":\s*"([^"]+)"/.exec(stdout)?.[1] ?? (e instanceof Error ? e.message : String(e));
+    const hint = reason.includes("no such table")
+      ? ` (apply migrations first: pnpm --filter personal db:migrate:${local ? "local" : "remote"})`
+      : "";
+    console.error(`D1 ${local ? "local" : "remote"}: ${reason}${hint}`);
+    process.exit(1);
+  }
   const parsed = JSON.parse(out) as { results: T[] }[];
   return parsed.flatMap((r) => r.results ?? []);
 }

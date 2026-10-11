@@ -40,10 +40,13 @@ marc-sites/
     translate.ts
     tokens.ts             # create, revoke, list
     cards.ts              # printable QR card PDFs
+    lib/                  # translate planner, card layout, D1 + arg helpers (with tests)
   apps/
     business/
     personal/
       migrations/         # D1 schema
+      src/lib/crm/        # admin data layer: submissions, families, batches, broadcast (pages never write SQL)
+      test/               # unit tests + CRM tests on an in-memory D1 (wrangler getPlatformProxy)
   .github/workflows/deploy.yml
   docs/                   # SETUP.md, MAINTENANCE.md (exported from the guide)
 ```
@@ -122,11 +125,12 @@ We played together! Ask your grown-up to send my dad a message, so we can play a
 Mir händ zäme gspielt! ...
 ```
 
-- Levels: `#` page (`common`, `business`, `private`, `kid-one`, `kid-two`), `##` language code or `settings`, `###` key, body = text.
+- Levels: `#` page (`common`, `business`, `private`, `kids`, `kid-one`, `kid-two`), `##` language code or `settings`, `###` key, body = text.
+- `kids` holds the strings both kid pages share. `kid-one` and `kid-two` inherit from it (`contentPages[...].inherits` in `site.config.ts`) and only define what differs (burst word, hero facts, settings). Put a key on a kid page to override the shared one.
 - Body supports multi-line Markdown (bold, italic, links) and `{placeholders}`.
 - `common` = shared strings (form labels, consent, footer, privacy note).
 - `settings` = untranslated values (hero names etc.).
-- Typed access: `t(page, key, lang)`, falls back to `common`, then to `fallback` language.
+- Typed access: `t(page, key, lang)`. Lookup chain per language: page → parent (`kids`) → `common`, first in the requested language, then in the `fallback` language.
 - Missing key → fallback + build warning listing page/lang/key. Unknown language section → build error.
 
 ## 7. Translation
@@ -245,7 +249,8 @@ Local: `.env` (gitignored), `.dev.vars` for wrangler.
 - Lighthouse mobile ≥ 95 on all pages.
 - No client JS unless needed (form, switcher, admin).
 - Touch targets ≥ 44 px.
-- Tests: i18n parser, translate marker logic, token validation, cookie signing, form validation, duplicate merge.
+- Tests: i18n parser and inheritance, translate marker logic, token validation, cookie signing, form validation, duplicate merge, card layout, and CRM flows on a real local D1 (approve/merge, cascade delete, search filters, broadcast, RSVP, batches).
+- Approve and manual add write in one D1 batch (transaction), so a failure never leaves half a family.
 - Every PR keeps `npm run build` and tests green.
 
 ## 18. Working rules for Claude Code

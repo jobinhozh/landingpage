@@ -2,7 +2,7 @@
 import { env } from "cloudflare:workers";
 import Admin from "../../../layouts/Admin.astro";
 import { adminForm, str } from "../../../lib/admin.ts";
-import { createFamily } from "../../../lib/crm.ts";
+import { createFamily } from "../../../lib/crm/index.ts";
 import { allLanguages } from "../../../lib/pages.ts";
 import { normalizeEmail, normalizePhone } from "../../../lib/validation.ts";
 import { personalPages } from "../../../../../../site.config.ts";
@@ -42,7 +42,7 @@ if (form) {
       <label>Child first name<input name="child" /></label>
       <label>Met where<input name="met_where" /></label>
     </div>
-    <fieldset class="row" style="border: 0; padding: 0">
+    <fieldset class="row bare">
       <legend class="meta">Child knows</legend>
       {personalPages.filter((p) => p.style === "comic").map((p) => <label class="inline"><input type="checkbox" name="knows" value={p.id} />{p.id}</label>)}
     </fieldset>

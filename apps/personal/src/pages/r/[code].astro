@@ -3,24 +3,18 @@
 import { env } from "cloudflare:workers";
 import { languageByCode } from "@marc/i18n";
 import { t } from "@marc/i18n/content";
-import { logInteraction, parseRsvpCode } from "../../lib/crm.ts";
+import { parseRsvpCode, recordRsvp, rsvpTarget } from "../../lib/crm/index.ts";
 import { notFound } from "../../lib/http.ts";
 
 const parsed = await parseRsvpCode(env.COOKIE_SIGNING_KEY, Astro.params.code ?? "");
 if (!parsed) return notFound();
-const row = await env.DB.prepare(
-  `SELECT i.family_id, i.summary, a.language FROM interactions i JOIN adults a ON a.family_id = i.family_id
-   WHERE i.id = ? AND i.kind = 'broadcast' AND a.id = ?`,
-)
-  .bind(parsed.interactionId, parsed.adultId)
-  .first<{ family_id: number; summary: string; language: string }>();
-if (!row) return notFound();
-const lang = languageByCode(row.language)?.code ?? "en";
+const target = await rsvpTarget(env.DB, parsed.interactionId, parsed.adultId);
+if (!target) return notFound();
+const lang = languageByCode(target.language)?.code ?? "en";
 
 let done = false;
 if (Astro.request.method === "POST") {
-  const answer = (await Astro.request.formData()).get("answer") === "yes" ? "yes" : "no";
-  await logInteraction(env.DB, row.family_id, "rsvp", `${answer}: ${row.summary}`);
+  await recordRsvp(env.DB, target, (await Astro.request.formData()).get("answer") === "yes");
   done = true;
 }
 ---
@@ -30,19 +24,29 @@ if (Astro.request.method === "POST") {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>{row.summary}</title>
+    <title>{target.subject}</title>
   </head>
-  <body style="margin: 0; min-height: 100dvh; display: grid; place-items: center; background: #EEF1EF; color: #16222B; font: 18px/1.4 system-ui, sans-serif">
-    <main style="padding: 24px; max-width: 420px; text-align: center">
-      <h1 style="font-size: 24px">{row.summary}</h1>
+  <body>
+    <main>
+      <h1>{target.subject}</h1>
       {done ? (
         <p>{t("common", "rsvp_thanks", lang)}</p>
       ) : (
-        <form method="post" style="display: flex; flex-direction: column; gap: 12px">
-          <button name="answer" value="yes" style="min-height: 52px; font: inherit; font-weight: 700; border: 0; border-radius: 12px; background: #0F766E; color: #FFF">{t("common", "rsvp_yes", lang)}</button>
-          <button name="answer" value="no" style="min-height: 52px; font: inherit; border: 1.5px solid #C9D1D6; border-radius: 12px; background: #FFF; color: #16222B">{t("common", "rsvp_no", lang)}</button>
+        <form method="post">
+          <button name="answer" value="yes" class="yes">{t("common", "rsvp_yes", lang)}</button>
+          <button name="answer" value="no" class="no">{t("common", "rsvp_no", lang)}</button>
         </form>
       )}
     </main>
   </body>
 </html>
+<style is:global>
+  body { margin: 0; min-height: 100dvh; display: grid; place-items: center; background: #EEF1EF; color: #16222B; font: 18px/1.4 system-ui, sans-serif; }
+  main { padding: 24px; max-width: 420px; text-align: center; }
+  h1 { font-size: 24px; }
+  form { display: flex; flex-direction: column; gap: 12px; }
+  button { min-height: 52px; font: inherit; border-radius: 12px; cursor: pointer; }
+  button.yes { font-weight: 700; border: 0; background: #0F766E; color: #FFF; }
+  button.no { border: 1.5px solid #C9D1D6; background: #FFF; color: #16222B; }
+  button:focus-visible { outline: 3px solid #16222B; outline-offset: 2px; }
+</style>

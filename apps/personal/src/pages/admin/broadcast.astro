@@ -2,7 +2,7 @@
 import { env } from "cloudflare:workers";
 import Admin from "../../layouts/Admin.astro";
 import { adminForm, str } from "../../lib/admin.ts";
-import { type BroadcastResult, broadcast } from "../../lib/crm.ts";
+import { type BroadcastResult, broadcast } from "../../lib/crm/index.ts";
 import { personalPages } from "../../../../../site.config.ts";
 
 let result: BroadcastResult | undefined;

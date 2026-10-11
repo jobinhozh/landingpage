@@ -2,7 +2,18 @@
 import { env } from "cloudflare:workers";
 import Admin from "../../../layouts/Admin.astro";
 import { adminForm, fmtDate, num, str } from "../../../lib/admin.ts";
-import { addTag, deleteFamily, getFamily, logInteraction, removeTag } from "../../../lib/crm.ts";
+import {
+  addReminder,
+  addTag,
+  completeReminder,
+  deleteFamily,
+  getFamily,
+  logInteraction,
+  removeTag,
+  setNotes,
+  setOptIn,
+  updateAdult,
+} from "../../../lib/crm/index.ts";
 import { notFound } from "../../../lib/http.ts";
 import { whatsappLink } from "../../../lib/vcard.ts";
 
@@ -14,29 +25,29 @@ let flash: string | undefined;
 const form = await adminForm(Astro);
 if (form) {
   const action = str(form, "_action");
-  if (action === "delete" && str(form, "confirm") === "DELETE") {
-    await deleteFamily(db, id);
-    return Astro.redirect("/admin/families", 303);
-  }
-  if (action === "delete") flash = "Type DELETE to confirm.";
-  if (action === "notes") await db.prepare("UPDATE families SET notes = ? WHERE id = ?").bind(str(form, "notes", 5000), id).run();
-  if (action === "tag-add") await addTag(db, id, str(form, "tag", 40));
-  if (action === "tag-remove") await removeTag(db, id, str(form, "tag", 40));
-  if (action === "log" && str(form, "summary")) await logInteraction(db, id, str(form, "kind", 20) || "note", str(form, "summary", 1000));
-  if (action === "reminder-add" && str(form, "due_on") && str(form, "text")) {
-    await db.prepare("INSERT INTO reminders (family_id, due_on, text) VALUES (?, ?, ?)").bind(id, str(form, "due_on", 10), str(form, "text", 200)).run();
-  }
-  if (action === "reminder-done") {
-    await db.prepare("UPDATE reminders SET done_at = datetime('now') WHERE id = ? AND family_id = ?").bind(num(form, "rid"), id).run();
-  }
-  if (action === "optin") {
-    await db.prepare("UPDATE adults SET broadcast_opt_in = ? WHERE id = ? AND family_id = ?").bind(str(form, "value") === "1" ? 1 : 0, num(form, "aid"), id).run();
-  }
-  if (action === "adult-update") {
-    await db
-      .prepare("UPDATE adults SET name = ?, phone = NULLIF(?, ''), email = NULLIF(?, ''), whatsapp = NULLIF(?, ''), language = ? WHERE id = ? AND family_id = ?")
-      .bind(str(form, "name", 80), str(form, "phone", 30), str(form, "email", 120), str(form, "whatsapp", 30), str(form, "language", 5) || "en", num(form, "aid"), id)
-      .run();
+  if (action === "delete") {
+    if (str(form, "confirm") !== "DELETE") flash = "Type DELETE to confirm.";
+    else {
+      await deleteFamily(db, id);
+      return Astro.redirect("/admin/families", 303);
+    }
+  } else if (action === "notes") await setNotes(db, id, str(form, "notes", 5000));
+  else if (action === "tag-add") await addTag(db, id, str(form, "tag", 40));
+  else if (action === "tag-remove") await removeTag(db, id, str(form, "tag", 40));
+  else if (action === "log" && str(form, "summary")) {
+    await logInteraction(db, id, str(form, "kind", 20) || "note", str(form, "summary", 1000));
+  } else if (action === "reminder-add" && str(form, "due_on") && str(form, "text")) {
+    await addReminder(db, id, str(form, "due_on", 10), str(form, "text", 200));
+  } else if (action === "reminder-done") await completeReminder(db, id, num(form, "rid"));
+  else if (action === "optin") await setOptIn(db, id, num(form, "aid"), str(form, "value") === "1");
+  else if (action === "adult-update") {
+    await updateAdult(db, id, num(form, "aid"), {
+      name: str(form, "name", 80),
+      phone: str(form, "phone", 30),
+      email: str(form, "email", 120),
+      whatsapp: str(form, "whatsapp", 30),
+      language: str(form, "language", 5),
+    });
   }
   if (!flash) return Astro.redirect(`/admin/families/${id}`, 303);
 }
@@ -75,7 +86,7 @@ const today = new Date().toISOString().slice(0, 10);
           {a.email && <a class="btn" href={`mailto:${a.email}`}>Email</a>}
         </div>
       </form>
-      <form method="post" class="row" style="margin-top: 8px">
+      <form method="post" class="row mt">
         <input type="hidden" name="_action" value="optin" />
         <input type="hidden" name="aid" value={a.id} />
         <input type="hidden" name="value" value={a.broadcast_opt_in ? "0" : "1"} />
@@ -89,7 +100,7 @@ const today = new Date().toISOString().slice(0, 10);
     <>
       <h2>Children</h2>
       <div class="card">
-        <ul style="margin: 0; padding-left: 18px">
+        <ul class="list">
           {children.map((c) => <li><strong>{c.first_name}</strong> <span class="meta">knows {c.knows || "?"}{c.met_where && ` · met ${c.met_where}`}</span></li>)}
         </ul>
       </div>
@@ -103,9 +114,9 @@ const today = new Date().toISOString().slice(0, 10);
         <li>{t}<form method="post"><input type="hidden" name="_action" value="tag-remove" /><input type="hidden" name="tag" value={t} /><button aria-label={`Remove tag ${t}`}>×</button></form></li>
       ))}
     </ul>
-    <form method="post" class="row" style="margin-top: 10px">
+    <form method="post" class="row mt">
       <input type="hidden" name="_action" value="tag-add" />
-      <input name="tag" placeholder="New tag" style="flex: 1; min-width: 140px" aria-label="New tag" />
+      <input name="tag" placeholder="New tag" class="grow" aria-label="New tag" />
       <button type="submit">Add</button>
     </form>
   </div>
@@ -120,16 +131,16 @@ const today = new Date().toISOString().slice(0, 10);
   <h2>Reminders</h2>
   <div class="card">
     {reminders.map((r) => (
-      <form method="post" class="row" style="justify-content: space-between; margin-bottom: 6px">
-        <span style={r.done_at ? "text-decoration: line-through; opacity: .6" : ""}><strong>{r.due_on}</strong> {r.text}</span>
+      <form method="post" class="row between mb">
+        <span class:list={{ done: Boolean(r.done_at) }}><strong>{r.due_on}</strong> {r.text}</span>
         {!r.done_at && <><input type="hidden" name="_action" value="reminder-done" /><input type="hidden" name="rid" value={r.id} /><button>Done</button></>}
       </form>
     ))}
-    <form method="post" class="grid2" style="margin-top: 10px">
+    <form method="post" class="grid2 mt">
       <input type="hidden" name="_action" value="reminder-add" />
       <label>Due<input type="date" name="due_on" min={today} required /></label>
       <label>Push text (no personal details)<input name="text" maxlength="200" required /></label>
-      <div class="row" style="align-items: end"><button type="submit">Add reminder</button></div>
+      <div class="row end"><button type="submit">Add reminder</button></div>
     </form>
   </div>
 
@@ -138,17 +149,17 @@ const today = new Date().toISOString().slice(0, 10);
     <input type="hidden" name="_action" value="log" />
     <label>Kind<select name="kind"><option value="met">Met</option><option value="message">Message</option><option value="call">Call</option><option value="note">Note</option></select></label>
     <label>Summary<input name="summary" maxlength="1000" required /></label>
-    <div class="row" style="align-items: end"><button type="submit">Log</button></div>
+    <div class="row end"><button type="submit">Log</button></div>
   </form>
-  <div class="card">
+  <div class="card log">
     {interactions.length === 0 && <p class="meta">No interactions yet.</p>}
-    {interactions.map((i) => <p style="margin: 0 0 8px"><span class="meta">{fmtDate(i.at)} · {i.kind}</span><br />{i.summary}</p>)}
+    {interactions.map((i) => <p><span class="meta">{fmtDate(i.at)} · {i.kind}</span><br />{i.summary}</p>)}
   </div>
 
   <h2>Delete</h2>
   <form method="post" class="card row">
     <input type="hidden" name="_action" value="delete" />
-    <label style="flex: 1">Deletes this family and everything linked to it. Type DELETE<input name="confirm" autocomplete="off" /></label>
+    <label class="grow">Deletes this family and everything linked to it. Type DELETE<input name="confirm" autocomplete="off" /></label>
     <button class="danger" type="submit">Delete family</button>
   </form>
 </Admin>

@@ -62,16 +62,29 @@ export const tone: Record<Tone, string> = {
   kids: "playful, very simple words a 7-year-old understands, short sentences",
 };
 
-/** content.md pages and the tone each is translated with. */
+export interface ContentPageConfig {
+  tone: Tone;
+  /** Page whose keys are used when this page does not define them (before `common`). */
+  inherits?: string;
+}
+
+/** content.md pages, the tone each is translated with, and shared parents. */
 export const contentPages = {
-  common: "private",
-  business: "business",
-  private: "private",
-  "kid-one": "kids",
-  "kid-two": "kids",
-} as const satisfies Record<string, Tone>;
+  common: { tone: "private" },
+  business: { tone: "business" },
+  private: { tone: "private" },
+  kids: { tone: "kids" },
+  "kid-one": { tone: "kids", inherits: "kids" },
+  "kid-two": { tone: "kids", inherits: "kids" },
+} as const satisfies Record<string, ContentPageConfig>;
 
 export type ContentPage = keyof typeof contentPages;
+
+/** Pages searched for a key, most specific first: the page, its parent, then common. */
+export function lookupChain(page: string): string[] {
+  const parent = (contentPages as Record<string, ContentPageConfig>)[page]?.inherits;
+  return [...new Set([page, ...(parent ? [parent] : []), "common"])];
+}
 
 /** Languages a content page is written and translated in. */
 export function pageLanguages(page: string): readonly LangCode[] {

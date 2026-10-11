@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { passCookie, readCookie, signPass, verifyPass } from "./cookie.ts";
-import { toCsv } from "./csv.ts";
-import { findDuplicateFamily, mergeSet, phoneKey } from "./merge.ts";
-import { isTokenActive, parseDuration, TOKEN_RE, type TokenRow } from "./token.ts";
-import { normalizeEmail, normalizePhone, validateContact } from "./validation.ts";
-import { vcard, whatsappLink } from "./vcard.ts";
-import { randomToken } from "./crypto.ts";
+import { passCookie, readCookie, signPass, verifyPass } from "../src/lib/cookie.ts";
+import { toCsv } from "../src/lib/csv.ts";
+import { findDuplicateFamily, mergeSet, phoneKey } from "../src/lib/merge.ts";
+import { isTokenActive, parseDuration, TOKEN_RE, type TokenRow } from "../src/lib/token.ts";
+import { normalizeEmail, normalizePhone, validateContact } from "../src/lib/validation.ts";
+import { vcard, whatsappLink } from "../src/lib/vcard.ts";
+import { randomToken } from "../src/lib/crypto.ts";
 
 const KEY = "test-signing-key-0123456789";
 

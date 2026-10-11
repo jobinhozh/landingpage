@@ -338,12 +338,7 @@ Send
 ### card_scan
 Scan to stay in touch
 
-# kid-one
-
-## settings
-
-hero_name: Captain Comet
-avatar: comet
+# kids
 
 ## en
 
@@ -352,9 +347,6 @@ avatar: comet
 
 ### avatar_alt
 Drawing of {hero_name}
-
-### burst
-POW!
 
 ### bubble
 We played together! Ask your grown-up to send my dad a message, so we can play again!
@@ -392,32 +384,44 @@ My hero card
 ### hero_superpower_label
 Superpower
 
-### hero_superpower
-[Superpower]
-
 ### hero_animal_label
 Favourite animal
-
-### hero_animal
-[Animal]
 
 ### hero_food_label
 Favourite food
 
-### hero_food
-[Food]
-
 ### hero_loves_label
 I love
-
-### hero_loves
-[Something]
 
 ### card_scan
 Scan me!
 
 ### card_line
 Let's play again!
+
+# kid-one
+
+## settings
+
+hero_name: Captain Comet
+avatar: comet
+
+## en
+
+### burst
+POW!
+
+### hero_superpower
+[Superpower]
+
+### hero_animal
+[Animal]
+
+### hero_food
+[Food]
+
+### hero_loves
+[Something]
 
 # kid-two
 
@@ -428,74 +432,17 @@ avatar: fox
 
 ## en
 
-### meta_title
-{hero_name}
-
-### avatar_alt
-Drawing of {hero_name}
-
 ### burst
 ZAP!
-
-### bubble
-We played together! Ask your grown-up to send my dad a message, so we can play again!
-
-### form_title
-Grown-ups: let's stay in touch!
-
-### form_parent_name
-Your name
-
-### form_child_name
-Your child's first name
-
-### form_times
-Good times to meet
-
-### time_weekdays
-Weekdays
-
-### time_afternoons
-Afternoons
-
-### time_weekends
-Weekends
-
-### submit
-Send to my dad!
-
-### sent_title
-Yay! Message sent!
-
-### hero_card_title
-My hero card
-
-### hero_superpower_label
-Superpower
 
 ### hero_superpower
 [Superpower]
 
-### hero_animal_label
-Favourite animal
-
 ### hero_animal
 [Animal]
-
-### hero_food_label
-Favourite food
 
 ### hero_food
 [Food]
 
-### hero_loves_label
-I love
-
 ### hero_loves
 [Something]
-
-### card_scan
-Scan me!
-
-### card_line
-Let's play again!

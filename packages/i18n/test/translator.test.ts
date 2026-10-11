@@ -84,3 +84,51 @@ describe("validateContent", () => {
     expect(r.warnings).toContain("missing common/de/a (falls back to en)");
   });
 });
+
+describe("page inheritance (kid-one → kids → common)", () => {
+  const d = parseContent(`
+# common
+## settings
+owner: Marc
+## en
+### form_name
+Your name
+
+# kids
+## settings
+parent: dad
+## en
+### submit
+Send to my {parent}!
+### burst
+POW!
+## de
+### submit
+Schick es meinem Papa!
+
+# kid-one
+## settings
+hero_name: Comet
+## en
+### burst
+ZAP!
+`);
+  const tr = createTranslator(d);
+  it("prefers the page, then its parent, then common", () => {
+    expect(tr.t("kid-one", "burst", "en")).toBe("ZAP!");
+    expect(tr.t("kid-one", "submit", "en")).toBe("Send to my dad!");
+    expect(tr.t("kid-one", "form_name", "en")).toBe("Your name");
+  });
+  it("uses a translated parent before the English page", () => {
+    expect(tr.t("kid-one", "submit", "de")).toBe("Schick es meinem Papa!");
+    expect(tr.t("kid-one", "burst", "de")).toBe("ZAP!");
+  });
+  it("merges settings along the chain", () => {
+    expect(tr.setting("kid-one", "hero_name")).toBe("Comet");
+    expect(tr.setting("kid-one", "parent")).toBe("dad");
+    expect(tr.setting("kid-one", "owner")).toBe("Marc");
+  });
+  it("does not leak child pages into the parent", () => {
+    expect(tr.t("kids", "burst", "en")).toBe("POW!");
+  });
+});

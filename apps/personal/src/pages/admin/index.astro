@@ -2,7 +2,7 @@
 import { env } from "cloudflare:workers";
 import Admin from "../../layouts/Admin.astro";
 import { adminForm, fmtDate, num, str } from "../../lib/admin.ts";
-import { type ApproveResult, approveSubmission, pendingSubmissions, rejectSubmission } from "../../lib/crm.ts";
+import { type ApproveResult, approveSubmission, pendingSubmissions, rejectSubmission } from "../../lib/crm/index.ts";
 
 let flash: { text: string; err?: boolean; href?: string; hrefLabel?: string } | undefined;
 const form = await adminForm(Astro);
@@ -30,18 +30,18 @@ const items = await pendingSubmissions(env.DB);
   {items.length === 0 && <p class="meta">Nothing pending. Unapproved submissions are deleted after 90 days.</p>}
   {items.map((s) => (
     <article class="card">
-      <div class="row" style="justify-content: space-between">
+      <div class="row between">
         <strong>{s.name}</strong>
         <span class="meta">{s.page} · {s.batch} · {s.lang} · {fmtDate(s.created_at)}</span>
       </div>
-      <dl class="kv" style="margin-top: 8px">
+      <dl class="kv mt">
         <dt>Contact</dt><dd>{s.contact}</dd>
         {s.child_name && <><dt>Child</dt><dd>{s.child_name}</dd></>}
         {s.met_where && <><dt>Met</dt><dd>{s.met_where}</dd></>}
         {s.good_times && <><dt>Times</dt><dd>{s.good_times.replace(/,/g, ", ")}</dd></>}
-        {s.message && <><dt>Message</dt><dd style="white-space: pre-wrap">{s.message}</dd></>}
+        {s.message && <><dt>Message</dt><dd class="pre">{s.message}</dd></>}
       </dl>
-      <form method="post" class="row" style="margin-top: 12px">
+      <form method="post" class="row mt">
         <input type="hidden" name="id" value={s.id} />
         <button class="primary" name="_action" value="approve">Approve</button>
         <button class="danger" name="_action" value="reject">Reject</button>
