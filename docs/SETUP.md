@@ -17,13 +17,13 @@ Run from `apps/personal`:
 ```sh
 pnpm exec wrangler login
 pnpm exec wrangler d1 create marc-personal      # copy the id into wrangler.jsonc → d1_databases[0].database_id
-pnpm exec wrangler r2 bucket create marc-personal
+pnpm exec wrangler r2 bucket create landingpage   # already done
 pnpm exec wrangler d1 migrations apply marc-personal --remote
 ```
 
 - [ ] Workers subdomain is neutral (Dashboard → Workers → Subdomain). It is printed on every QR card, so no names.
 - [ ] Optionally rename the Worker in `apps/personal/wrangler.jsonc` (`name`) to something neutral as well.
-- [ ] Upload the photo: `pnpm exec wrangler r2 object put marc-personal/media/photo.webp --file photo.webp --remote`
+- [ ] Upload the photo: `pnpm exec wrangler r2 object put landingpage/media/photo.webp --file photo.webp --remote`
 
 ## 3. Email
 

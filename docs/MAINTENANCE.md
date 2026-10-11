@@ -30,7 +30,7 @@ Add `--local` to work against the local D1 in development.
 Every Sunday the Worker writes `backups/d1-<date>.sql` to R2 and keeps the last 12. Restore:
 
 ```sh
-pnpm exec wrangler r2 object get marc-personal/backups/d1-<date>.sql --file restore.sql --remote
+pnpm exec wrangler r2 object get landingpage/backups/d1-<date>.sql --file restore.sql --remote
 pnpm exec wrangler d1 execute marc-personal --remote --file restore.sql
 ```
 
