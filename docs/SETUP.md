@@ -21,8 +21,8 @@ pnpm exec wrangler r2 bucket create landingpage   # already done
 pnpm exec wrangler d1 migrations apply marc-personal --remote
 ```
 
-- [ ] Workers subdomain is neutral (Dashboard → Workers → Subdomain). It is printed on every QR card, so no names.
-- [ ] The personal Worker is called `hello`, so cards show `hello.<subdomain>.workers.dev`. Change `name` in `apps/personal/wrangler.jsonc` only before printing cards, because old cards would break.
+- [x] Workers subdomain is neutral: `hellolandingpage`. It is printed on every QR card, never change it after printing.
+- [ ] The personal Worker is called `hello`, so cards show `hello.hellolandingpage.workers.dev`. Change `name` in `apps/personal/wrangler.jsonc` only before printing cards, because old cards would break.
 - [ ] Upload the photo: `pnpm exec wrangler r2 object put landingpage/media/photo.webp --file photo.webp --remote`
 
 ## 3. Email
@@ -34,7 +34,7 @@ pnpm exec wrangler d1 migrations apply marc-personal --remote
 ## 4. Spam and admin protection
 
 - [ ] Turnstile widget for the workers.dev hostname. Put the site key in `TURNSTILE_SITE_KEY`.
-- [ ] Cloudflare Access application for `hello.<subdomain>.workers.dev/admin*`, allowing only Marc's email
+- [ ] Cloudflare Access application for `hello.hellolandingpage.workers.dev/admin*`, allowing only Marc's email
 - [ ] Copy the team domain and the application AUD tag into `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD`
 
 ## 5. Secrets
