@@ -7,7 +7,7 @@ Everything in code is done. These steps need Marc's accounts, so Claude never do
 - [ ] Cloudflare account with Workers, D1, R2 and Email Routing enabled
 - [ ] Resend account with a verified sending domain
 - [ ] ntfy app on the phone, subscribed to a long random topic name
-- [ ] Anthropic API key for translations
+- [ ] Anthropic API key for translations (optional at first: without it CI skips translation and pages show English)
 - [ ] Repository is private on GitHub
 
 ## 2. Cloudflare resources

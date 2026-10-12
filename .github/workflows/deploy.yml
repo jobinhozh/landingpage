@@ -45,7 +45,12 @@ jobs:
       - name: Translate content
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: pnpm translate
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::notice::ANTHROPIC_API_KEY not set, skipping translation (pages fall back to English)"
+            exit 0
+          fi
+          pnpm translate
 
       - name: Commit translations
         run: |
