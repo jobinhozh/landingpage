@@ -27,7 +27,7 @@ export function themeCss(): string {
   return Object.entries(themes)
     .map(
       ([name, t]) =>
-        `[data-theme="${name}"]{--c-bg:${t.bg};--c-dot:${t.dot};--c-bubble:${t.bubble};--c-accent:${t.accent};--c-accent-text:${t.accentText};--flag-page:${flagDataUri(name, 390, 844)};--flag-ribbon:${flagDataUri(name, 390, 14)}}`,
+        `[data-theme="${name}"]{--c-bg:${t.bg};--c-dot:${t.dot};--c-bubble:${t.bubble};--c-accent:${t.accent};--c-accent-text:${t.accentText};--flag-ribbon:${flagDataUri(name, 390, 14)}}`,
     )
     .join("\n");
 }

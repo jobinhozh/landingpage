@@ -1,6 +1,6 @@
 /**
  * Simple geometric flag drawings per theme, rendered as SVG at any size.
- * Used for the kid pages' country look (full-page pattern, ribbon and mini flag).
+ * Used for the kid pages' country look: flag ribbon, mini flag, form strip and the flag language buttons.
  */
 
 type Builder = (w: number, h: number) => string;
@@ -52,13 +52,11 @@ function star(cx: number, cy: number, r: number, rot = -90): string {
 
 const builders: Record<string, Builder> = {
   switzerland: (w, h) => {
-    // Portrait page background: the cross sits top right, in the free space next to the name.
-    const portrait = h > w * 1.5;
-    const m = portrait ? w * 0.42 : Math.min(w, h);
+    const m = Math.min(w, h);
     const t = m * 0.2;
     const l = m * 0.62;
-    const cx = portrait ? w * 0.8 : w / 2;
-    const cy = portrait ? h * 0.115 : h / 2;
+    const cx = w / 2;
+    const cy = h / 2;
     return (
       rect(0, 0, w, h, "#DA291C") +
       rect(cx - t / 2, cy - l / 2, t, l, "#FFFFFF") +
@@ -104,11 +102,9 @@ const builders: Record<string, Builder> = {
   },
   china: (w, h) => {
     // Classic 30x20 grid, anchored top-left; extra space keeps the red field.
-    const portrait = h > w * 1.5;
-    const u = portrait ? w / 26 : Math.min(w / 30, h / 20);
-    // Portrait page background: stars top right, in the free space next to the name.
-    const ox = portrait ? w - 14 * u : 0;
-    const oy = portrait ? 1.2 * u : 0;
+    const u = Math.min(w / 30, h / 20);
+    const ox = 0;
+    const oy = 0;
     return (
       rect(0, 0, w, h, "#EE1C25") +
       star(ox + 5 * u, oy + 5 * u, 3 * u) +

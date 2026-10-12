@@ -100,7 +100,7 @@ Flag colors per language in `themes.ts`, applied via CSS custom properties on `<
 
 - Flag colors for backgrounds, bursts, buttons, borders only. Body text stays dark on light panels.
 - All text passes WCAG AA.
-- Kids' pages: comic style is identical across themes, only the palette changes.
+- Kids' pages: comic style is identical across themes, only the palette and the flag change. Country look: a flag ribbon across the top, a mini flag next to the hero name, a flag strip on top of the form, and the language switcher shows each language as its country's flag (34x23 inside a 44x44 button, language name as accessible label). Flags are drawn in `flags.ts` (one builder per theme; every language's theme needs one, a test checks it).
 - Private page and business site do NOT use flag themes (own calm palettes, see reference canvas).
 
 ## 6. Content: one Markdown file per language

@@ -1,11 +1,12 @@
 ---
 /**
  * Language chips, generated from the languages passed in (always derived from site.config.ts).
+ * With `flag` set (kid pages) the chip is the country's flag; the language name stays the accessible label.
  * Plain links, no client JS.
  */
 export interface Props {
   current: string;
-  items: { code: string; chip: string; label: string; href: string }[];
+  items: { code: string; chip: string; label: string; href: string; flag?: string }[];
   label: string;
   variant: "business" | "calm" | "comic";
 }
@@ -15,8 +16,8 @@ const { current, items, label, variant } = Astro.props;
   <ul>
     {items.map((l) => (
       <li>
-        <a href={l.href} hreflang={l.code} lang={l.code} aria-current={l.code === current ? "true" : undefined} title={l.label}>
-          {l.chip}
+        <a href={l.href} hreflang={l.code} lang={l.code} aria-current={l.code === current ? "true" : undefined} title={l.label} class:list={{ "lang-switch__flag": Boolean(l.flag) }}>
+          {l.flag ? <><span class="lang-switch__img" aria-hidden="true" set:html={l.flag} /><span class="sr-only">{l.label}</span></> : l.chip}
         </a>
       </li>
     ))}
@@ -33,4 +34,15 @@ const { current, items, label, variant } = Astro.props;
   .lang-switch--comic a { font-size: 12px; font-weight: 700; min-width: 0; padding: 0 8px; color: #111111; background: #FFFFFF; border: 2.5px solid #111111; border-radius: 999px; }
   .lang-switch--comic a[aria-current="true"] { background: var(--c-accent); color: var(--c-accent-text); }
   .lang-switch a:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
+  /* Flag buttons: 44x44 touch target around a 34x23 flag, 8 fit in 374 px. */
+  .lang-switch--comic ul:has(.lang-switch__flag) { gap: 3px; }
+  .lang-switch--comic a.lang-switch__flag { min-width: 44px; width: 44px; height: 44px; padding: 0; background: none; border: 0; border-radius: 0; }
+  .lang-switch__img { display: block; line-height: 0; border: 2.5px solid #111111; background: #FFF; transition: transform 120ms; }
+  .lang-switch__img :global(svg) { display: block; width: 34px; height: 23px; }
+  .lang-switch--comic a.lang-switch__flag[aria-current="true"] { background: none; }
+  .lang-switch--comic a.lang-switch__flag[aria-current="true"] .lang-switch__img { border-width: 3px; box-shadow: 3px 3px 0 #111111; transform: translateY(-2px) rotate(-4deg) scale(1.12); }
+  .lang-switch--comic a.lang-switch__flag:not([aria-current="true"]) .lang-switch__img { opacity: 0.88; }
+  .lang-switch--comic a.lang-switch__flag:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  @media (prefers-reduced-motion: reduce) { .lang-switch__img { transition: none; } }
 </style>

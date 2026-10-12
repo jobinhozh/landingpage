@@ -8,10 +8,8 @@ export interface Props {
   variant: "calm" | "comic";
   theme?: string;
   slug: string;
-  /** Draft: country look for kid pages. */
-  kidStyle?: "pattern" | "accents";
 }
-const { lang, title, variant, theme, slug, kidStyle } = Astro.props;
+const { lang, title, variant, theme, slug } = Astro.props;
 const fonts =
   variant === "comic"
     ? "https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
@@ -19,7 +17,7 @@ const fonts =
 const themeColor = variant === "comic" ? "#111111" : "#EEF1EF";
 ---
 <!doctype html>
-<html lang={lang} data-theme={variant === "comic" ? theme : undefined} data-kidstyle={variant === "comic" ? kidStyle : undefined} class={`v-${variant}`}>
+<html lang={lang} data-theme={variant === "comic" ? theme : undefined} class={`v-${variant}`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -53,21 +51,9 @@ const themeColor = variant === "comic" ? "#111111" : "#EEF1EF";
   }
   .v-comic a { color: #111111; }
 
-  /* Draft A: the flag itself is the page background, comic halftone on top. */
-  [data-kidstyle="pattern"].v-comic body { background: #111; }
-  [data-kidstyle="pattern"].v-comic body::before {
-    content: ""; position: fixed; inset: 0; z-index: -1;
-    background-image: radial-gradient(rgba(0, 0, 0, 0.16) 1.6px, transparent 2px), var(--flag-page);
-    background-size: 12px 12px, cover;
-    background-position: 0 0, center;
-  }
-  [data-kidstyle="pattern"] .flag-ribbon, [data-kidstyle="pattern"] .flag-mini { display: none; }
-
-  /* Draft B: flag colour background, plus flag ribbon, mini flag and a flag strip on the form. */
-  .flag-ribbon { display: none; }
-  .flag-mini { display: none; }
-  [data-kidstyle="accents"] .flag-ribbon { display: block; height: 14px; background: var(--flag-ribbon) center / cover; border-bottom: 3px solid #111; }
-  [data-kidstyle="accents"] .flag-mini { display: inline-flex; flex: 0 0 auto; border: 3px solid #111; box-shadow: 3px 3px 0 #111; transform: rotate(6deg); line-height: 0; }
-  [data-kidstyle="accents"] .kid__panel { border-top-width: 0; padding-top: 0; }
-  [data-kidstyle="accents"] .kid__panel::before { content: ""; display: block; height: 10px; margin: 0 -14px 12px; background: var(--flag-ribbon) center / cover; border-top: 3px solid #111; border-bottom: 3px solid #111; }
+  /* Country look (kid pages): flag ribbon on top, mini flag next to the name, flag strip on the form. */
+  .flag-ribbon { height: 14px; background: var(--flag-ribbon) center / cover; border-bottom: 3px solid #111; }
+  .flag-mini { display: inline-flex; flex: 0 0 auto; border: 3px solid #111; box-shadow: 3px 3px 0 #111; transform: rotate(6deg); line-height: 0; }
+  .v-comic .kid__panel { border-top-width: 0; padding-top: 0; }
+  .v-comic .kid__panel::before { content: ""; display: block; height: 10px; margin: 0 -14px 12px; background: var(--flag-ribbon) center / cover; border-top: 3px solid #111; border-bottom: 3px solid #111; }
 </style>

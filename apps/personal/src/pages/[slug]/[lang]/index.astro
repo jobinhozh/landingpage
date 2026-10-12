@@ -25,10 +25,7 @@ if (Astro.request.method === "POST") {
 }
 const sent = Astro.url.searchParams.has("sent");
 const theme = themes[language.theme] ? language.theme : "uk";
-// Draft switch for comparing the two country looks; removed once one is chosen.
-const styleParam = Astro.url.searchParams.get("style");
-const kidStyle = styleParam === "accents" || styleParam === "pattern" ? styleParam : undefined;
 ---
-<Personal lang={lang} title={t(page.id, "meta_title", lang)} variant={page.style} theme={theme} slug={page.slug} kidStyle={kidStyle}>
+<Personal lang={lang} title={t(page.id, "meta_title", lang)} variant={page.style} theme={theme} slug={page.slug}>
   {page.style === "comic" ? <KidPage page={page} lang={lang} sent={sent} state={state} theme={theme} /> : <PrivatePage page={page} lang={lang} sent={sent} state={state} />}
 </Personal>
