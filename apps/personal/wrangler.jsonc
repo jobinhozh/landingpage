@@ -28,7 +28,7 @@
   ],
   "triggers": {
     // Daily 05:45 UTC: cleanup + due reminders. Sunday 02:15 UTC: D1 backup to R2.
-    "crons": ["45 5 * * *", "15 2 * * 0"]
+    "crons": ["45 5 * * *", "15 2 * * SUN"]
   },
   "vars": {
     // Cloudflare Turnstile test key (always passes). Replace with the real site key.

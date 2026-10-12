@@ -155,3 +155,15 @@ describe("exports", () => {
     expect(csv).toBe('﻿a,b\r\n"x,""y""",\'=SUM(A1)\r\n');
   });
 });
+
+describe("cron schedules", () => {
+  it("wrangler.jsonc and the scheduled handler use the same strings, in a form Cloudflare accepts", async () => {
+    const { readFileSync } = await import("node:fs");
+    const { DAILY, WEEKLY } = await import("../src/lib/cron.ts");
+    const raw = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8");
+    const crons = JSON.parse(/"crons":\s*(\[[^\]]*\])/.exec(raw)![1]!) as string[];
+    expect(crons.sort()).toEqual([DAILY, WEEKLY].sort());
+    // Cloudflare: day-of-week is 1-7 or SUN-SAT, 0 is rejected.
+    for (const c of crons) expect(c.split(" ")[4]).not.toMatch(/(^|[,-])0($|[,-])/);
+  });
+});
