@@ -8,6 +8,7 @@ import { setting, t, ti } from "@marc/i18n/content";
 import { env } from "cloudflare:workers";
 import type { PersonalPage } from "../../../../site.config.ts";
 import type { FormState } from "../lib/contact.ts";
+import { findMedia } from "../lib/media.ts";
 import { GOOD_TIMES } from "../lib/validation.ts";
 import Footer from "./Footer.astro";
 import Switcher from "./Switcher.astro";
@@ -15,12 +16,13 @@ import Switcher from "./Switcher.astro";
 export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
 const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
+const ownDrawing = (await findMedia(env.BUCKET, `media/avatar-${page.id}`)) ? `/${page.slug}/avatar` : null;
 ---
 <div class="kid">
   <div class="kid__top"><Switcher page={page} lang={lang} /></div>
   <header class="kid__head">
     <button type="button" class="kid__avatar" data-pow aria-label={p("avatar_alt")}>
-      <Avatar name={setting(page.id, "avatar")} alt="" size={76} />
+      <Avatar name={setting(page.id, "avatar")} alt="" size={76} src={ownDrawing} />
       <Burst text={p("burst")} class="kid__burst" />
     </button>
     <h1>{setting(page.id, "hero_name")}</h1>

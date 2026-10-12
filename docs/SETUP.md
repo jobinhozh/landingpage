@@ -23,7 +23,8 @@ pnpm exec wrangler d1 migrations apply marc-personal --remote
 
 - [x] Workers subdomain is neutral: `hellolandingpage`. It is printed on every QR card, never change it after printing.
 - [ ] The personal Worker is called `hello`, so cards show `hello.hellolandingpage.workers.dev`. Change `name` in `apps/personal/wrangler.jsonc` only before printing cards, because old cards would break.
-- [ ] Upload the photo: `pnpm exec wrangler r2 object put landingpage/media/photo.webp --file photo.webp --remote`
+- [ ] Upload the photo: `pnpm exec wrangler r2 object put landingpage/media/photo.webp --file photo.webp --remote` (or R2 → `landingpage` → Upload in the dashboard)
+- [ ] Optional: the kids' own drawings as `media/avatar-kid-one.png` and `media/avatar-kid-two.png` (see docs/MAINTENANCE.md)
 
 ## 3. Email
 

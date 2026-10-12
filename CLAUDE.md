@@ -160,7 +160,8 @@ Mir händ zäme gspielt! ...
 - PWA manifest so parents can add the page to their home screen.
 - Implementation: tokens are stored in D1 in plain form (cards must be reprintable for a batch). The cookie `__Secure-pass` is `<tokenId>.<exp>.<HMAC>` with `Path=/<slug>`, and every request re-checks that the token is still active.
 - Page slugs (`site.config.ts`): private `/m`, kid-one `/k1`, kid-two `/k2`. URLs: `/<slug>/<lang-slug>`, `/<slug>/<lang-slug>/privacy`.
-- Marc's photo is served from R2 key `media/photo.webp` behind the cookie (never in git, never at a public URL).
+- Marc's photo is served from R2 key `media/photo.<webp|png|jpg>` behind the cookie (never in git, never at a public URL).
+- A kid's own drawing can replace the built-in avatar: R2 key `media/avatar-<page>.<webp|png|jpg|svg>`, served at `/<slug>/avatar` behind the cookie and sandboxed by CSP. Without an upload the built-in drawn avatar (`avatar` setting) is used. Drawings only, never photos.
 
 ## 9. Personal pages: content and privacy
 

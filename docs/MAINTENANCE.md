@@ -19,6 +19,18 @@ Day to day, Marc only edits English text and prints cards. Everything else runs 
 
 Add `--local` to work against the local D1 in development.
 
+## Kids' avatars and your photo
+
+Upload in the Cloudflare dashboard → R2 → `landingpage` → folder `media/`. No code change or deploy needed.
+
+| File | Shows on |
+|---|---|
+| `media/avatar-kid-one.png` | kid one's page (also `.webp`, `.jpg`, `.svg`) |
+| `media/avatar-kid-two.png` | kid two's page |
+| `media/photo.webp` | your private page (also `.png`, `.jpg`) |
+
+Use a drawing for the kids, never a photo. A square image of about 300x300 px works best, it is cropped to a circle. Delete the file to go back to the built-in drawn avatar. Pages may take up to an hour to show a replaced image (browser cache).
+
 ## Contacts
 
 - `/admin`: approve or reject new messages. Unapproved ones are deleted after 90 days.
