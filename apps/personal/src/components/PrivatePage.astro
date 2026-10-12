@@ -10,13 +10,16 @@ import Switcher from "./Switcher.astro";
 export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
 const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
+const title = p("title");
+// One line at any length (CLAUDE.md §9): width next to the photo divided by the title's average glyph width.
+const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(title.length, 8) * 0.56).toFixed(2)}))`;
 ---
 <div class="private">
   <div class="private__top"><Switcher page={page} lang={lang} /></div>
   <header class="private__head">
     <div class="private__id">
       <img src={`/${page.slug}/photo`} alt={p("photo_alt")} width="64" height="64" class="private__photo" />
-      <h1>{p("title")}</h1>
+      <h1 style={`font-size: ${titleSize}`}>{title}</h1>
     </div>
     <p class="private__intro" set:html={ti(page.id, "intro", lang)} />
     <ul class="private__chips">
@@ -59,7 +62,7 @@ const p = (k: string) => t(page.id, k, lang);
   .private__head { padding: 0 20px; display: flex; flex-direction: column; gap: 8px; }
   .private__id { display: flex; align-items: center; gap: 14px; }
   .private__photo { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 999px; object-fit: cover; background: #C2410C; }
-  .private h1 { margin: 0; font-size: clamp(26px, 8.6vw, 34px); line-height: 1; font-weight: 800; letter-spacing: -0.03em; white-space: nowrap; }
+  .private h1 { margin: 0; line-height: 1; font-weight: 800; letter-spacing: -0.03em; white-space: nowrap; }
   .private__intro { margin: 0; font-size: 16px; line-height: 1.4; color: #3B4954; }
   .private__chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
   .private__chips li { padding: 5px 10px; background: #FFF; border-radius: 999px; font-size: 13px; font-weight: 600; }

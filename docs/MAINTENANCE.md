@@ -4,9 +4,11 @@ Day to day, Marc only edits English text and prints cards. Everything else runs 
 
 ## Change text
 
-1. Edit the `## en` block in `content/content.md`.
+1. Edit the English text in `content/en.md`.
 2. Push to `main`. CI retranslates every `auto` block whose English changed.
 3. Locked blocks (no marker) are never overwritten. The translate report lists them when their English changed.
+4. To fix a translation by hand, edit it in `content/<lang>.md` (for example `de.md`) and delete its `<!-- auto … -->` line above. It is then locked and stays as you wrote it.
+5. Swiss German (`gsw.md`) is written once as a draft. Review it, then delete each `<!-- draft … -->` line you are happy with.
 
 ## Cards
 

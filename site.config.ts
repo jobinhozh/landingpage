@@ -7,7 +7,7 @@
 export type TranslateMode = "source" | "auto" | "draft";
 
 export interface Language {
-  /** Internal code: content.md sections, <html lang>, translation. */
+  /** Internal code: content/<code>.md file, <html lang>, translation. */
   code: string;
   /** Text shown in the language switcher. */
   chip: string;
@@ -68,7 +68,7 @@ export interface ContentPageConfig {
   inherits?: string;
 }
 
-/** content.md pages, the tone each is translated with, and shared parents. */
+/** Content pages, the tone each is translated with, and shared parents. */
 export const contentPages = {
   common: { tone: "private" },
   business: { tone: "business" },

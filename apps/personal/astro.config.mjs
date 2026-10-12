@@ -11,7 +11,7 @@ export default defineConfig({
   security: { checkOrigin: true },
   // No Astro sessions: auth is the signed pass cookie, so no KV namespace is needed.
   session: false,
-  integrations: [contentCheck(new URL("../../content/content.md", import.meta.url))],
+  integrations: [contentCheck(new URL("../../content/", import.meta.url))],
   devToolbar: { enabled: false },
   vite: { plugins: [tailwindcss()] },
 });

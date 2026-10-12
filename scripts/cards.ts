@@ -3,10 +3,10 @@
  *   npm run cards:pdf -- --batch 2026-autumn [--page kid-one] [--local]
  * Writes cards/<batch>-<page>.pdf (gitignored).
  */
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { PDFDocument, StandardFonts } from "pdf-lib";
 import { createTranslator } from "../packages/i18n/src/translator.ts";
-import { parseContent } from "../packages/i18n/src/parse.ts";
+import { readContentDir } from "../packages/i18n/src/node.ts";
 import { languages, personalPages } from "../site.config.ts";
 import { themes } from "../themes.ts";
 import { need, parseArgs } from "./lib/args.ts";
@@ -38,9 +38,7 @@ async function main() {
     console.error(`No active tokens for batch "${batch}". Create one with npm run token:create.`);
     process.exit(1);
   }
-  const { t, setting } = createTranslator(
-    parseContent(readFileSync(new URL("../content/content.md", import.meta.url), "utf8")),
-  );
+  const { t, setting } = createTranslator(readContentDir());
   const base = baseUrl();
   mkdirSync(new URL("../cards/", import.meta.url), { recursive: true });
 

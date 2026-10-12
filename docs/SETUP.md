@@ -59,11 +59,11 @@ GitHub (Settings → Secrets and variables → Actions):
 
 - [ ] Add the custom domain route in `apps/business/wrangler.jsonc` (commented example there)
 - [ ] Cloudflare Web Analytics site created, token stored as `CF_ANALYTICS_TOKEN`
-- [ ] Cal.com event created, handle set in `content/content.md` → `# business` → `cal_link`
+- [ ] Cal.com event created, handle set in `content/en.md` → `# business` → `cal_link`
 
 ## 7. Content
 
-- [ ] Replace every `[placeholder]` in `content/content.md` (English only)
+- [ ] Replace every `[placeholder]` in `content/en.md` (English only)
 - [ ] Kids' hero card facts and nicknames (`hero_name`): nicknames only, never real names
 - [ ] Push to `main`. CI translates, builds, migrates and deploys.
 - [ ] Review the Swiss German drafts (`<!-- draft … -->`), then delete each marker once a block is good

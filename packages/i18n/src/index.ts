@@ -1,6 +1,7 @@
 export * from "./types.ts";
 export * from "./parse.ts";
 export * from "./serialize.ts";
+export * from "./files.ts";
 export * from "./hash.ts";
 export * from "./detect.ts";
 export * from "./markdown.ts";

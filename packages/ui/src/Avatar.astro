@@ -2,7 +2,7 @@
 /**
  * Drawn avatars. Original designs only, never photos.
  * `src` is the kid's own uploaded drawing; without it the built-in drawing named by `name`
- * (page settings in content.md, `avatar: comet`) is used.
+ * (page settings in content/en.md, `avatar: comet`) is used.
  */
 export interface Props { name: string; alt: string; size?: number; src?: string | null }
 const { name, alt, size = 80, src } = Astro.props;

@@ -1,8 +1,9 @@
-import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { languages } from "../../../site.config.ts";
 import { ContentParseError, parseContent } from "../src/parse.ts";
 import { serializeContent } from "../src/serialize.ts";
+import { parseContentFiles, serializeContentFiles } from "../src/files.ts";
+import { readContentFiles } from "../src/node.ts";
 import { validateContent } from "../src/validate.ts";
 
 const sample = `<!-- header -->
@@ -64,18 +65,18 @@ describe("parseContent", () => {
   });
 });
 
-describe("content/content.md", () => {
-  const raw = readFileSync(new URL("../../../content/content.md", import.meta.url), "utf8");
-  const doc = parseContent(raw);
+describe("content/<lang>.md", () => {
+  const files = readContentFiles();
+  const doc = parseContentFiles(files, "en");
 
-  it("is in canonical form, so translate runs produce minimal diffs", () => {
+  it("every file is in canonical form, so translate runs produce minimal diffs", () => {
     expect(
-      serializeContent(
+      serializeContentFiles(
         doc,
         languages.map((l) => l.code),
         "en",
       ),
-    ).toBe(raw);
+    ).toEqual(files);
   });
 
   it("has no validation errors", () => {
@@ -83,7 +84,42 @@ describe("content/content.md", () => {
   });
 
   it("never contains a phone number or email address of the owner", () => {
-    expect(raw).not.toMatch(/\+?\d[\d\s]{8,}\d/);
-    expect(raw).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.]+/);
+    for (const raw of Object.values(files)) {
+      expect(raw).not.toMatch(/\+?\d[\d\s]{8,}\d/);
+      expect(raw).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.]+/);
+    }
+  });
+});
+
+describe("per-language files", () => {
+  const en = "# kids\n\n## settings\n\nparent: dad\n\n## en\n\n### submit\nSend\n";
+  const de = "# kids\n\n## de\n\n<!-- auto src-hash:aa -->\n### submit\nSchicken\n";
+
+  it("merges files into one document", () => {
+    const doc = parseContentFiles({ en, de }, "en");
+    expect(doc.pages.kids!.settings).toEqual({ parent: "dad" });
+    expect(doc.pages.kids!.langs.de!.submit).toEqual({
+      text: "Schicken",
+      marker: { mode: "auto", hash: "aa" },
+    });
+  });
+  it("rejects another language or settings in a translation file", () => {
+    expect(() => parseContentFiles({ en, de: "# kids\n## fr\n### submit\nx\n" }, "en")).toThrow(
+      /"## fr" section/,
+    );
+    expect(() => parseContentFiles({ en, de: "# kids\n## settings\nx: y\n" }, "en")).toThrow(
+      /settings belong/,
+    );
+    expect(() => parseContentFiles({ de }, "en")).toThrow(/missing en.md/);
+  });
+  it("writes settings only into the source file and skips empty languages", () => {
+    const out = serializeContentFiles(
+      parseContentFiles({ en, de }, "en"),
+      languages.map((l) => l.code),
+      "en",
+    );
+    expect(Object.keys(out).sort()).toEqual(["de", "en"]);
+    expect(out.de).not.toContain("settings");
+    expect(out.en).toContain("parent: dad");
   });
 });
