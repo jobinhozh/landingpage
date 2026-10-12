@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { languages, personalPages, reservedSlugs } from "../../../site.config.ts";
 import { themes } from "../../../themes.ts";
+import { flagSvg, flagThemes } from "../../../flags.ts";
 import { validateConfig } from "../src/validate.ts";
 
 function luminance(hex: string): number {
@@ -37,4 +38,15 @@ describe("themes meet WCAG AA", () => {
       expect(contrast("#111111", t.bubble)).toBeGreaterThanOrEqual(4.5);
     });
   }
+});
+
+describe("flags", () => {
+  it("every language's theme has a flag drawing, used for its language button", () => {
+    for (const l of languages) expect(flagThemes).toContain(l.theme);
+  });
+  it("renders a sized SVG", () => {
+    const svg = flagSvg("switzerland", 34, 23);
+    expect(svg).toMatch(/^<svg [^>]*viewBox="0 0 34 23"/);
+    expect(svg).toContain("#DA291C");
+  });
 });

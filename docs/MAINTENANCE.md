@@ -4,9 +4,11 @@ Day to day, Marc only edits English text and prints cards. Everything else runs 
 
 ## Change text
 
-1. Edit the `## en` block in `content/content.md`.
+1. Edit the English text in `content/en.md`.
 2. Push to `main`. CI retranslates every `auto` block whose English changed.
 3. Locked blocks (no marker) are never overwritten. The translate report lists them when their English changed.
+4. To fix a translation by hand, edit it in `content/<lang>.md` (for example `de.md`) and delete its `<!-- auto … -->` line above. It is then locked and stays as you wrote it.
+5. Swiss German (`gsw.md`) is written once as a draft. Review it, then delete each `<!-- draft … -->` line you are happy with.
 
 ## Cards
 
@@ -18,6 +20,18 @@ Day to day, Marc only edits English text and prints cards. Everything else runs 
 | Overview | `npm run token:list` |
 
 Add `--local` to work against the local D1 in development.
+
+## Kids' avatars and your photo
+
+Upload in the Cloudflare dashboard → R2 → `landingpage` → folder `media/`. No code change or deploy needed.
+
+| File | Shows on |
+|---|---|
+| `media/avatar-kid-one.png` | kid one's page (also `.webp`, `.jpg`, `.svg`) |
+| `media/avatar-kid-two.png` | kid two's page |
+| `media/photo.webp` | your private page (also `.png`, `.jpg`) |
+
+Use a drawing for the kids, never a photo. A square image of about 300x300 px works best, it is cropped to a circle. Delete the file to go back to the built-in drawn avatar. Pages may take up to an hour to show a replaced image (browser cache).
 
 ## Contacts
 

@@ -38,17 +38,16 @@ export function validateContent(doc: ContentDoc): ValidationResult {
   const codes = languages.map((l) => l.code as string);
 
   for (const [pageName, page] of Object.entries(doc.pages)) {
-    if (!(pageName in contentPages)) errors.push(`content.md: unknown page "${pageName}"`);
+    if (!(pageName in contentPages)) errors.push(`content: unknown page "${pageName}"`);
     const allowed: readonly string[] = pageName in contentPages ? pageLanguages(pageName) : codes;
     for (const lang of Object.keys(page.langs)) {
-      if (!codes.includes(lang)) errors.push(`content.md: unknown language section "${pageName}/${lang}"`);
-      else if (!allowed.includes(lang))
-        errors.push(`content.md: "${pageName}" is not published in "${lang}"`);
+      if (!codes.includes(lang)) errors.push(`content: unknown language section "${pageName}/${lang}"`);
+      else if (!allowed.includes(lang)) errors.push(`content: "${pageName}" is not published in "${lang}"`);
     }
     const base = page.langs[fallback];
     if (!base) {
       if (Object.keys(page.langs).length)
-        errors.push(`content.md: page "${pageName}" has no ${fallback} section`);
+        errors.push(`content: page "${pageName}" has no ${fallback} section`);
       continue;
     }
     for (const lang of pageLanguages(pageName)) {
@@ -63,7 +62,7 @@ export function validateContent(doc: ContentDoc): ValidationResult {
     }
   }
   for (const page of Object.keys(contentPages)) {
-    if (!doc.pages[page]) errors.push(`content.md: page "${page}" is missing`);
+    if (!doc.pages[page]) errors.push(`content: page "${page}" is missing`);
   }
   return { errors, warnings };
 }

@@ -1,10 +1,9 @@
 <!--
-All user-facing text. English (`## en`) is the only hand-written source.
-`npm run translate` fills the other languages. Blocks with a marker comment are machine written:
-  auto  → retranslated when the English text changes
-  draft → written once (Swiss German), never overwritten; remove the marker once reviewed
-A block without marker is locked and never overwritten.
-Text in [square brackets] is a placeholder for Marc to replace.
+All user-facing text, in English. This is the only file you write by hand.
+Other languages live next to it (de.md, gsw.md, fr.md, ...) and are written by npm run translate.
+Only change the text under a ### key, never the #, ## or ### lines. Keep {placeholders} as they are.
+The "settings" sections hold values that are never translated (names, links).
+Text in [square brackets] is a placeholder to replace.
 -->
 
 # common

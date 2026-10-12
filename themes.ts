@@ -1,3 +1,5 @@
+import { flagDataUri } from "./flags.ts";
+
 /** Flag colour themes. Applied as CSS custom properties on <html data-theme="…">. */
 
 export interface Theme {
@@ -20,12 +22,12 @@ export const themes: Record<string, Theme> = {
   china: { bg: "#EE1C25", dot: "#F43E46", bubble: "#FFFF00", accent: "#B7121A", accentText: "#FFFFFF" },
 };
 
-/** CSS for every theme, generated from the table above. */
+/** CSS for every theme, generated from the table above, plus flag drawings for the country look. */
 export function themeCss(): string {
   return Object.entries(themes)
     .map(
       ([name, t]) =>
-        `[data-theme="${name}"]{--c-bg:${t.bg};--c-dot:${t.dot};--c-bubble:${t.bubble};--c-accent:${t.accent};--c-accent-text:${t.accentText}}`,
+        `[data-theme="${name}"]{--c-bg:${t.bg};--c-dot:${t.dot};--c-bubble:${t.bubble};--c-accent:${t.accent};--c-accent-text:${t.accentText};--flag-ribbon:${flagDataUri(name, 390, 14)}}`,
     )
     .join("\n");
 }

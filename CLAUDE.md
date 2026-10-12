@@ -32,9 +32,9 @@ marc-sites/
   CLAUDE.md
   site.config.ts          # languages, order, themes refs, translate modes, tone, fallback
   themes.ts               # flag color themes
-  content/content.md      # ALL user-facing text
+  content/<lang>.md       # ALL user-facing text: en.md hand-written, de.md, gsw.md, … translated
   packages/
-    i18n/                 # content.md parser, t(page, key), language detection
+    i18n/                 # content parser (one file per language), t(page, key), language detection
     ui/                   # shared components (language switcher, form, comic primitives)
   scripts/
     translate.ts
@@ -76,7 +76,7 @@ export const tone = {
 ```
 
 Rules:
-- `code` = internal language code (content.md sections, `<html lang>`, translation). `chip` = text shown in the language switcher. `slug` = URL path segment. Swiss German shows as **CH** and lives under `/ch`, while its code stays `gsw`.
+- `code` = internal language code (content file name `content/<code>.md`, its `## <code>` sections, `<html lang>`, translation). `chip` = text shown in the language switcher. `slug` = URL path segment. Swiss German shows as **CH** and lives under `/ch`, while its code stays `gsw`.
 - Array order = switcher order and tie-break in detection.
 - Detection: `Accept-Language` first. `de-CH` → `gsw`, `fr-CH` → `fr`, `it-CH` → `it`. Unsupported → `fallback`.
 - Routes, switcher, themes, sitemap, card PDFs are all generated from this array.
@@ -100,12 +100,12 @@ Flag colors per language in `themes.ts`, applied via CSS custom properties on `<
 
 - Flag colors for backgrounds, bursts, buttons, borders only. Body text stays dark on light panels.
 - All text passes WCAG AA.
-- Kids' pages: comic style is identical across themes, only the palette changes.
+- Kids' pages: comic style is identical across themes, only the palette and the flag change. Country look: a flag ribbon across the top, a flag strip on top of the form, and the language switcher shows each language as its country's flag (34x23 inside a 44x44 button, language name as accessible label). Flags are drawn in `flags.ts` (one builder per theme; every language's theme needs one, a test checks it).
 - Private page and business site do NOT use flag themes (own calm palettes, see reference canvas).
 
-## 6. Content: one Markdown file
+## 6. Content: one Markdown file per language
 
-All user-facing text lives in `content/content.md`. No text hardcoded in components.
+All user-facing text lives in `content/<code>.md`, one file per language. `content/en.md` is the only hand-written file and also holds every `## settings` section; `de.md`, `gsw.md`, `fr.md` … hold only translations. Each file uses the same format below and contains only its own `## <code>` sections. A language file may be missing (everything falls back to English). No text hardcoded in components.
 
 ```md
 # common
@@ -139,7 +139,7 @@ Mir händ zäme gspielt! ...
 
 - English is the only manually written source.
 - For each page/key and each language with mode `auto` or `draft`: translate via Claude API using `ANTHROPIC_API_KEY` and the page's tone rule.
-- Write results into `content.md` under the right `## lang`, each block prefixed with a marker:
+- Write results into `content/<lang>.md` under the right `## lang`, each block prefixed with a marker:
   - `auto`: `<!-- auto src-hash:<hash> -->`, retranslated when the English hash changes
   - `draft` (gsw): `<!-- draft src-hash:<hash> -->`, written once, never overwritten
 - A block WITHOUT a marker is locked: never overwritten. Warn if its English source hash changed.
@@ -160,7 +160,8 @@ Mir händ zäme gspielt! ...
 - PWA manifest so parents can add the page to their home screen.
 - Implementation: tokens are stored in D1 in plain form (cards must be reprintable for a batch). The cookie `__Secure-pass` is `<tokenId>.<exp>.<HMAC>` with `Path=/<slug>`, and every request re-checks that the token is still active.
 - Page slugs (`site.config.ts`): private `/m`, kid-one `/k1`, kid-two `/k2`. URLs: `/<slug>/<lang-slug>`, `/<slug>/<lang-slug>/privacy`.
-- Marc's photo is served from R2 key `media/photo.webp` behind the cookie (never in git, never at a public URL).
+- Marc's photo is served from R2 key `media/photo.<webp|png|jpg>` behind the cookie (never in git, never at a public URL).
+- A kid's own drawing can replace the built-in avatar: R2 key `media/avatar-<page>.<webp|png|jpg|svg>`, served at `/<slug>/avatar` behind the cookie and sandboxed by CSP. Without an upload the built-in drawn avatar (`avatar` setting) is used. Drawings only, never photos.
 
 ## 9. Personal pages: content and privacy
 
@@ -229,7 +230,7 @@ Cards PDF: A4 sheets, 10 cards per sheet, 85x55 mm, 3 mm bleed, crop marks, QR a
 
 `.github/workflows/deploy.yml` on push to main:
 1. Install, typecheck, lint.
-2. `npm run translate` (commits `content.md` if changed, `[skip ci]`).
+2. `npm run translate` (commits changed `content/*.md` files, `[skip ci]`; skipped while `ANTHROPIC_API_KEY` is unset).
 3. Build both apps.
 4. `wrangler deploy` both Workers (secrets from GitHub).
 5. Apply pending D1 migrations.

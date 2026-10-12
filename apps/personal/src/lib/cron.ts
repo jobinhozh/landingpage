@@ -2,7 +2,8 @@ import { backupToR2 } from "./backup.ts";
 import { push } from "./notify.ts";
 
 export const DAILY = "45 5 * * *";
-export const WEEKLY = "15 2 * * 0";
+// Cloudflare rejects 0 for Sunday, it accepts 1-7 or SUN-SAT. Must match wrangler.jsonc exactly.
+export const WEEKLY = "15 2 * * SUN";
 
 export async function runScheduled(cron: string, env: Cloudflare.Env): Promise<void> {
   if (cron === WEEKLY) {

@@ -1,5 +1,5 @@
 /**
- * npm run translate — fills content.md translations via the Claude API (build time only).
+ * npm run translate: fills content/<lang>.md from content/en.md via the Claude API (build time only).
  * English is the only hand-written source. See CLAUDE.md §7 for the marker rules.
  *
  * Env: ANTHROPIC_API_KEY (or an `ant auth login` profile), STRICT_DRAFTS=true, TRANSLATE_DRY_RUN=true
@@ -8,12 +8,10 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import Anthropic from "@anthropic-ai/sdk";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
-import { parseContent } from "../packages/i18n/src/parse.ts";
-import { serializeContent } from "../packages/i18n/src/serialize.ts";
-import { contentPages, fallback, languages, tone } from "../site.config.ts";
+import { readContentDir, writeContentDir } from "../packages/i18n/src/node.ts";
+import { contentPages, languages, tone } from "../site.config.ts";
 import { applyJob, type Job, planTranslations, preservesTokens } from "./lib/translate-plan.ts";
 
-const CONTENT = new URL("../content/content.md", import.meta.url);
 const LOCKED = new URL("../content/.locked-hashes.json", import.meta.url);
 const MODEL = "claude-opus-5-5";
 
@@ -68,8 +66,7 @@ async function translate(client: Anthropic, job: Job): Promise<Record<string, st
 }
 
 async function main() {
-  const raw = readFileSync(CONTENT, "utf8");
-  const doc = parseContent(raw);
+  const doc = readContentDir();
   const previous: Record<string, string> = existsSync(LOCKED) ? JSON.parse(readFileSync(LOCKED, "utf8")) : {};
   const plan = planTranslations(doc, languages, previous);
   const total = plan.jobs.reduce((n, j) => n + Object.keys(j.items).length, 0);
@@ -93,12 +90,8 @@ async function main() {
     }
   }
 
-  const next = serializeContent(
-    doc,
-    languages.map((l) => l.code),
-    fallback,
-  );
-  if (next !== raw) writeFileSync(CONTENT, next);
+  const changed = writeContentDir(doc);
+  if (changed.length) console.log(`wrote content/{${changed.join(",")}}.md`);
   const lockedJson = `${JSON.stringify(Object.fromEntries(Object.entries(plan.lockedHashes).sort()), null, 2)}\n`;
   if (!existsSync(LOCKED) || readFileSync(LOCKED, "utf8") !== lockedJson) writeFileSync(LOCKED, lockedJson);
 

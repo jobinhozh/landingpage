@@ -5,13 +5,13 @@ const SETTING_RE = /^([A-Za-z0-9_]+)\s*:\s*(.*)$/;
 
 export class ContentParseError extends Error {
   constructor(message: string, line: number) {
-    super(`content.md:${line}: ${message}`);
+    super(`line ${line}: ${message}`);
     this.name = "ContentParseError";
   }
 }
 
 /**
- * Parses content.md.
+ * Parses one content file (content/<lang>.md).
  * `# page` → `## lang` or `## settings` → `### key` → body.
  * A `<!-- auto|draft src-hash:… -->` line right before `### key` marks the block as machine translated.
  */

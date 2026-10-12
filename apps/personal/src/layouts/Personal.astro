@@ -50,4 +50,9 @@ const themeColor = variant === "comic" ? "#111111" : "#EEF1EF";
     background-size: 12px 12px;
   }
   .v-comic a { color: #111111; }
+
+  /* Country look (kid pages): flag ribbon on top and a flag strip on the form; the language buttons are flags too. */
+  .flag-ribbon { height: 14px; background: var(--flag-ribbon) center / cover; border-bottom: 3px solid #111; }
+  .v-comic .kid__panel { border-top-width: 0; padding-top: 0; }
+  .v-comic .kid__panel::before { content: ""; display: block; height: 10px; margin: 0 -14px 12px; background: var(--flag-ribbon) center / cover; border-top: 3px solid #111; border-bottom: 3px solid #111; }
 </style>

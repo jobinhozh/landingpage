@@ -48,7 +48,7 @@ export function createTranslator(doc: ContentDoc): Translator {
   const t = (page: string, key: string, lang: string, vars: Vars = {}) => {
     const text = lookup(page, key, lang);
     if (text === undefined)
-      throw new MissingKeyError(`content.md: missing key ${page}/${key} (no ${fallback} fallback)`);
+      throw new MissingKeyError(`content: missing key ${page}/${key} (no ${fallback} fallback)`);
     return interpolate(text, { ...settingVars(page), ...vars });
   };
 
@@ -58,7 +58,7 @@ export function createTranslator(doc: ContentDoc): Translator {
     ti: (page, key, lang, vars) => renderMarkdown(t(page, key, lang, vars), { inline: true }),
     setting(page, key) {
       const v = settingVars(page)[key];
-      if (v === undefined) throw new MissingKeyError(`content.md: missing setting ${page}/${key}`);
+      if (v === undefined) throw new MissingKeyError(`content: missing setting ${page}/${key}`);
       return String(v);
     },
     has: (page, key, lang) => doc.pages[page]?.langs[lang]?.[key] !== undefined,

@@ -23,7 +23,8 @@ pnpm exec wrangler d1 migrations apply marc-personal --remote
 
 - [x] Workers subdomain is neutral: `hellolandingpage`. It is printed on every QR card, never change it after printing.
 - [ ] The personal Worker is called `hello`, so cards show `hello.hellolandingpage.workers.dev`. Change `name` in `apps/personal/wrangler.jsonc` only before printing cards, because old cards would break.
-- [ ] Upload the photo: `pnpm exec wrangler r2 object put landingpage/media/photo.webp --file photo.webp --remote`
+- [ ] Upload the photo: `pnpm exec wrangler r2 object put landingpage/media/photo.webp --file photo.webp --remote` (or R2 → `landingpage` → Upload in the dashboard)
+- [ ] Optional: the kids' own drawings as `media/avatar-kid-one.png` and `media/avatar-kid-two.png` (see docs/MAINTENANCE.md)
 
 ## 3. Email
 
@@ -58,11 +59,11 @@ GitHub (Settings → Secrets and variables → Actions):
 
 - [ ] Add the custom domain route in `apps/business/wrangler.jsonc` (commented example there)
 - [ ] Cloudflare Web Analytics site created, token stored as `CF_ANALYTICS_TOKEN`
-- [ ] Cal.com event created, handle set in `content/content.md` → `# business` → `cal_link`
+- [ ] Cal.com event created, handle set in `content/en.md` → `# business` → `cal_link`
 
 ## 7. Content
 
-- [ ] Replace every `[placeholder]` in `content/content.md` (English only)
+- [ ] Replace every `[placeholder]` in `content/en.md` (English only)
 - [ ] Kids' hero card facts and nicknames (`hero_name`): nicknames only, never real names
 - [ ] Push to `main`. CI translates, builds, migrates and deploys.
 - [ ] Review the Swiss German drafts (`<!-- draft … -->`), then delete each marker once a block is good

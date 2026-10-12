@@ -15,7 +15,7 @@ export default defineConfig({
   trailingSlash: "always",
   build: { format: "directory" },
   integrations: [
-    contentCheck(new URL("../../content/content.md", import.meta.url)),
+    contentCheck(new URL("../../content/", import.meta.url)),
     sitemap({
       filter: (page) => !page.endsWith("/404/"),
       i18n: {

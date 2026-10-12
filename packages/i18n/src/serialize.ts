@@ -1,7 +1,7 @@
 import type { Block, ContentDoc } from "./types.ts";
 
 /**
- * Writes a ContentDoc back to content.md in canonical order:
+ * Writes a ContentDoc back to content Markdown in canonical order:
  * pages as given, `settings` first, then the source language, then the configured language order.
  * Keys follow the source language order, extra keys keep their own order after that.
  */
