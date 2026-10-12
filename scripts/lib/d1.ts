@@ -36,7 +36,7 @@ export function d1<T = Record<string, unknown>>(command: string, local = false):
 export function baseUrl(): string {
   const url = process.env.PERSONAL_BASE_URL;
   if (!url) {
-    console.error("Set PERSONAL_BASE_URL (e.g. https://<worker>.<subdomain>.workers.dev) in .env");
+    console.error("Set PERSONAL_BASE_URL (e.g. https://hello.<subdomain>.workers.dev) in .env");
     process.exit(2);
   }
   return url.replace(/\/$/, "");

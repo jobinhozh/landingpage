@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
-  // Neutral name: the workers.dev URL is printed on the QR cards. See docs/SETUP.md.
-  "name": "marc-personal",
+  // Neutral name: the URL hello.<subdomain>.workers.dev is printed on every QR card. Never use a real name here.
+  "name": "hello",
   "main": "./src/worker.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],

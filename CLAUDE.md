@@ -151,7 +151,7 @@ Mir händ zäme gspielt! ...
 
 ## 8. Personal site: access by QR token
 
-- QR cards encode `https://<project>.<neutral>.workers.dev/s/<token>`.
+- QR cards encode `https://<project>.<neutral>.workers.dev/s/<token>`. The personal Worker is named `hello` (database stays `marc-personal`, it is never visible). The business Worker keeps `marc-business`, since that site is public under Marc's name anyway.
 - One token per page per print batch (not per card). Stored in D1.
 - `/s/<token>` valid → set signed HttpOnly, Secure, SameSite=Lax cookie (90 days, scoped to that page) → redirect to clean URL in detected language.
 - No valid token or cookie → plain 404, identical for every path. Nothing reveals that pages exist.
