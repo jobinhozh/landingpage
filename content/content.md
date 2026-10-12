@@ -403,7 +403,7 @@ Let's play again!
 
 ## settings
 
-hero_name: Captain Comet
+hero_name: River
 avatar: comet
 
 ## en
@@ -412,22 +412,22 @@ avatar: comet
 POW!
 
 ### hero_superpower
-[Superpower]
+Handstand
 
 ### hero_animal
-[Animal]
+Horse
 
 ### hero_food
-[Food]
+Ice cream
 
 ### hero_loves
-[Something]
+Dance
 
 # kid-two
 
 ## settings
 
-hero_name: Thunder Fox
+hero_name: Ginger
 avatar: fox
 
 ## en
@@ -436,13 +436,13 @@ avatar: fox
 ZAP!
 
 ### hero_superpower
-[Superpower]
+Jump
 
 ### hero_animal
-[Animal]
+Unicorn
 
 ### hero_food
-[Food]
+Chicken Niugget
 
 ### hero_loves
-[Something]
+Painting
