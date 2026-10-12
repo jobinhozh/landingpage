@@ -17,6 +17,7 @@ if (form) {
     else {
       const parts = [r.merged ? "Merged into existing family." : "New family created."];
       if (r.emailed) parts.push("Contact card emailed.");
+      if (r.emailOff) parts.push("Email is off, get in touch yourself.");
       if (r.error) parts.push(`Email failed: ${r.error}`);
       flash = { text: parts.join(" "), err: Boolean(r.error), href: `/admin/families/${r.familyId}`, hrefLabel: "Open" };
       if (r.whatsappHello) flash = { ...flash, text: `${flash.text} Phone only: say hello on WhatsApp.`, href: r.whatsappHello, hrefLabel: "Open WhatsApp" };

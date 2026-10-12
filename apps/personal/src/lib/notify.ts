@@ -23,6 +23,9 @@ export interface Attachment {
   content: string;
 }
 
+/** Emails to parents are off until RESEND_API_KEY is set. Submissions are still saved in D1. */
+export const parentEmailOn = (env: Env): boolean => Boolean(env.RESEND_API_KEY);
+
 /** Email to a parent through Resend. */
 export async function sendResend(
   env: Env,

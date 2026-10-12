@@ -113,7 +113,8 @@ describe("approve", () => {
     const id = await submit();
     const r = await approveSubmission(env, id);
     expect(r).toMatchObject({ merged: false, emailed: false });
-    expect(r!.error).toMatch(/RESEND_API_KEY/);
+    expect(r).toMatchObject({ emailOff: true });
+    expect(r!.error).toBeUndefined();
     const f = await getFamily(db, r!.familyId);
     expect(f!.family).toMatchObject({ source_page: "kid-one", batch: "b1" });
     expect(f!.adults).toMatchObject([{ name: "Ana Test", email: "ana@example.com", language: "de" }]);
@@ -280,6 +281,23 @@ describe("broadcast and RSVP", () => {
     await recordRsvp(db, target!, true);
     const after = await getFamily(db, a!.familyId);
     expect(after!.interactions.map((i) => i.summary)).toContain("yes: Party");
+  });
+
+  it("sends nothing and logs nothing while email is off", async () => {
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+    const a = await approveSubmission(env, await submit());
+    const fam = await getFamily(db, a!.familyId);
+    await setOptIn(db, a!.familyId, fam!.adults[0]!.id, true);
+    const res = await broadcast(env, "https://x.test", {
+      page: "kid-one",
+      subject: "Party",
+      body: "Hi",
+      rsvp: false,
+    });
+    expect(res).toEqual({ sent: 0, failed: 0, skipped: 0, emailOff: true });
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect((await getFamily(db, a!.familyId))!.interactions.map((i) => i.kind)).toEqual(["approved"]);
   });
 
   it("refuses an RSVP for an adult of another family", async () => {
