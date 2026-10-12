@@ -1,0 +1,51 @@
+---
+/**
+ * Cal.com inline booking. The embed script loads only when the section scrolls into view,
+ * so it costs nothing on first paint. Without JS the link opens cal.com.
+ */
+export interface Props { calLink: string; label: string }
+const { calLink, label } = Astro.props;
+---
+<div class="cal-embed" data-cal-link={calLink}>
+  <a href={`https://cal.com/${calLink}`} rel="noopener" class="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-accent px-6 text-base font-semibold text-ink no-underline hover:text-ink sm:w-auto">{label}</a>
+  <div class="cal-embed__frame" hidden></div>
+</div>
+<script>
+  const host = document.querySelector<HTMLElement>(".cal-embed");
+  if (host && !host.dataset.calLink?.includes("[")) {
+    type CalFn = ((...args: unknown[]) => void) & { loaded?: boolean; q?: unknown[]; ns?: Record<string, unknown> };
+    const load = () => {
+      const w = window as unknown as { Cal?: CalFn };
+      // Official Cal.com loader: queues calls until embed.js is ready.
+      const cal: CalFn =
+        w.Cal ??
+        (w.Cal = ((...args: unknown[]) => {
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            const s = document.createElement("script");
+            s.src = "https://app.cal.com/embed/embed.js";
+            document.head.appendChild(s);
+            cal.loaded = true;
+          }
+          (cal.q = cal.q || []).push(args);
+        }) as CalFn);
+      const frame = host.querySelector<HTMLElement>(".cal-embed__frame")!;
+      frame.hidden = false;
+      frame.id = "cal-inline";
+      cal("init", { origin: "https://cal.com" });
+      cal("inline", { elementOrSelector: "#cal-inline", calLink: host.dataset.calLink, config: { theme: "dark" } });
+    };
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        io.disconnect();
+        load();
+      }
+    }, { rootMargin: "200px" });
+    io.observe(host);
+  }
+</script>
+<style>
+  .cal-embed__frame { margin-top: 20px; min-height: 0; overflow: hidden; border-radius: 10px; }
+  .cal-embed__frame:not(:empty) { min-height: 520px; }
+</style>

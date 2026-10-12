@@ -1,0 +1,42 @@
+---
+import { env } from "cloudflare:workers";
+import Admin from "../../layouts/Admin.astro";
+import { adminForm, fmtDate, num, str } from "../../lib/admin.ts";
+import { listBatches, revokeToken } from "../../lib/crm/index.ts";
+import { isTokenActive } from "../../lib/token.ts";
+
+const form = await adminForm(Astro);
+if (form && str(form, "_action") === "revoke") {
+  await revokeToken(env.DB, num(form, "id"));
+  return Astro.redirect("/admin/batches", 303);
+}
+const rows = await listBatches(env.DB);
+const origin = new URL(Astro.request.url).origin;
+---
+<Admin title="Batches" active="batches">
+  <p class="meta">Create batches with <code>npm run token:create</code>, print cards with <code>npm run cards:pdf</code>.</p>
+  {rows.map((b) => {
+    const active = isTokenActive(b);
+    return (
+      <article class="card">
+        <div class="row between">
+          <strong>{b.page} · {b.batch}</strong>
+          <span class="meta">{b.revoked_at ? "revoked" : active ? "active" : "expired"}</span>
+        </div>
+        <dl class="kv mt">
+          <dt>Scans</dt><dd>{b.scans}{b.last_scan_at && ` (last ${fmtDate(b.last_scan_at)})`}</dd>
+          <dt>Submissions</dt><dd>{b.pending} pending · {b.approved} approved</dd>
+          <dt>Created</dt><dd>{fmtDate(b.created_at)}</dd>
+          <dt>Expires</dt><dd>{fmtDate(b.expires_at)}</dd>
+          <dt>URL</dt><dd><code>{origin}/s/{b.token}</code></dd>
+        </dl>
+        {active && (
+          <form method="post" class="mt">
+            <input type="hidden" name="id" value={b.id} />
+            <button class="danger" name="_action" value="revoke">Revoke</button>
+          </form>
+        )}
+      </article>
+    );
+  })}
+</Admin>

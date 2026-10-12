@@ -1,0 +1,32 @@
+---
+import { env } from "cloudflare:workers";
+import Admin from "../../layouts/Admin.astro";
+import { adminForm, str } from "../../lib/admin.ts";
+import { type BroadcastResult, broadcast } from "../../lib/crm/index.ts";
+import { personalPages } from "../../../../../site.config.ts";
+
+let result: BroadcastResult | undefined;
+let error: string | undefined;
+const form = await adminForm(Astro);
+if (form) {
+  const page = str(form, "page");
+  const subject = str(form, "subject", 200);
+  const body = str(form, "body", 5000);
+  if (!personalPages.some((p) => p.id === page) || !subject || !body) error = "Page, subject and text are required.";
+  else if (str(form, "confirm") !== "yes") error = "Tick the confirmation box to send.";
+  else result = await broadcast(env, new URL(Astro.request.url).origin, { page, subject, body, rsvp: form.get("rsvp") === "yes" });
+}
+---
+<Admin title="Broadcast" active="broadcast">
+  <p class="meta">Goes only to opted-in adults with an email address, in families from that page or whose child knows that kid. Each send is logged as an interaction.</p>
+  {error && <p class="flash err" role="alert">{error}</p>}
+  {result && <p class="flash" role="status">Sent {result.sent}, failed {result.failed}, skipped {result.skipped} (no email).</p>}
+  <form method="post" class="card stack">
+    <label>Page<select name="page">{personalPages.map((p) => <option>{p.id}</option>)}</select></label>
+    <label>Subject<input name="subject" maxlength="200" required /></label>
+    <label>Text ({"{name}"} is replaced with the adult's name)<textarea name="body" rows="8" required></textarea></label>
+    <label class="inline"><input type="checkbox" name="rsvp" value="yes" /> Add a personal RSVP link</label>
+    <label class="inline"><input type="checkbox" name="confirm" value="yes" /> I checked the text, send it now</label>
+    <div><button class="primary" type="submit">Send</button></div>
+  </form>
+</Admin>

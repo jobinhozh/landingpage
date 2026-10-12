@@ -1,0 +1,20 @@
+---
+import { t } from "@marc/i18n/content";
+import type { PersonalPage } from "../../../../site.config.ts";
+import { pageUrl } from "../lib/pages.ts";
+
+export interface Props { page: PersonalPage; lang: string }
+const { page, lang } = Astro.props;
+---
+<footer class:list={["pfooter", `pfooter--${page.style}`]}>
+  <p>{t(page.id, "privacy_note", lang)}</p>
+  <a href={pageUrl(page, lang, "privacy")}>{t(page.id, "privacy_link", lang)}</a>
+</footer>
+<style>
+  .pfooter { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0 10px; text-align: center; font-size: 13px; line-height: 1.35; }
+  .pfooter p { margin: 0; }
+  .pfooter a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; }
+  .pfooter--calm { color: #4A5863; }
+  .pfooter--calm a { color: #4A5863; }
+  .pfooter--comic { margin: 0 14px; padding: 4px 12px; background: #FFF; border: 2.5px solid #111; font-weight: 700; }
+</style>

@@ -1,0 +1,36 @@
+---
+/**
+ * Language chips, generated from the languages passed in (always derived from site.config.ts).
+ * Plain links, no client JS.
+ */
+export interface Props {
+  current: string;
+  items: { code: string; chip: string; label: string; href: string }[];
+  label: string;
+  variant: "business" | "calm" | "comic";
+}
+const { current, items, label, variant } = Astro.props;
+---
+<nav aria-label={label} class:list={["lang-switch", `lang-switch--${variant}`]}>
+  <ul>
+    {items.map((l) => (
+      <li>
+        <a href={l.href} hreflang={l.code} lang={l.code} aria-current={l.code === current ? "true" : undefined} title={l.label}>
+          {l.chip}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+<style>
+  .lang-switch ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+  .lang-switch a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 40px; padding: 0 9px; text-decoration: none; font-weight: 600; white-space: nowrap; box-sizing: border-box; }
+  .lang-switch--business a { font-family: var(--font-mono, monospace); font-size: 13px; color: #A9B6C3; border-radius: 6px; }
+  .lang-switch--business a[aria-current="true"] { background: var(--accent); color: #0E1620; }
+  .lang-switch--calm a { font-size: 13px; color: #3B4954; border-radius: 999px; }
+  .lang-switch--calm a[aria-current="true"] { background: #16222B; color: #FFFFFF; }
+  .lang-switch--comic ul { gap: 5px; }
+  .lang-switch--comic a { font-size: 12px; font-weight: 700; min-width: 0; padding: 0 8px; color: #111111; background: #FFFFFF; border: 2.5px solid #111111; border-radius: 999px; }
+  .lang-switch--comic a[aria-current="true"] { background: var(--c-accent); color: var(--c-accent-text); }
+  .lang-switch a:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
+</style>

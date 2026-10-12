@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "marc-business",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Only "/" runs the Worker (language redirect). Everything else is served as static assets.
+    "run_worker_first": ["/"]
+  },
+  "observability": { "enabled": true }
+  // Custom domain: add after DNS is set up (see docs/SETUP.md)
+  // "routes": [{ "pattern": "example.com", "custom_domain": true }]
+}

@@ -1,0 +1,51 @@
+---
+import { env } from "cloudflare:workers";
+import Admin from "../../layouts/Admin.astro";
+import { adminForm, fmtDate, num, str } from "../../lib/admin.ts";
+import { type ApproveResult, approveSubmission, pendingSubmissions, rejectSubmission } from "../../lib/crm/index.ts";
+
+let flash: { text: string; err?: boolean; href?: string; hrefLabel?: string } | undefined;
+const form = await adminForm(Astro);
+if (form) {
+  const id = num(form, "id");
+  if (str(form, "_action") === "reject") {
+    await rejectSubmission(env.DB, id);
+    flash = { text: "Rejected and deleted." };
+  } else if (str(form, "_action") === "approve") {
+    const r: ApproveResult | null = await approveSubmission(env, id);
+    if (!r) flash = { text: "Submission not found.", err: true };
+    else {
+      const parts = [r.merged ? "Merged into existing family." : "New family created."];
+      if (r.emailed) parts.push("Contact card emailed.");
+      if (r.error) parts.push(`Email failed: ${r.error}`);
+      flash = { text: parts.join(" "), err: Boolean(r.error), href: `/admin/families/${r.familyId}`, hrefLabel: "Open" };
+      if (r.whatsappHello) flash = { ...flash, text: `${flash.text} Phone only: say hello on WhatsApp.`, href: r.whatsappHello, hrefLabel: "Open WhatsApp" };
+    }
+  }
+}
+const items = await pendingSubmissions(env.DB);
+---
+<Admin title={`Inbox (${items.length})`} active="inbox">
+  {flash && <p class:list={["flash", { err: flash.err }]} role="status">{flash.text} {flash.href && <a href={flash.href} rel="noopener">{flash.hrefLabel}</a>}</p>}
+  {items.length === 0 && <p class="meta">Nothing pending. Unapproved submissions are deleted after 90 days.</p>}
+  {items.map((s) => (
+    <article class="card">
+      <div class="row between">
+        <strong>{s.name}</strong>
+        <span class="meta">{s.page} · {s.batch} · {s.lang} · {fmtDate(s.created_at)}</span>
+      </div>
+      <dl class="kv mt">
+        <dt>Contact</dt><dd>{s.contact}</dd>
+        {s.child_name && <><dt>Child</dt><dd>{s.child_name}</dd></>}
+        {s.met_where && <><dt>Met</dt><dd>{s.met_where}</dd></>}
+        {s.good_times && <><dt>Times</dt><dd>{s.good_times.replace(/,/g, ", ")}</dd></>}
+        {s.message && <><dt>Message</dt><dd class="pre">{s.message}</dd></>}
+      </dl>
+      <form method="post" class="row mt">
+        <input type="hidden" name="id" value={s.id} />
+        <button class="primary" name="_action" value="approve">Approve</button>
+        <button class="danger" name="_action" value="reject">Reject</button>
+      </form>
+    </article>
+  ))}
+</Admin>

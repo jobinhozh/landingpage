@@ -1,0 +1,2 @@
+# QR and short links. Format: /path target status
+/go https://example.com 302

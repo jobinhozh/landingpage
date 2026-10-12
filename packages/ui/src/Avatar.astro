@@ -1,0 +1,42 @@
+---
+/**
+ * Drawn avatars. Original designs only, never photos.
+ * `name` comes from the page settings in content.md (`avatar: comet`).
+ */
+export interface Props { name: string; alt: string; size?: number }
+const { name, alt, size = 80 } = Astro.props;
+---
+<svg class="avatar" viewBox="0 0 100 100" width={size} height={size} role="img" aria-label={alt}>
+  <circle cx="50" cy="50" r="46" fill="var(--c-bubble)" stroke="#111" stroke-width="5" />
+  {name === "fox" ? (
+    <g stroke="#111" stroke-width="3.5" stroke-linejoin="round">
+      <path d="M24 44 L26 14 L44 30 Z" fill="#F07A1A" />
+      <path d="M76 44 L74 14 L56 30 Z" fill="#F07A1A" />
+      <path d="M30 22 L31 34 L39 30 Z" fill="#FFE3C7" stroke-width="2" />
+      <path d="M70 22 L69 34 L61 30 Z" fill="#FFE3C7" stroke-width="2" />
+      <path d="M20 46 Q22 28 50 28 Q78 28 80 46 Q80 70 50 84 Q20 70 20 46 Z" fill="#F07A1A" />
+      <path d="M22 52 Q34 56 50 72 Q66 56 78 52 Q76 70 50 84 Q24 70 22 52 Z" fill="#FFFFFF" />
+      <circle cx="38" cy="47" r="4.5" fill="#111" stroke="none" />
+      <circle cx="62" cy="47" r="4.5" fill="#111" stroke="none" />
+      <circle cx="39.5" cy="45.5" r="1.4" fill="#FFF" stroke="none" />
+      <circle cx="63.5" cy="45.5" r="1.4" fill="#FFF" stroke="none" />
+      <path d="M45 66 Q50 62 55 66 Q50 72 45 66 Z" fill="#111" />
+      <path d="M42 75 Q50 80 58 75" fill="none" stroke-width="3" stroke-linecap="round" />
+    </g>
+  ) : (
+    <g stroke="#111" stroke-width="3.5" stroke-linejoin="round">
+      <path d="M22 44 L26 22 L36 32 L42 14 L50 28 L58 14 L64 32 L74 22 L78 44 Z" fill="#3B2A20" />
+      <circle cx="50" cy="54" r="27" fill="#F6C7A1" />
+      <path d="M23 50 Q50 38 77 50 L75 60 Q50 52 25 60 Z" fill="var(--c-accent)" />
+      <ellipse cx="39" cy="53" rx="5" ry="4" fill="#FFF" stroke-width="2.5" />
+      <ellipse cx="61" cy="53" rx="5" ry="4" fill="#FFF" stroke-width="2.5" />
+      <circle cx="39" cy="53" r="2" fill="#111" stroke="none" />
+      <circle cx="61" cy="53" r="2" fill="#111" stroke="none" />
+      <path d="M38 68 Q50 78 62 68" fill="none" stroke-width="3.5" stroke-linecap="round" />
+      <path d="M50 30 l3 6 6 1 -4.5 4 1 6 -5.5 -3 -5.5 3 1 -6 -4.5 -4 6 -1 Z" fill="#FFDF00" stroke-width="2.5" />
+    </g>
+  )}
+</svg>
+<style>
+  .avatar { display: block; filter: drop-shadow(4px 4px 0 #111111); }
+</style>

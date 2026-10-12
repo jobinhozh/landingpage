@@ -1,0 +1,14 @@
+{
+  "name": "@marc/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@marc/i18n": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": "^7.3.8"
+  }
+}

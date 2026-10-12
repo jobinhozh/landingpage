@@ -1,0 +1,11 @@
+---
+import LanguageSwitcher from "@marc/ui/LanguageSwitcher.astro";
+import { t } from "@marc/i18n/content";
+import type { PersonalPage } from "../../../../site.config.ts";
+import { allLanguages, pageUrl } from "../lib/pages.ts";
+
+export interface Props { page: PersonalPage; lang: string; rest?: string }
+const { page, lang, rest = "" } = Astro.props;
+const items = allLanguages.map((l) => ({ code: l.code, chip: l.chip, label: l.label, href: pageUrl(page, l.code, rest) }));
+---
+<LanguageSwitcher current={lang} items={items} label={t(page.id, "language_label", lang)} variant={page.style} />

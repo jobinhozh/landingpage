@@ -1,0 +1,35 @@
+{
+  "name": "marc-sites",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "pnpm -r --filter './apps/*' build",
+    "dev:business": "pnpm --filter business dev",
+    "dev:personal": "pnpm --filter personal dev",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json && pnpm -r --filter './apps/*' typecheck",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "translate": "tsx scripts/translate.ts",
+    "token:create": "tsx scripts/tokens.ts create",
+    "token:revoke": "tsx scripts/tokens.ts revoke",
+    "token:list": "tsx scripts/tokens.ts list",
+    "cards:pdf": "tsx scripts/cards.ts"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
+    "@biomejs/biome": "^2.5.15",
+    "@types/node": "^22.15.0",
+    "@types/qrcode": "^1.5.5",
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.5.4",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.3",
+    "zod": "^4.6.5"
+  }
+}

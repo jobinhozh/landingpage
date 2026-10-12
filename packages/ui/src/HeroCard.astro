@@ -1,0 +1,22 @@
+---
+/** "My hero card": four facts in a 2x2 grid. */
+export interface Props { title: string; facts: { label: string; value: string }[] }
+const { title, facts } = Astro.props;
+---
+<section class="hero-card" aria-labelledby="hero-card-title">
+  <h2 id="hero-card-title">{title}</h2>
+  <dl>
+    {facts.map((f) => (
+      <div><dt>{f.label}</dt><dd>{f.value}</dd></div>
+    ))}
+  </dl>
+</section>
+<style>
+  .hero-card { padding: 16px; background: var(--c-bubble); color: #111111; border: 3px solid #111111; box-shadow: 4px 4px 0 #111111; transform: rotate(-1deg); }
+  .hero-card h2 { margin: 0 0 10px; font-family: "Bangers", cursive; font-weight: 400; font-size: 26px; letter-spacing: 0.04em; }
+  .hero-card dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
+  .hero-card dl > div { background: #FFFFFF; border: 2.5px solid #111111; padding: 8px 10px; }
+  .hero-card dt { font-size: 12px; font-weight: 700; text-transform: uppercase; }
+  .hero-card dd { margin: 2px 0 0; font-size: 16px; }
+  @media (prefers-reduced-motion: reduce) { .hero-card { transform: none; } }
+</style>

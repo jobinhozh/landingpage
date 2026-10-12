@@ -1,0 +1,12 @@
+---
+/** Comic speech bubble with a tail pointing up to the avatar. */
+export interface Props { html: string }
+const { html } = Astro.props;
+---
+<div class="bubble"><p set:html={html} /></div>
+<style>
+  .bubble { position: relative; margin: 0; padding: 12px 16px; background: #FFFFFF; color: #111111; border: 3px solid #111111; border-radius: 22px; box-shadow: 4px 4px 0 #111111; font-size: 17px; font-weight: 700; line-height: 1.3; }
+  .bubble p { margin: 0; }
+  .bubble::before { content: ""; position: absolute; left: 30px; top: -18px; width: 26px; height: 18px; background: #111111; clip-path: polygon(0% 100%, 100% 100%, 30% 0%); }
+  .bubble::after { content: ""; position: absolute; left: 35px; top: -11px; width: 16px; height: 12px; background: #FFFFFF; clip-path: polygon(0% 100%, 100% 100%, 30% 0%); }
+</style>

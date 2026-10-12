@@ -1,0 +1,165 @@
+---
+import { env } from "cloudflare:workers";
+import Admin from "../../../layouts/Admin.astro";
+import { adminForm, fmtDate, num, str } from "../../../lib/admin.ts";
+import {
+  addReminder,
+  addTag,
+  completeReminder,
+  deleteFamily,
+  getFamily,
+  logInteraction,
+  removeTag,
+  setNotes,
+  setOptIn,
+  updateAdult,
+} from "../../../lib/crm/index.ts";
+import { notFound } from "../../../lib/http.ts";
+import { whatsappLink } from "../../../lib/vcard.ts";
+
+const id = Number(Astro.params.id);
+if (!Number.isInteger(id) || id <= 0) return notFound();
+const db = env.DB;
+let flash: string | undefined;
+
+const form = await adminForm(Astro);
+if (form) {
+  const action = str(form, "_action");
+  if (action === "delete") {
+    if (str(form, "confirm") !== "DELETE") flash = "Type DELETE to confirm.";
+    else {
+      await deleteFamily(db, id);
+      return Astro.redirect("/admin/families", 303);
+    }
+  } else if (action === "notes") await setNotes(db, id, str(form, "notes", 5000));
+  else if (action === "tag-add") await addTag(db, id, str(form, "tag", 40));
+  else if (action === "tag-remove") await removeTag(db, id, str(form, "tag", 40));
+  else if (action === "log" && str(form, "summary")) {
+    await logInteraction(db, id, str(form, "kind", 20) || "note", str(form, "summary", 1000));
+  } else if (action === "reminder-add" && str(form, "due_on") && str(form, "text")) {
+    await addReminder(db, id, str(form, "due_on", 10), str(form, "text", 200));
+  } else if (action === "reminder-done") await completeReminder(db, id, num(form, "rid"));
+  else if (action === "optin") await setOptIn(db, id, num(form, "aid"), str(form, "value") === "1");
+  else if (action === "adult-update") {
+    await updateAdult(db, id, num(form, "aid"), {
+      name: str(form, "name", 80),
+      phone: str(form, "phone", 30),
+      email: str(form, "email", 120),
+      whatsapp: str(form, "whatsapp", 30),
+      language: str(form, "language", 5),
+    });
+  }
+  if (!flash) return Astro.redirect(`/admin/families/${id}`, 303);
+}
+
+const data = await getFamily(db, id);
+if (!data) return notFound();
+const { family, adults, children, interactions, reminders, tags } = data;
+const title = adults.map((a) => a.name).join(" & ") || `Family ${id}`;
+const today = new Date().toISOString().slice(0, 10);
+---
+<Admin title={title} active="families">
+  {flash && <p class="flash err">{flash}</p>}
+  <p class="meta">From {family.source_page ?? "?"}{family.batch && ` · batch ${family.batch}`} · first contact {fmtDate(family.first_contact_at).slice(0, 10)}</p>
+  <div class="row">
+    <a class="btn" href={`/admin/export/family-${id}.vcf`}>vCard</a>
+    <a class="btn" href={`/admin/export/family-${id}.json`}>Data export</a>
+  </div>
+
+  <h2>Adults</h2>
+  {adults.map((a) => (
+    <section class="card">
+      <form method="post" class="stack">
+        <input type="hidden" name="_action" value="adult-update" />
+        <input type="hidden" name="aid" value={a.id} />
+        <div class="grid2">
+          <label>Name<input name="name" value={a.name} required /></label>
+          <label>Language<input name="language" value={a.language} /></label>
+          <label>Phone<input name="phone" value={a.phone ?? ""} inputmode="tel" /></label>
+          <label>Email<input name="email" value={a.email ?? ""} inputmode="email" /></label>
+          <label>WhatsApp<input name="whatsapp" value={a.whatsapp ?? ""} inputmode="tel" /></label>
+        </div>
+        <div class="row">
+          <button type="submit">Save</button>
+          {a.whatsapp && <a class="btn" href={whatsappLink(a.whatsapp)} rel="noopener">WhatsApp</a>}
+          {a.phone && <a class="btn" href={`tel:${a.phone}`}>Call</a>}
+          {a.email && <a class="btn" href={`mailto:${a.email}`}>Email</a>}
+        </div>
+      </form>
+      <form method="post" class="row mt">
+        <input type="hidden" name="_action" value="optin" />
+        <input type="hidden" name="aid" value={a.id} />
+        <input type="hidden" name="value" value={a.broadcast_opt_in ? "0" : "1"} />
+        <span class="meta">Broadcasts: {a.broadcast_opt_in ? "opted in" : "not opted in"}</span>
+        <button type="submit">{a.broadcast_opt_in ? "Opt out" : "Opt in (asked them)"}</button>
+      </form>
+    </section>
+  ))}
+
+  {children.length > 0 && (
+    <>
+      <h2>Children</h2>
+      <div class="card">
+        <ul class="list">
+          {children.map((c) => <li><strong>{c.first_name}</strong> <span class="meta">knows {c.knows || "?"}{c.met_where && ` · met ${c.met_where}`}</span></li>)}
+        </ul>
+      </div>
+    </>
+  )}
+
+  <h2>Tags</h2>
+  <div class="card">
+    <ul class="chips">
+      {tags.map((t) => (
+        <li>{t}<form method="post"><input type="hidden" name="_action" value="tag-remove" /><input type="hidden" name="tag" value={t} /><button aria-label={`Remove tag ${t}`}>×</button></form></li>
+      ))}
+    </ul>
+    <form method="post" class="row mt">
+      <input type="hidden" name="_action" value="tag-add" />
+      <input name="tag" placeholder="New tag" class="grow" aria-label="New tag" />
+      <button type="submit">Add</button>
+    </form>
+  </div>
+
+  <h2>Notes</h2>
+  <form method="post" class="card stack">
+    <input type="hidden" name="_action" value="notes" />
+    <textarea name="notes" aria-label="Notes" rows="4">{family.notes}</textarea>
+    <div><button type="submit">Save notes</button></div>
+  </form>
+
+  <h2>Reminders</h2>
+  <div class="card">
+    {reminders.map((r) => (
+      <form method="post" class="row between mb">
+        <span class:list={{ done: Boolean(r.done_at) }}><strong>{r.due_on}</strong> {r.text}</span>
+        {!r.done_at && <><input type="hidden" name="_action" value="reminder-done" /><input type="hidden" name="rid" value={r.id} /><button>Done</button></>}
+      </form>
+    ))}
+    <form method="post" class="grid2 mt">
+      <input type="hidden" name="_action" value="reminder-add" />
+      <label>Due<input type="date" name="due_on" min={today} required /></label>
+      <label>Push text (no personal details)<input name="text" maxlength="200" required /></label>
+      <div class="row end"><button type="submit">Add reminder</button></div>
+    </form>
+  </div>
+
+  <h2>Interactions</h2>
+  <form method="post" class="card grid2">
+    <input type="hidden" name="_action" value="log" />
+    <label>Kind<select name="kind"><option value="met">Met</option><option value="message">Message</option><option value="call">Call</option><option value="note">Note</option></select></label>
+    <label>Summary<input name="summary" maxlength="1000" required /></label>
+    <div class="row end"><button type="submit">Log</button></div>
+  </form>
+  <div class="card log">
+    {interactions.length === 0 && <p class="meta">No interactions yet.</p>}
+    {interactions.map((i) => <p><span class="meta">{fmtDate(i.at)} · {i.kind}</span><br />{i.summary}</p>)}
+  </div>
+
+  <h2>Delete</h2>
+  <form method="post" class="card row">
+    <input type="hidden" name="_action" value="delete" />
+    <label class="grow">Deletes this family and everything linked to it. Type DELETE<input name="confirm" autocomplete="off" /></label>
+    <button class="danger" type="submit">Delete family</button>
+  </form>
+</Admin>

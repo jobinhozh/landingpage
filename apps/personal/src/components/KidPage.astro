@@ -1,0 +1,110 @@
+---
+import Avatar from "@marc/ui/Avatar.astro";
+import Burst from "@marc/ui/Burst.astro";
+import ContactForm from "@marc/ui/ContactForm.astro";
+import HeroCard from "@marc/ui/HeroCard.astro";
+import SpeechBubble from "@marc/ui/SpeechBubble.astro";
+import { setting, t, ti } from "@marc/i18n/content";
+import { env } from "cloudflare:workers";
+import type { PersonalPage } from "../../../../site.config.ts";
+import type { FormState } from "../lib/contact.ts";
+import { GOOD_TIMES } from "../lib/validation.ts";
+import Footer from "./Footer.astro";
+import Switcher from "./Switcher.astro";
+
+export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
+const { page, lang, sent, state } = Astro.props;
+const p = (k: string) => t(page.id, k, lang);
+---
+<div class="kid">
+  <div class="kid__top"><Switcher page={page} lang={lang} /></div>
+  <header class="kid__head">
+    <button type="button" class="kid__avatar" data-pow aria-label={p("avatar_alt")}>
+      <Avatar name={setting(page.id, "avatar")} alt="" size={76} />
+      <Burst text={p("burst")} class="kid__burst" />
+    </button>
+    <h1>{setting(page.id, "hero_name")}</h1>
+  </header>
+  <SpeechBubble html={ti(page.id, "bubble", lang)} />
+  <main class="kid__panel">
+    {sent ? (
+      <section class="kid__sent" role="status">
+        <h2>{p("sent_title")}</h2>
+        <p>{p("sent_body")}</p>
+      </section>
+    ) : (
+      <ContactForm
+        variant="comic"
+        title={p("form_title")}
+        fields={[
+          { name: "name", label: p("form_parent_name"), autocomplete: "name", required: true, half: true },
+          { name: "child_name", label: p("form_child_name"), autocomplete: "off", required: true, half: true },
+          { name: "contact", label: p("form_contact"), type: "email-or-phone", autocomplete: "email", required: true },
+          { name: "message", label: p("form_message"), type: "textarea", rows: 1 },
+        ]}
+        chips={{ name: "times", label: p("form_times"), options: GOOD_TIMES.map((v) => ({ value: v, label: p(`time_${v}`) })) }}
+        consentLabel={p("form_consent")}
+        submitLabel={p("submit")}
+        sendingLabel={p("form_sending")}
+        values={state?.values}
+        errors={state?.errors}
+        formError={state?.formError}
+        turnstileSiteKey={env.TURNSTILE_SITE_KEY}
+      />
+    )}
+  </main>
+  <HeroCard
+    title={p("hero_card_title")}
+    facts={["superpower", "animal", "food", "loves"].map((k) => ({ label: p(`hero_${k}_label`), value: p(`hero_${k}`) }))}
+  />
+  <Footer page={page} lang={lang} />
+  <div class="kid__sound">
+    <button type="button" data-sound aria-pressed="false" data-on={p("sound_on")} data-off={p("sound_off")}>{p("sound_off")}</button>
+  </div>
+</div>
+<script>
+  // Sound effects: muted by default, opt-in per visit. Tap the avatar for a "pow".
+  let ctx: AudioContext | undefined;
+  let on = false;
+  const toggle = document.querySelector<HTMLButtonElement>("[data-sound]");
+  toggle?.addEventListener("click", () => {
+    on = !on;
+    toggle.setAttribute("aria-pressed", String(on));
+    toggle.textContent = (on ? toggle.dataset.on : toggle.dataset.off) ?? "";
+  });
+  document.querySelector("[data-pow]")?.addEventListener("click", (e) => {
+    const el = e.currentTarget as HTMLElement;
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.animate([{ transform: "scale(1)" }, { transform: "scale(1.12) rotate(-6deg)" }, { transform: "scale(1)" }], { duration: 300 });
+    }
+    if (!on) return;
+    ctx ??= new AudioContext();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = "square";
+    o.frequency.setValueAtTime(520, ctx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(90, ctx.currentTime + 0.25);
+    g.gain.setValueAtTime(0.15, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+    o.connect(g).connect(ctx.destination);
+    o.start();
+    o.stop(ctx.currentTime + 0.3);
+  });
+</script>
+<style>
+  .kid { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; }
+  .kid__top { padding: 6px 8px 0; }
+  .kid__head { display: flex; align-items: center; gap: 14px; padding: 0 14px; }
+  .kid__avatar { position: relative; flex: 0 0 76px; width: 76px; height: 76px; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 999px; }
+  .kid__avatar:focus-visible { outline: 3px solid #FFF; outline-offset: 3px; }
+  .kid :global(.kid__burst) { right: -16px; top: -14px; }
+  .kid h1 { margin: 0; font-family: "Bangers", cursive; font-weight: 400; font-size: clamp(30px, 10.5vw, 42px); line-height: 1; letter-spacing: 0.03em; color: #FFF; -webkit-text-stroke: 2px #111; paint-order: stroke fill; text-shadow: 3px 3px 0 #111; white-space: nowrap; transform: rotate(-2deg); }
+  .kid :global(.bubble) { margin: 6px 14px 0; }
+  .kid__panel { margin: 0 14px; padding: 14px; background: #FFF; border: 3px solid #111; box-shadow: 4px 4px 0 #111; }
+  .kid__sent h2 { margin: 0 0 8px; font-family: "Bangers", cursive; font-weight: 400; font-size: 32px; letter-spacing: 0.04em; }
+  .kid__sent p { margin: 0; font-size: 17px; font-weight: 700; line-height: 1.35; }
+  .kid :global(.hero-card) { margin: 8px 14px 0; }
+  .kid__sound { display: flex; justify-content: center; }
+  .kid__sound button { min-height: 44px; padding: 0 14px; font: inherit; font-weight: 700; font-size: 14px; background: #FFF; color: #111; border: 2.5px solid #111; border-radius: 999px; cursor: pointer; }
+  .kid__sound button[aria-pressed="true"] { background: var(--c-bubble); }
+</style>

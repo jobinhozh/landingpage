@@ -1,0 +1,30 @@
+---
+import { t, tm } from "@marc/i18n/content";
+import Personal from "../../../layouts/Personal.astro";
+import Switcher from "../../../components/Switcher.astro";
+import { notFound } from "../../../lib/http.ts";
+import { langFromSlug, pageBySlug, pageUrl } from "../../../lib/pages.ts";
+
+const page = pageBySlug(Astro.params.slug);
+const language = langFromSlug(Astro.params.lang);
+if (!page || !language || !Astro.locals.pass) return notFound();
+const lang = language.code;
+---
+<Personal lang={lang} title={t(page.id, "privacy_title", lang)} variant={page.style} theme={language.theme} slug={page.slug}>
+  <div class:list={["legal", `legal--${page.style}`]}>
+    <Switcher page={page} lang={lang} rest="privacy" />
+    <article>
+      <h1>{t(page.id, "privacy_title", lang)}</h1>
+      <div set:html={tm(page.id, "privacy_body", lang)} />
+      <p><a href={pageUrl(page, lang)}>{t(page.id, "back", lang)}</a></p>
+    </article>
+  </div>
+</Personal>
+<style>
+  .legal { max-width: 640px; margin: 0 auto; padding: 6px 8px 24px; }
+  .legal article { margin-top: 12px; padding: 18px; background: #FFF; color: #16222B; border-radius: 16px; line-height: 1.55; font-size: 16px; }
+  .legal--comic article { border: 3px solid #111; border-radius: 0; box-shadow: 4px 4px 0 #111; }
+  .legal h1 { margin: 0 0 12px; font-size: 28px; }
+  .legal--comic h1 { font-family: "Bangers", cursive; font-weight: 400; letter-spacing: 0.04em; }
+  .legal a { display: inline-flex; min-height: 44px; align-items: center; font-weight: 700; }
+</style>

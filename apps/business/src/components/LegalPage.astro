@@ -1,0 +1,16 @@
+---
+import { t, tm } from "@marc/i18n/content";
+import Base from "../layouts/Base.astro";
+import { PAGE, slugOf } from "../lib/i18n.ts";
+
+export interface Props { lang: string; kind: "impressum" | "privacy" }
+const { lang, kind } = Astro.props;
+const title = t(PAGE, `${kind}_title`, lang);
+---
+<Base lang={lang} title={`${title} · ${t(PAGE, "meta_title", lang)}`} description={t(PAGE, "meta_description", lang)} path={`${kind}/`}>
+  <article class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="m-0 mb-6 text-3xl font-bold">{title}</h1>
+    <div class="prose-dark" set:html={tm(PAGE, `${kind}_body`, lang)} />
+    <p><a href={`/${slugOf(lang)}/`} class="inline-flex min-h-11 items-center">{t(PAGE, "back_home", lang)}</a></p>
+  </article>
+</Base>

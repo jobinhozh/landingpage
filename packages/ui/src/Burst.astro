@@ -1,0 +1,15 @@
+---
+/** Comic "POW" starburst with a black outline. Decorative, original shape. */
+export interface Props { text: string; class?: string }
+const { text, class: cls } = Astro.props;
+---
+<span class:list={["burst", cls]} aria-hidden="true"><span class="burst__inner">{text}</span></span>
+<style>
+  .burst, .burst__inner { clip-path: polygon(50% 0%, 61% 18%, 82% 8%, 80% 30%, 100% 35%, 85% 50%, 100% 65%, 80% 70%, 82% 92%, 61% 82%, 50% 100%, 39% 82%, 18% 92%, 20% 70%, 0% 65%, 15% 50%, 0% 35%, 20% 30%, 18% 8%, 39% 18%); }
+  .burst { position: absolute; display: block; width: 58px; height: 58px; background: #111111; transform: rotate(14deg); }
+  .burst__inner { position: absolute; inset: 4px; display: flex; align-items: center; justify-content: center; background: var(--c-bubble); color: #111111; font-family: "Bangers", cursive; font-size: 13px; letter-spacing: 0.04em; }
+  @media (prefers-reduced-motion: no-preference) {
+    .burst { animation: burst-pop 600ms cubic-bezier(.2,1.6,.4,1) both 250ms; }
+    @keyframes burst-pop { from { transform: rotate(-40deg) scale(0); } to { transform: rotate(14deg) scale(1); } }
+  }
+</style>
