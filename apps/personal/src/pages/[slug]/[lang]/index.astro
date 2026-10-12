@@ -27,5 +27,5 @@ const sent = Astro.url.searchParams.has("sent");
 const theme = themes[language.theme] ? language.theme : "uk";
 ---
 <Personal lang={lang} title={t(page.id, "meta_title", lang)} variant={page.style} theme={theme} slug={page.slug}>
-  {page.style === "comic" ? <KidPage page={page} lang={lang} sent={sent} state={state} theme={theme} /> : <PrivatePage page={page} lang={lang} sent={sent} state={state} />}
+  {page.style === "comic" ? <KidPage page={page} lang={lang} sent={sent} state={state} /> : <PrivatePage page={page} lang={lang} sent={sent} state={state} />}
 </Personal>

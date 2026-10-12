@@ -6,7 +6,6 @@ import HeroCard from "@marc/ui/HeroCard.astro";
 import SpeechBubble from "@marc/ui/SpeechBubble.astro";
 import { setting, t, ti } from "@marc/i18n/content";
 import { env } from "cloudflare:workers";
-import { flagSvg } from "../../../../flags.ts";
 import type { PersonalPage } from "../../../../site.config.ts";
 import type { FormState } from "../lib/contact.ts";
 import { findMedia } from "../lib/media.ts";
@@ -14,8 +13,8 @@ import { GOOD_TIMES } from "../lib/validation.ts";
 import Footer from "./Footer.astro";
 import Switcher from "./Switcher.astro";
 
-export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState; theme: string }
-const { page, lang, sent, state, theme } = Astro.props;
+export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
+const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
 const heroName = setting(page.id, "hero_name");
 const heroSize = `min(42px, calc((min(100vw, 480px) - 130px) / ${(Math.max(heroName.length, 6) * 0.5).toFixed(2)}))`;
@@ -30,7 +29,6 @@ const ownDrawing = (await findMedia(env.BUCKET, `media/avatar-${page.id}`)) ? `/
       <Burst text={p("burst")} class="kid__burst" />
     </button>
     <h1 style={`font-size: ${heroSize}`}>{heroName}</h1>
-    <span class="flag-mini" aria-hidden="true" set:html={flagSvg(theme, 36, 24)} />
   </header>
   <SpeechBubble html={ti(page.id, "bubble", lang)} />
   <main class="kid__panel">

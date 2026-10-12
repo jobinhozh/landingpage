@@ -1,6 +1,6 @@
 /**
  * Simple geometric flag drawings per theme, rendered as SVG at any size.
- * Used for the kid pages' country look: flag ribbon, mini flag, form strip and the flag language buttons.
+ * Used for the kid pages' country look: flag ribbon, form strip and the flag language buttons.
  */
 
 type Builder = (w: number, h: number) => string;
