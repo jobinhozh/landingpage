@@ -22,6 +22,26 @@ describe("kid drawings and photo in R2", () => {
     const b = bucket(["media/photo.jpg", "media/photo.webp", "media/photo.png"]);
     expect(await findMedia(b, "media/photo")).toBe("media/photo.webp");
   });
+  it("forgives double extensions and letter case from renaming on Windows or a phone", async () => {
+    expect(await findMedia(bucket(["media/avatar-kid-one.jpg.jpeg"]), "media/avatar-kid-one")).toBe(
+      "media/avatar-kid-one.jpg.jpeg",
+    );
+    expect(await findMedia(bucket(["media/Avatar-Kid-One.JPG"]), "media/avatar-kid-one")).toBe(
+      "media/Avatar-Kid-One.JPG",
+    );
+    expect(await findMedia(bucket(["media/avatar-kid-one.png.jpeg"]), "media/avatar-kid-one")).toBe(
+      "media/avatar-kid-one.png.jpeg",
+    );
+    expect(mediaType("media/avatar-kid-one.png.jpeg")).toBe("image/jpeg");
+  });
+  it("ignores files in other folders", async () => {
+    expect(
+      await findMedia(
+        bucket(["media/old/avatar-kid-one.png", "landingpage_folder/avatar-kid-one.png"]),
+        "media/avatar-kid-one",
+      ),
+    ).toBeNull();
+  });
   it("does not mix up pages or unsupported files", async () => {
     const b = bucket([
       "media/avatar-kid-one.png",
