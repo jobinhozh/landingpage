@@ -5,7 +5,8 @@ import { defineConfig } from "astro/config";
 import { contentCheck } from "@marc/ui/integration.ts";
 import { businessLanguages, languages } from "../../site.config.ts";
 
-const site = process.env.BUSINESS_SITE_URL ?? "https://example.com";
+// GitHub passes an unset variable as "", so treat empty like missing.
+const site = process.env.BUSINESS_SITE_URL || "https://example.com";
 const slugOf = (code) => languages.find((l) => l.code === code)?.slug ?? code;
 
 export default defineConfig({
