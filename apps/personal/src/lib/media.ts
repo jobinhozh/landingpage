@@ -14,14 +14,28 @@ export const MEDIA_TYPES = {
 
 export type MediaExt = keyof typeof MEDIA_TYPES;
 
-/** First existing `<base>.<ext>` in R2, in MEDIA_TYPES order. One list call, whatever the result. */
+const ORDER = Object.keys(MEDIA_TYPES);
+
+/**
+ * The upload for `<base>` (e.g. `media/avatar-kid-one`), forgiving about how it was named:
+ * any letter case and extra extensions such as `avatar-kid-one.jpg.jpeg` (Windows hides
+ * extensions, so renames often add one). The last extension decides the type.
+ * Preference by type follows MEDIA_TYPES order. One list call, whatever the result.
+ */
 export async function findMedia(bucket: R2Bucket, base: string): Promise<string | null> {
-  const { objects } = await bucket.list({ prefix: `${base}.`, limit: 20 });
-  const keys = new Set(objects.map((o) => o.key));
-  for (const ext of Object.keys(MEDIA_TYPES)) {
-    if (keys.has(`${base}.${ext}`)) return `${base}.${ext}`;
+  const dir = base.slice(0, base.lastIndexOf("/") + 1);
+  const name = base.slice(dir.length).toLowerCase();
+  const { objects } = await bucket.list({ prefix: dir, limit: 1000 });
+  let best: { key: string; rank: number } | null = null;
+  for (const { key } of objects) {
+    const file = key.slice(dir.length).toLowerCase();
+    if (file.includes("/") || !file.startsWith(`${name}.`)) continue;
+    const exts = file.slice(name.length + 1).split(".");
+    if (exts.some((e) => !ORDER.includes(e))) continue;
+    const rank = ORDER.indexOf(exts.at(-1)!);
+    if (!best || rank < best.rank) best = { key, rank };
   }
-  return null;
+  return best?.key ?? null;
 }
 
 export function mediaType(key: string): string {

@@ -1,6 +1,6 @@
 import { t } from "@marc/i18n/content";
 import { findDuplicateFamily, mergeSet } from "../merge.ts";
-import { sendResend } from "../notify.ts";
+import { parentEmailOn, sendResend } from "../notify.ts";
 import { vcard, whatsappLink } from "../vcard.ts";
 import { logInteraction } from "./families.ts";
 import type { Adult, Child, DB, Submission } from "./types.ts";
@@ -101,6 +101,8 @@ export interface ApproveResult {
   familyId: number;
   merged: boolean;
   emailed: boolean;
+  /** Email to parents is off (no RESEND_API_KEY): Marc gets in touch himself. */
+  emailOff?: boolean;
   /** For phone-only contacts: a WhatsApp link with a prefilled hello for Marc to send manually. */
   whatsappHello?: string;
   error?: string;
@@ -116,7 +118,8 @@ export async function approveSubmission(env: Env, id: number): Promise<ApproveRe
 
   const result: ApproveResult = { familyId, merged, emailed: false };
   const vars = { name: s.name, whatsapp: env.OWNER_PHONE ? whatsappLink(env.OWNER_PHONE) : "" };
-  if (s.email) {
+  if (s.email && !parentEmailOn(env)) result.emailOff = true;
+  if (s.email && !result.emailOff) {
     try {
       await sendResend(
         env,
@@ -130,7 +133,8 @@ export async function approveSubmission(env: Env, id: number): Promise<ApproveRe
     } catch (e) {
       result.error = e instanceof Error ? e.message : String(e);
     }
-  } else if (s.phone) {
+  }
+  if (!result.emailed && !result.error && s.phone) {
     result.whatsappHello = `${whatsappLink(s.phone)}?text=${encodeURIComponent(t(s.page, "approve_whatsapp", s.lang, vars))}`;
   }
   return result;

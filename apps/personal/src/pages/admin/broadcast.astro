@@ -20,7 +20,8 @@ if (form) {
 <Admin title="Broadcast" active="broadcast">
   <p class="meta">Goes only to opted-in adults with an email address, in families from that page or whose child knows that kid. Each send is logged as an interaction.</p>
   {error && <p class="flash err" role="alert">{error}</p>}
-  {result && <p class="flash" role="status">Sent {result.sent}, failed {result.failed}, skipped {result.skipped} (no email).</p>}
+  {result?.emailOff && <p class="flash err" role="status">Email is off (no RESEND_API_KEY), nothing was sent.</p>}
+  {result && !result.emailOff && <p class="flash" role="status">Sent {result.sent}, failed {result.failed}, skipped {result.skipped} (no email).</p>}
   <form method="post" class="card stack">
     <label>Page<select name="page">{personalPages.map((p) => <option>{p.id}</option>)}</select></label>
     <label>Subject<input name="subject" maxlength="200" required /></label>

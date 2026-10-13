@@ -3,7 +3,7 @@ import { env } from "cloudflare:workers";
 import { t } from "@marc/i18n/content";
 import type { PersonalPage } from "../../../../site.config.ts";
 import { insertSubmission } from "./db.ts";
-import { background, emailOwner, push, sendResend } from "./notify.ts";
+import { background, emailOwner, parentEmailOn, push, sendResend } from "./notify.ts";
 import { pageUrl } from "./pages.ts";
 import { verifyTurnstile } from "./turnstile.ts";
 import { type ContactInput, validateContact } from "./validation.ts";
@@ -73,7 +73,7 @@ export async function handleContact(
     emailOwner(env, `New contact via ${page.id}`, ownerText(page, lang, pass.batch, result.data, adminUrl)),
   );
   background(cf, "push", push(env, "New contact", `${page.id} · ${lang}`, adminUrl));
-  if (result.data.email) {
+  if (result.data.email && parentEmailOn(env)) {
     const vars = { name: result.data.name };
     background(
       cf,

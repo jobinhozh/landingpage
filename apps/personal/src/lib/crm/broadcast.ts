@@ -1,6 +1,6 @@
 import { t } from "@marc/i18n/content";
 import { hmac, hmacVerify } from "../crypto.ts";
-import { sendResend } from "../notify.ts";
+import { parentEmailOn, sendResend } from "../notify.ts";
 import { logInteraction } from "./families.ts";
 import type { Adult, DB } from "./types.ts";
 
@@ -64,6 +64,8 @@ export interface BroadcastResult {
   sent: number;
   failed: number;
   skipped: number;
+  /** Email to parents is off (no RESEND_API_KEY), nothing was sent. */
+  emailOff?: boolean;
 }
 
 /** Each family gets an interaction entry; with RSVP the email carries a personal link. */
@@ -73,6 +75,7 @@ export async function broadcast(
   b: { page: string; subject: string; body: string; rsvp: boolean },
 ): Promise<BroadcastResult> {
   const res: BroadcastResult = { sent: 0, failed: 0, skipped: 0 };
+  if (!parentEmailOn(env)) return { ...res, emailOff: true };
   for (const a of await broadcastRecipients(env.DB, b.page)) {
     if (!a.email) {
       res.skipped++;
