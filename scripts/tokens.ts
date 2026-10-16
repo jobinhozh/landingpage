@@ -1,6 +1,7 @@
 /**
  * QR tokens. One token per page per print batch.
- *   npm run token:create -- --page kid-one --batch 2026-autumn [--expires 12m] [--local]
+ *   npm run token:create -- --page kid-one --batch 2026-autumn [--expires 12m] [--reuse] [--local]
+ *     --reuse: keep the active token of that page and batch if there is one (for repeat runs)
  *   npm run token:revoke -- --page kid-one --batch 2026-autumn [--local]
  *   npm run token:list [-- --local]
  */
@@ -38,7 +39,19 @@ if (cmd === "create") {
   const expires = parseDuration(
     typeof flags.expires === "string" ? flags.expires : `${tokenDefaults.expiryMonths}m`,
   );
+  if (flags.reuse === true) {
+    const [old] = d1<{ token: string }>(
+      `SELECT token FROM tokens WHERE page = ${sql(p)} AND batch = ${sql(b)} AND revoked_at IS NULL AND expires_at > datetime('now') LIMIT 1`,
+      local,
+    );
+    if (old) {
+      if (process.env.GITHUB_ACTIONS) console.log(`::add-mask::${old.token}`);
+      console.log(`Kept the active token of ${p} / ${b}`);
+      process.exit(0);
+    }
+  }
   const token = randomToken();
+  if (process.env.GITHUB_ACTIONS) console.log(`::add-mask::${token}`);
   d1(
     `INSERT INTO tokens (token, page, batch, expires_at) VALUES (${sql(token)}, ${sql(p)}, ${sql(b)}, ${sql(toSqlDate(expires))})`,
     local,

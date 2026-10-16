@@ -215,6 +215,8 @@ npm run token:list
 npm run cards:pdf -- --batch <label> [--page <page>]
 ```
 
+Without a local setup: GitHub Actions → **QR cards** → Run workflow (page, batch, expiry). It creates or reuses the token (`--reuse`) and offers the card PDF plus a QR PNG as a download for 1 day. Tokens are masked in the logs.
+
 Cards PDF: A4 sheets, 10 cards per sheet, 85x55 mm, 3 mm bleed, crop marks, QR at least 20 mm with quiet zone, comic style per kid, calm style for private, "Scan me" text in the page's default languages.
 
 ## 14. Business site
