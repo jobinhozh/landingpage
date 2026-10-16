@@ -307,6 +307,12 @@ Languages
 ### meta_title
 Hi, I'm {owner_first_name}
 
+### preview_title
+Hi, I'm {owner_first_name}
+
+### preview_description
+Glad we met! Tap to leave your details, so we can stay in touch.
+
 ### title
 Hi, I'm {owner_first_name}.
 
@@ -343,6 +349,12 @@ Scan to stay in touch
 
 ### meta_title
 {hero_name}
+
+### preview_title
+{hero_name} wants to play again!
+
+### preview_description
+We played together. Tap to send my dad a message, so we can meet again.
 
 ### avatar_alt
 Drawing of {hero_name}

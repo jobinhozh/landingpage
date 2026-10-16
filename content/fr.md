@@ -192,6 +192,14 @@ Envoyer
 ### card_scan
 Scanne pour rester en contact
 
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Salut, moi c'est {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+Ravi de t'avoir rencontré ! Touche ici pour laisser tes coordonnées et rester en contact.
+
 # kids
 
 ## fr
@@ -271,6 +279,14 @@ Scanne-moi !
 <!-- auto src-hash:c1925651 -->
 ### card_line
 On rejoue ensemble ?
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name} veut rejouer !
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+On a joué ensemble. Touche ici pour écrire à mon papa, comme ça on se revoit.
 
 # kid-one
 

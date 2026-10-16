@@ -192,6 +192,14 @@ Enviar
 ### card_scan
 Escaneie para manter contato
 
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Oi, eu sou o {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+Que bom te conhecer! Toque aqui e deixe seus contatos para a gente manter contato.
+
 # kids
 
 ## pt
@@ -271,6 +279,14 @@ Me escaneie!
 <!-- auto src-hash:c1925651 -->
 ### card_line
 Vamos brincar de novo!
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name} quer brincar de novo!
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+A gente brincou junto. Toque aqui e mande uma mensagem pro meu pai, pra gente se ver de novo.
 
 # kid-one
 

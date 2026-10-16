@@ -192,6 +192,14 @@ A block without marker is locked: edit it here and it is never overwritten.
 ### card_scan
 扫码保持联系
 
+<!-- auto src-hash:0c455417 -->
+### preview_title
+你好，我是{owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+很高兴认识你！点这里留下你的联系方式，我们保持联系。
+
 # kids
 
 ## zh
@@ -271,6 +279,14 @@ A block without marker is locked: edit it here and it is never overwritten.
 <!-- auto src-hash:c1925651 -->
 ### card_line
 我们再一起玩吧！
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name}还想一起玩！
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+我们一起玩过。点这里给我爸爸发消息，我们就能再见面啦。
 
 # kid-one
 

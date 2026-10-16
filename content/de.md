@@ -405,6 +405,14 @@ Senden
 ### card_scan
 Scannen und in Kontakt bleiben
 
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Hallo, ich bin {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+Schön, dass wir uns getroffen haben! Tippe hier und hinterlasse deine Kontaktdaten, damit wir in Kontakt bleiben.
+
 # kids
 
 ## de
@@ -484,6 +492,14 @@ Scann mich!
 <!-- auto src-hash:c1925651 -->
 ### card_line
 Lass uns wieder spielen!
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name} will wieder spielen!
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+Wir haben zusammen gespielt. Tippe hier und schreib meinem Papa, damit wir uns wiedersehen.
 
 # kid-one
 
