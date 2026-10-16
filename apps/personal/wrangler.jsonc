@@ -32,7 +32,7 @@
   },
   "vars": {
     // Cloudflare Turnstile test key (always passes). Replace with the real site key.
-    "TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFYv2XXmM1Fb1How",
     "NOTIFY_FROM": "noreply@example.com",
     "RESEND_FROM": "Marc <hello@example.com>",
     "ACCESS_TEAM_DOMAIN": "https://example.cloudflareaccess.com",

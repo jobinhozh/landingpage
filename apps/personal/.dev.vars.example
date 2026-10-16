@@ -1,4 +1,6 @@
 # Copy to .dev.vars for `pnpm dev`. Test values only, never real secrets here.
+# Test keys (always pass) for local dev. The real site key in wrangler.jsonc only works on the workers.dev hostname.
+TURNSTILE_SITE_KEY=1x00000000000000000000AA
 TURNSTILE_SECRET=1x0000000000000000000000000000000AA
 COOKIE_SIGNING_KEY=dev-only-signing-key-change-me-0123456789
 RESEND_API_KEY=
