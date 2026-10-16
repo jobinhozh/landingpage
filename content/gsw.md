@@ -192,6 +192,14 @@ Schicke
 ### card_scan
 Scanne und in Kontakt bliibe
 
+<!-- draft src-hash:0c455417 -->
+### preview_title
+Hoi, ich bi {owner_first_name}
+
+<!-- draft src-hash:2406e63b -->
+### preview_description
+Schön, hämmer üs troffe! Tipp da und hinterlass dini Kontaktdate, dass mir in Kontakt bliibed.
+
 # kids
 
 ## gsw
@@ -271,6 +279,14 @@ Scann mich!
 <!-- draft src-hash:c1925651 -->
 ### card_line
 Mir spieled wieder zäme!
+
+<!-- draft src-hash:e98f5750 -->
+### preview_title
+{hero_name} wott wieder spiele!
+
+<!-- draft src-hash:fbbc8b5e -->
+### preview_description
+Mir händ zäme gspielt. Tipp da und schriib mim Papi, dass mir üs wieder gsehnd.
 
 # kid-one
 

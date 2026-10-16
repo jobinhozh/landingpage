@@ -6,16 +6,30 @@ import { passCookie, signPass } from "../../lib/cookie.ts";
 import { recordScan, tokenByValue } from "../../lib/db.ts";
 import { notFound, redirect } from "../../lib/http.ts";
 import { pageById, pageUrl } from "../../lib/pages.ts";
+import { isPreviewBot, previewHtml, previewImageKey } from "../../lib/preview.ts";
 import { isTokenActive, TOKEN_RE, tokenExpiry } from "../../lib/token.ts";
 
-/** QR entry point: valid token → signed pass cookie for that page → clean URL in the detected language. */
-export const GET: APIRoute = async ({ params, request, locals }) => {
+/**
+ * QR entry point: valid token → signed pass cookie for that page → clean URL in the detected language.
+ * Link-preview crawlers (WhatsApp …) get the preview card instead, without cookie or scan count.
+ */
+export const GET: APIRoute = async ({ params, request, locals, url }) => {
   const token = params.token ?? "";
   if (!TOKEN_RE.test(token)) return notFound();
   const row = await tokenByValue(env.DB, token);
   if (!isTokenActive(row)) return notFound();
   const page = pageById(row.page);
   if (!page) return notFound();
+
+  if (isPreviewBot(request.headers.get("user-agent"))) {
+    // WhatsApp builds the preview on the sender's phone, so its language fits. Without one, the card's.
+    const accept = request.headers.get("accept-language")?.replace(/[\s*]/g, "");
+    const lang = accept ? detectLanguage(accept) : page.cardLanguages[0]!;
+    const image = (await previewImageKey(env.BUCKET, page)) ? `${url.origin}/s/${token}/preview` : null;
+    return new Response(previewHtml({ page, lang, url: `${url.origin}/s/${token}`, image }), {
+      headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" },
+    });
+  }
 
   const maxAge = tokenDefaults.cookieDays * 86_400;
   const tokenExp = Math.floor(tokenExpiry(row) / 1000);

@@ -192,6 +192,14 @@ Invia
 ### card_scan
 Scansiona per restare in contatto
 
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Ciao, sono {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+Che bello averti conosciuto! Tocca qui e lascia i tuoi contatti, così restiamo in contatto.
+
 # kids
 
 ## it
@@ -271,6 +279,14 @@ Scansionami!
 <!-- auto src-hash:c1925651 -->
 ### card_line
 Giochiamo ancora!
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name} vuole giocare ancora!
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+Abbiamo giocato insieme. Tocca qui e scrivi al mio papà, così ci rivediamo.
 
 # kid-one
 

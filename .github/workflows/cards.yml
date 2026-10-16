@@ -1,0 +1,56 @@
+name: QR cards
+
+# Actions → QR cards → Run workflow. Creates the page's token for the batch (or keeps the
+# existing one) and uploads the card PDF plus a QR PNG as a download. Kept for 1 day.
+on:
+  workflow_dispatch:
+    inputs:
+      page:
+        description: Page
+        type: choice
+        options: [kid-one, kid-two, private]
+        default: kid-one
+      batch:
+        description: Batch label (letters, digits, dot, dash)
+        type: string
+        default: test
+      expires:
+        description: Valid for (e.g. 12m, 30d)
+        type: string
+        default: 12m
+
+permissions:
+  contents: read
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PERSONAL_BASE_URL: ${{ vars.PERSONAL_BASE_URL || 'https://hello.hellolandingpage.workers.dev' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Token
+        env:
+          PAGE: ${{ inputs.page }}
+          BATCH: ${{ inputs.batch }}
+          EXPIRES: ${{ inputs.expires }}
+        run: pnpm token:create -- --page "$PAGE" --batch "$BATCH" --expires "$EXPIRES" --reuse
+      - name: Cards
+        env:
+          PAGE: ${{ inputs.page }}
+          BATCH: ${{ inputs.batch }}
+        run: pnpm cards:pdf -- --batch "$BATCH" --page "$PAGE"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qr-${{ inputs.page }}-${{ inputs.batch }}
+          path: cards/
+          retention-days: 1

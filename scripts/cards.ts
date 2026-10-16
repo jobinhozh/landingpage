@@ -1,10 +1,12 @@
 /**
  * Printable QR cards: A4, 10 cards (2×5) of 85×55 mm, 3 mm bleed, crop marks.
  *   npm run cards:pdf -- --batch 2026-autumn [--page kid-one] [--local]
- * Writes cards/<batch>-<page>.pdf (gitignored).
+ * Writes cards/<batch>-<page>.pdf plus <batch>-<page>.png (the bare QR, to scan from a screen). Gitignored.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { PDFDocument, StandardFonts } from "pdf-lib";
+import QRCode from "qrcode";
 import { createTranslator } from "../packages/i18n/src/translator.ts";
 import { readContentDir } from "../packages/i18n/src/node.ts";
 import { languages, personalPages } from "../site.config.ts";
@@ -43,6 +45,8 @@ async function main() {
   mkdirSync(new URL("../cards/", import.meta.url), { recursive: true });
 
   for (const row of rows) {
+    // Keep tokens out of CI logs.
+    if (process.env.GITHUB_ACTIONS) console.log(`::add-mask::${row.token}`);
     const page = personalPages.find((p) => p.id === row.page);
     if (!page) continue;
     const pdf = await PDFDocument.create();
@@ -114,7 +118,11 @@ async function main() {
     cropMarks(sheet, g);
     const file = new URL(`../cards/${batch}-${page.id}.pdf`, import.meta.url);
     writeFileSync(file, await pdf.save());
-    console.log(`Wrote cards/${batch}-${page.id}.pdf (${url})`);
+    await QRCode.toFile(fileURLToPath(new URL(`../cards/${batch}-${page.id}.png`, import.meta.url)), url, {
+      width: 800,
+      margin: 4,
+    });
+    console.log(`Wrote cards/${batch}-${page.id}.pdf and .png (${url})`);
   }
 }
 

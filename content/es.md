@@ -192,6 +192,14 @@ Enviar
 ### card_scan
 Escanea para seguir en contacto
 
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Hola, soy {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+¡Qué bien conocerte! Toca aquí y deja tus datos para seguir en contacto.
+
 # kids
 
 ## es
@@ -271,6 +279,14 @@ Me encanta
 <!-- auto src-hash:c1925651 -->
 ### card_line
 ¡Volvamos a jugar!
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+¡{hero_name} quiere jugar otra vez!
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+Jugamos juntos. Toca aquí y escríbele a mi papá para volver a vernos.
 
 # kid-one
 
