@@ -184,10 +184,6 @@ A block without marker is locked: edit it here and it is never overwritten.
 ### intro
 很高兴认识你。留下你的联系方式，我会尽快回复。
 
-<!-- auto src-hash:d7007f20 -->
-### chip_city
-苏黎世
-
 <!-- auto src-hash:0c632e38 -->
 ### chip_languages
 语言
@@ -267,6 +263,46 @@ Marc 的档案
 <!-- auto src-hash:b4c041bd -->
 ### card_travel_value
 60 个国家和地区，还在增加
+
+<!-- auto src-hash:048d62ff -->
+### map_label
+世界地图：Marc 去过的 60 个国家和地区
+
+<!-- auto src-hash:aec35541 -->
+### map_legend
+去过
+
+<!-- auto src-hash:bbc39b8d -->
+### sport_title
+运动
+
+<!-- auto src-hash:afb3e591 -->
+### sport_col_category
+项目
+
+<!-- auto src-hash:0ee9a1b8 -->
+### sport_col_event
+比赛
+
+<!-- auto src-hash:035f1f67 -->
+### sport_col_best
+最佳成绩
+
+<!-- auto src-hash:f4c047db -->
+### sport_marathon
+马拉松
+
+<!-- auto src-hash:5e44060a -->
+### sport_hyrox_solo
+Hyrox 单人
+
+<!-- auto src-hash:d754aa61 -->
+### sport_hyrox_doubles
+Hyrox 双人
+
+<!-- auto src-hash:4f9586ba -->
+### sport_crossfit_open
+CrossFit
 
 # kids
 

@@ -184,10 +184,6 @@ Hola, soy {owner_first_name}.
 ### intro
 Me alegra que nos hayamos conocido. Déjame tus datos y te escribo pronto.
 
-<!-- auto src-hash:d7007f20 -->
-### chip_city
-Zúrich
-
 <!-- auto src-hash:0c632e38 -->
 ### chip_languages
 Idiomas
@@ -267,6 +263,46 @@ El expediente de Marc
 <!-- auto src-hash:b4c041bd -->
 ### card_travel_value
 60 países y contando
+
+<!-- auto src-hash:048d62ff -->
+### map_label
+Mapa del mundo con los 60 países que Marc ha visitado
+
+<!-- auto src-hash:aec35541 -->
+### map_legend
+Ya estuve
+
+<!-- auto src-hash:bbc39b8d -->
+### sport_title
+Deporte
+
+<!-- auto src-hash:afb3e591 -->
+### sport_col_category
+Categoría
+
+<!-- auto src-hash:0ee9a1b8 -->
+### sport_col_event
+Carrera
+
+<!-- auto src-hash:035f1f67 -->
+### sport_col_best
+Mejor marca
+
+<!-- auto src-hash:f4c047db -->
+### sport_marathon
+Maratón
+
+<!-- auto src-hash:5e44060a -->
+### sport_hyrox_solo
+Hyrox individual
+
+<!-- auto src-hash:d754aa61 -->
+### sport_hyrox_doubles
+Hyrox dobles
+
+<!-- auto src-hash:4f9586ba -->
+### sport_crossfit_open
+CrossFit
 
 # kids
 

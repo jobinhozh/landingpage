@@ -7,12 +7,14 @@ import type { PersonalPage } from "../../../../site.config.ts";
 import type { FormState } from "../lib/contact.ts";
 import Footer from "./Footer.astro";
 import Switcher from "./Switcher.astro";
+import sport from "../data/sport.json";
+import { worldMap } from "../data/world-map.ts";
 
 export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
 const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
 // Chips with a `chip_<id>_more` text open a small card on hover (mouse) or tap.
-const chips = ["city", "crossfit", "hyrox", "marathon", "travel", "languages"].map((id) => ({
+const chips = ["crossfit", "hyrox", "marathon", "travel", "languages"].map((id) => ({
   id,
   label: p(`chip_${id}`),
   more: has(page.id, `chip_${id}_more`, lang) || has(page.id, `chip_${id}_more`, "en") ? p(`chip_${id}_more`) : null,
@@ -28,15 +30,8 @@ const icons: Record<string, string> = {
 };
 const icon = (id: string) =>
   `<svg class="chip__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[id] ?? ""}</svg>`;
-// "Hero card" below the form, like the kids' pages: the same facts as the chips, as a file.
-const facts = [
-  { id: "travel", label: p("chip_travel"), value: p("card_travel_value"), big: true },
-  { id: "languages", label: p("chip_languages"), value: p("chip_languages_more"), big: false },
-  { id: "hyrox", label: p("chip_hyrox"), value: p("chip_hyrox_more"), big: false },
-  { id: "crossfit", label: p("chip_crossfit"), value: p("chip_crossfit_more"), big: false },
-  { id: "marathon", label: p("chip_marathon"), value: p("chip_marathon_more"), big: false },
-  { id: "city", label: p("chip_city"), value: p("chip_city_more"), big: false },
-];
+// Best results per category (sport.json). Empty "best" shows a dash until Marc fills it in.
+const results = sport.map((r) => ({ ...r, label: p(`sport_${r.id}`), best: r.best || "–" }));
 const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
 const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzle("solved"), shuffle: puzzle("shuffle"), close: puzzle("close"), tile: puzzle("tile") };
 const title = p("title");
@@ -52,6 +47,7 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
       <h1 style={`font-size: ${titleSize}`}>{title}</h1>
     </div>
     <p class="private__intro" set:html={ti(page.id, "intro", lang)} />
+    <p class="private__base"><Fragment set:html={icon("city")} />{p("chip_city_more")}</p>
     <ul class="private__chips">
       {chips.map((c) =>
         c.more ? (
@@ -94,14 +90,26 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   </main>
   <section class="file" aria-labelledby="file-title">
     <h2 id="file-title">{p("card_title")}</h2>
-    <dl>
-      {facts.map((f) => (
-        <div class:list={["file__row", { "file__row--big": f.big }]}>
-          <dt><Fragment set:html={icon(f.id)} />{f.label}</dt>
-          <dd>{f.value}</dd>
-        </div>
-      ))}
-    </dl>
+    <div class="file__panel">
+      <h3><Fragment set:html={icon("travel")} />{p("card_travel_value")}</h3>
+      <svg class="map" viewBox={`0 0 ${worldMap.width} ${worldMap.height}`} role="img" aria-label={p("map_label")}>
+        <path class="map__land" d={worldMap.land} />
+        <path class="map__visited" d={worldMap.visited} />
+        {worldMap.pins.map(([x, y]) => <circle class="map__pin" cx={x} cy={y} r="1.9" />)}
+      </svg>
+      <p class="map__legend"><span class="map__key"></span>{p("map_legend")}</p>
+    </div>
+    <div class="file__panel">
+      <h3><Fragment set:html={icon("hyrox")} />{p("sport_title")}</h3>
+      <table class="sport">
+        <thead><tr><th scope="col">{p("sport_col_category")}</th><th scope="col">{p("sport_col_event")}</th><th scope="col">{p("sport_col_best")}</th></tr></thead>
+        <tbody>
+          {results.map((r) => (
+            <tr><th scope="row">{r.label}</th><td>{r.event} {r.year}</td><td class="sport__best">{r.best}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </section>
   <Footer page={page} lang={lang} />
 </div>
@@ -156,15 +164,26 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   .private__sent h2 { margin: 0 0 8px; font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase; font-size: 26px; }
   .private__sent p { margin: 0; font-size: 16px; line-height: 1.45; }
 
-  /* The file: Marc's hero card. */
-  .file { margin: 8px 12px 0; padding: 14px; background: var(--mustard); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
-  .file h2 { margin: 0 0 10px; font-family: "Anton", sans-serif; font-weight: 400; font-size: 24px; text-transform: uppercase; letter-spacing: 0.02em; }
-  .file dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
-  .file__row { background: #FFF; border: 2.5px solid var(--ink); padding: 8px 10px; }
-  .file__row--big, .file__row:last-child:nth-child(even) { grid-column: 1 / -1; }
-  .file dt { display: flex; align-items: center; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
-  .file dd { margin: 3px 0 0; font-size: 14px; line-height: 1.35; font-weight: 600; }
-  .file__row--big dd { font-family: "Anton", sans-serif; font-weight: 400; font-size: 30px; line-height: 1; text-transform: uppercase; }
+  .private__base { display: flex; align-items: center; margin: -2px 0 0; font-size: 14px; font-weight: 700; }
+
+  /* The file: Marc's hero card with the travel map and the sport results. */
+  .file { margin: 8px 12px 0; padding: 14px; background: var(--mustard); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); display: flex; flex-direction: column; gap: 12px; }
+  .file h2 { margin: 0; font-family: "Anton", sans-serif; font-weight: 400; font-size: 24px; text-transform: uppercase; letter-spacing: 0.02em; }
+  .file__panel { background: #FFF; border: 2.5px solid var(--ink); padding: 10px 12px; }
+  .file h3 { display: flex; align-items: center; margin: 0 0 8px; font-family: "Anton", sans-serif; font-weight: 400; font-size: 20px; text-transform: uppercase; letter-spacing: 0.01em; }
+  .map { display: block; width: 100%; height: auto; }
+  .map__land { fill: none; stroke: #141414; stroke-opacity: 0.32; stroke-width: 1.8; stroke-linecap: round; }
+  .map__visited { fill: none; stroke: var(--red); stroke-width: 2.2; stroke-linecap: round; }
+  .map__pin { fill: var(--red); stroke: #FFF; stroke-width: 0.6; }
+  .map__legend { display: flex; align-items: center; gap: 6px; margin: 6px 0 0; font-size: 12px; font-weight: 700; }
+  .map__key { width: 10px; height: 10px; border-radius: 999px; background: var(--red); }
+  .sport { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .sport th, .sport td { padding: 7px 4px; text-align: left; border-bottom: 2px solid #141414; vertical-align: top; }
+  .sport thead th { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; border-bottom-width: 3px; }
+  .sport tbody tr:last-child th, .sport tbody tr:last-child td { border-bottom: 0; }
+  .sport tbody th { font-weight: 800; }
+  .sport__best { font-family: "Anton", sans-serif; font-size: 18px; white-space: nowrap; text-align: right !important; }
+  .sport thead th:last-child { text-align: right; }
   .private :global(.pfooter) { margin-top: auto; }
   .private :global(.lang-switch--calm a[aria-current="true"]) { background: var(--ink); color: #FFF; }
 

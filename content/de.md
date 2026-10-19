@@ -433,10 +433,6 @@ Hallo, ich bin {owner_first_name}.
 ### intro
 Schön, dass wir uns getroffen haben. Hinterlass mir deine Kontaktdaten, ich melde mich bald.
 
-<!-- auto src-hash:d7007f20 -->
-### chip_city
-Zürich
-
 <!-- auto src-hash:0c632e38 -->
 ### chip_languages
 Sprachen
@@ -516,6 +512,46 @@ Marcs Akte
 <!-- auto src-hash:b4c041bd -->
 ### card_travel_value
 60 Länder und es werden mehr
+
+<!-- auto src-hash:048d62ff -->
+### map_label
+Weltkarte mit den 60 Ländern, die Marc besucht hat
+
+<!-- auto src-hash:aec35541 -->
+### map_legend
+Schon dort gewesen
+
+<!-- auto src-hash:bbc39b8d -->
+### sport_title
+Sport
+
+<!-- auto src-hash:afb3e591 -->
+### sport_col_category
+Kategorie
+
+<!-- auto src-hash:0ee9a1b8 -->
+### sport_col_event
+Rennen
+
+<!-- auto src-hash:035f1f67 -->
+### sport_col_best
+Bestzeit
+
+<!-- auto src-hash:f4c047db -->
+### sport_marathon
+Marathon
+
+<!-- auto src-hash:5e44060a -->
+### sport_hyrox_solo
+Hyrox Solo
+
+<!-- auto src-hash:d754aa61 -->
+### sport_hyrox_doubles
+Hyrox Doubles
+
+<!-- auto src-hash:4f9586ba -->
+### sport_crossfit_open
+CrossFit
 
 # kids
 

@@ -370,8 +370,35 @@ Marc's file
 ### card_travel_value
 60 countries and counting
 
-### chip_city
-Zürich
+### map_label
+World map with the 60 countries Marc has visited
+
+### map_legend
+Been there
+
+### sport_title
+Sport
+
+### sport_col_category
+Category
+
+### sport_col_event
+Race
+
+### sport_col_best
+Best
+
+### sport_marathon
+Marathon
+
+### sport_hyrox_solo
+Hyrox Solo
+
+### sport_hyrox_doubles
+Hyrox Doubles
+
+### sport_crossfit_open
+CrossFit
 
 ### chip_city_more
 Based in Zürich. Home worldwide.
