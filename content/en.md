@@ -144,8 +144,8 @@ Thanks for letting us know!
 
 ## settings
 
-brand: marc_[lastname]
-full_name: Marc [Lastname]
+brand: marc_jobin
+full_name: Marc Jobin
 linkedin_url: https://www.linkedin.com/in/[handle]
 cal_link: [cal-handle]/30min
 impressum_address: [Street and number], [Postcode] Zürich, Switzerland
@@ -206,6 +206,9 @@ Domain knowledge
 
 ### exp_ai_text
 Eight years in law enforcement. US tax in banking. Further experience in the public sector and life insurance.
+
+### certs_title
+Certifications
 
 ### work_title
 Selected work

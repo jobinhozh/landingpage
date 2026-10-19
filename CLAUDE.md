@@ -224,7 +224,7 @@ Cards PDF: A4 sheets, 10 cards per sheet, 85x55 mm, 3 mm bleed, crop marks, QR a
 
 - Languages: `businessLanguages` from config.
 - Dark technical look (IBM Plex Sans + Mono, one accent colour), see reference canvas.
-- Sections: hero (positioning, Book a call, LinkedIn), focus areas (agent-led development, engineering process, architecture, domain knowledge; keys still `exp_s4/alm/crm/ai`), selected work (content collection), contact.
+- Sections: hero (positioning, Book a call, LinkedIn), focus areas (agent-led development, engineering process, architecture, domain knowledge; keys still `exp_s4/alm/crm/ai`), certifications (`src/data/certifications.json`: name, issuer, optional year and url; also in the CV), selected work (content collection), contact.
 - SEO component (title, description, Open Graph image, canonical, hreflang), sitemap, Cloudflare Web Analytics (cookieless), Cal.com embed for booking, CV PDF generated from content.
 - `public/_redirects` for QR redirects: `/go https://example.com 302`.
 - Impressum and privacy page (Swiss nDSG).

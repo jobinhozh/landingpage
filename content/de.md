@@ -385,6 +385,10 @@ Sprachen
 ### photo_alt
 Foto von {full_name}
 
+<!-- auto src-hash:37d2214a -->
+### certs_title
+Zertifizierungen
+
 # private
 
 ## de
