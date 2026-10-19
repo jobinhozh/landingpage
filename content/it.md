@@ -188,13 +188,9 @@ Che bello averti conosciuto. Lasciami i tuoi contatti e ti rispondo presto.
 ### chip_city
 Zurigo
 
-<!-- auto src-hash:abb998f4 -->
+<!-- auto src-hash:0c632e38 -->
 ### chip_languages
-[Lingue]
-
-<!-- auto src-hash:66cebafe -->
-### chip_interest
-[Qualcosa che ami]
+Lingue
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt
@@ -223,6 +219,34 @@ Ciao, sono {owner_first_name}
 <!-- auto src-hash:2406e63b -->
 ### preview_description
 Che bello averti conosciuto! Tocca qui e lascia i tuoi contatti, così restiamo in contatto.
+
+<!-- auto src-hash:4f9586ba -->
+### chip_crossfit
+CrossFit
+
+<!-- auto src-hash:fb818b81 -->
+### chip_crossfit_more
+CrossFit Open 2025
+
+<!-- auto src-hash:d384a4c7 -->
+### chip_hyrox
+Hyrox
+
+<!-- auto src-hash:d760ff92 -->
+### chip_hyrox_more
+Singolo a San Paolo 2025, doppio a San Gallo 2026
+
+<!-- auto src-hash:2c74f119 -->
+### chip_travel
+Viaggi
+
+<!-- auto src-hash:0757631a -->
+### chip_travel_more
+Finora 60 paesi: Albania, Argentina, Australia, Austria, Bahamas, Belgio, Bosnia ed Erzegovina, Brasile, Bulgaria, Canada, Cechia, Cile, Cina, Cipro, Città del Vaticano, Costa Rica, Croazia, Danimarca, Egitto, Emirati Arabi Uniti, Figi, Finlandia, Francia, Germania, Gibilterra, Grecia, Hong Kong, India, Inghilterra, Irlanda, Isole Cook, Israele, Italia, Liechtenstein, Lituania, Macao, Macedonia del Nord, Malta, Messico, Monaco, Montenegro, Norvegia, Nuova Zelanda, Paesi Bassi, Panama, Portogallo, Senegal, Serbia, Singapore, Slovenia, Spagna, Svezia, Svizzera, Thailandia, Tunisia, Turchia, UK, Uruguay, USA, Vanuatu
+
+<!-- auto src-hash:17e2bbab -->
+### chip_languages_more
+Svizzero tedesco, inglese e francese. Sto imparando portoghese e spagnolo.
 
 # kids
 

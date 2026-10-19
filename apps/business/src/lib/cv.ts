@@ -1,6 +1,7 @@
 import { PDFDocument, type PDFFont, rgb, StandardFonts } from "pdf-lib";
 import { stripMarkdown } from "@marc/i18n";
 import { t } from "@marc/i18n/content";
+import { certMeta, certifications } from "./certifications.ts";
 import { PAGE } from "./i18n.ts";
 
 const A4: [number, number] = [595.28, 841.89];
@@ -81,6 +82,16 @@ export async function renderCv(lang: string): Promise<Uint8Array> {
   section("cv_profile_title", "cv_profile");
   section("cv_experience_title", "cv_experience");
   section("cv_skills_title", "cv_skills");
+  if (certifications.length) {
+    y -= 14;
+    text(p("certs_title").toUpperCase(), bold, 10, ACCENT);
+    y -= 2;
+    for (const c of certifications) {
+      ensure(15);
+      page.drawText("•", { x: MARGIN, y: y - 10.5, size: 10.5, font: regular, color: INK });
+      text(safe(`${c.name} (${certMeta(c)})`), regular, 10.5, INK, 12);
+    }
+  }
   section("cv_languages_title", "cv_languages");
   return pdf.save();
 }

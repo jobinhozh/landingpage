@@ -144,8 +144,8 @@ Thanks for letting us know!
 
 ## settings
 
-brand: marc_[lastname]
-full_name: Marc [Lastname]
+brand: marc_jobin
+full_name: Marc Jobin
 linkedin_url: https://www.linkedin.com/in/[handle]
 cal_link: [cal-handle]/30min
 impressum_address: [Street and number], [Postcode] Zürich, Switzerland
@@ -157,22 +157,22 @@ impressum_email: [contact email for the Impressum]
 Photo of {full_name}
 
 ### meta_title
-{full_name} · SAP Solutions Architect, Zürich
+{full_name} · Software Engineering Leader, Zürich
 
 ### meta_description
-SAP solutions architect in Zürich. S/4HANA, Cloud ALM, CRM and AI strategy for companies that want SAP systems people like using.
+Software engineering leader in Zürich. 20 years of software for police and banks. Focus on AI and agent-led development.
 
 ### skip_link
 Skip to content
 
 ### hero_eyebrow
-SAP Solutions Architect · Zürich
+Software Engineering Leader · Zürich
 
 ### hero_title
-I turn SAP landscapes into systems people actually like using.
+I lead software teams. Now I am changing how they work with AI.
 
 ### hero_text
-[One or two lines on your positioning: who you help, and the outcome they get.]
+20+ years of software for police and banks. I lead an international forward-deployed team of engineers and architects. Currently I am testing agent-led development with this team.
 
 ### cta_book
 Book a call
@@ -181,55 +181,58 @@ Book a call
 LinkedIn
 
 ### expertise_title
-Where I add the most value
+Focus areas
 
 ### exp_s4_title
-S/4HANA
+Agent-led development
 
 ### exp_s4_text
-[Short proof point]
+How AI agents change roles, code review and release in a software team.
 
 ### exp_alm_title
-Cloud ALM
+Engineering process
 
 ### exp_alm_text
-[Short proof point]
+Planning, build, review and release. Improved step by step, sprint after sprint.
 
 ### exp_crm_title
-CRM
+Architecture
 
 ### exp_crm_text
-[Short proof point]
+Certified SAP Enterprise Architect. Target architectures and migration paths for complex system landscapes.
 
 ### exp_ai_title
-AI strategy
+Domain knowledge
 
 ### exp_ai_text
-[Short proof point]
+Eight years in law enforcement. US tax in banking. Further experience in the public sector and life insurance.
+
+### certs_title
+Certifications
 
 ### work_title
 Selected work
 
 ### work_one_title
-[Project title with the result in it]
+Police organisation with 3'000 officers: from SAP ECC to the S/4HANA concept
 
 ### work_one_text
-[One line on scope and your role]
+Led the international architecture team. Contributed to a mobile Flutter app based on personas.
 
 ### work_two_title
-[Project title with the result in it]
+US tax analytics for two banks, with fines in the hundreds of millions at stake
 
 ### work_two_text
-[One line on scope and your role]
+Data analysis for US person classification and US tax forms. One global bank, one private bank.
 
 ### contact_title
-Let's talk
+Contact
 
 ### contact_text
-Open to architecture reviews, transformation advisory and speaking.
+Available for engineering reviews, AI in software teams and talks.
 
 ### contact_cta
-Book a 30-min call
+Book a 30-minute call
 
 ### cv_link
 Download CV (PDF)
@@ -343,11 +346,29 @@ Glad we met. Leave your details and I'll get back to you soon.
 ### chip_city
 Zürich
 
-### chip_languages
-[Languages]
+### chip_crossfit
+CrossFit
 
-### chip_interest
-[Something you love]
+### chip_crossfit_more
+CrossFit Open 2025
+
+### chip_hyrox
+Hyrox
+
+### chip_hyrox_more
+Solo in São Paulo 2025, Doubles in St. Gallen 2026
+
+### chip_travel
+Travel
+
+### chip_travel_more
+60 countries so far: Albania, Argentina, Australia, Austria, Bahamas, Belgium, Bosnia and Herzegovina, Brazil, Bulgaria, Canada, Chile, China, Cook Islands, Costa Rica, Croatia, Cyprus, Czech Republic, Denmark, Egypt, England, Fiji, Finland, France, Germany, Gibraltar, Greece, Hong Kong, India, Ireland, Israel, Italy, Liechtenstein, Lithuania, Macao, Malta, Mexico, Monaco, Montenegro, Netherlands, New Zealand, North Macedonia, Norway, Panama, Portugal, Senegal, Serbia, Singapore, Slovenia, Spain, Sweden, Switzerland, Thailand, Tunisia, Turkey, United Arab Emirates, United Kingdom, United States, Uruguay, Vanuatu, Vatican City
+
+### chip_languages
+Languages
+
+### chip_languages_more
+Swiss German, English and French. Learning Portuguese and Spanish.
 
 ### photo_alt
 Photo of {owner_first_name}

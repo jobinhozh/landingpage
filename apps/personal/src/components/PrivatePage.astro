@@ -1,7 +1,7 @@
 ---
 import ContactForm from "@marc/ui/ContactForm.astro";
 import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
-import { t, ti } from "@marc/i18n/content";
+import { has, t, ti } from "@marc/i18n/content";
 import { env } from "cloudflare:workers";
 import type { PersonalPage } from "../../../../site.config.ts";
 import type { FormState } from "../lib/contact.ts";
@@ -11,6 +11,12 @@ import Switcher from "./Switcher.astro";
 export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
 const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
+// Chips with a `chip_<id>_more` text open a small card on hover (mouse) or tap.
+const chips = ["city", "crossfit", "hyrox", "travel", "languages"].map((id) => ({
+  id,
+  label: p(`chip_${id}`),
+  more: has(page.id, `chip_${id}_more`, lang) || has(page.id, `chip_${id}_more`, "en") ? p(`chip_${id}_more`) : null,
+}));
 const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
 const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzle("solved"), shuffle: puzzle("shuffle"), close: puzzle("close"), tile: puzzle("tile") };
 const title = p("title");
@@ -26,9 +32,16 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
     </div>
     <p class="private__intro" set:html={ti(page.id, "intro", lang)} />
     <ul class="private__chips">
-      <li>{p("chip_city")}</li>
-      <li>{p("chip_languages")}</li>
-      <li>{p("chip_interest")}</li>
+      {chips.map((c) =>
+        c.more ? (
+          <li class="chip-wrap" data-chip>
+            <button type="button" class="chip-btn" popovertarget={`chip-${c.id}`}><span class="chip chip--more">{c.label}</span></button>
+            <div id={`chip-${c.id}`} popover class="chip-pop">{c.more}</div>
+          </li>
+        ) : (
+          <li class="chip-wrap"><span class="chip">{c.label}</span></li>
+        ),
+      )}
     </ul>
   </header>
   <main class="private__card">
@@ -67,10 +80,44 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   .private__id :global(.private__photo) { display: block; flex: 0 0 64px; width: 64px; height: 64px; border-radius: 999px; object-fit: cover; background: #C2410C; }
   .private h1 { margin: 0; line-height: 1; font-weight: 800; letter-spacing: -0.03em; white-space: nowrap; }
   .private__intro { margin: 0; font-size: 16px; line-height: 1.4; color: #3B4954; }
-  .private__chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
-  .private__chips li { padding: 5px 10px; background: #FFF; border-radius: 999px; font-size: 13px; font-weight: 600; }
+  .private__chips { display: flex; flex-wrap: wrap; gap: 0 6px; margin: -9px 0; padding: 0; list-style: none; }
+  .chip-wrap { display: flex; align-items: center; min-height: 44px; }
+  .chip { display: inline-block; padding: 5px 10px; background: #FFF; border-radius: 999px; font-size: 13px; font-weight: 600; color: #1F2A33; }
+  /* The button is the 44 px touch target, the pill inside keeps the small look. */
+  .chip-btn { display: flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; font: inherit; cursor: pointer; }
+  .chip--more::after { content: "+"; margin-left: 5px; color: #C2410C; font-weight: 800; }
+  .chip-btn:hover .chip, .chip-btn:focus-visible .chip { box-shadow: 0 0 0 2px #C2410C; }
+  .chip-btn:focus-visible { outline: none; }
+  .chip-pop {
+    position: fixed; inset: auto; margin: 0; width: max-content; max-width: min(320px, calc(100vw - 32px)); max-height: 50vh; overflow: auto;
+    padding: 12px 14px; border: 0; border-radius: 12px; background: #1F2A33; color: #FFF;
+    font-size: 14px; line-height: 1.45; box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
+  }
   .private__card { margin: 0 12px; padding: 16px; background: #FFF; border-radius: 18px; }
   .private__sent h2 { margin: 0 0 8px; font-size: 24px; font-weight: 800; }
   .private__sent p { margin: 0; font-size: 16px; line-height: 1.45; color: #3B4954; }
   .private :global(.pfooter) { margin-top: auto; }
 </style>
+<script>
+  // Place each card under its chip, and open it on hover for mouse users. Tap and keyboard use the native popover.
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  for (const wrap of document.querySelectorAll<HTMLElement>("[data-chip]")) {
+    const btn = wrap.querySelector("button")!;
+    const pop = wrap.querySelector<HTMLElement>("[popover]")!;
+    pop.addEventListener("beforetoggle", (e) => {
+      if ((e as ToggleEvent).newState !== "open") return;
+      const r = btn.getBoundingClientRect();
+      pop.style.top = `${r.bottom + 4}px`;
+      pop.style.left = `${Math.max(16, Math.min(r.left, innerWidth - Math.min(320, innerWidth - 32) - 16))}px`;
+    });
+    if (!fine) continue;
+    let timer = 0;
+    wrap.addEventListener("mouseenter", () => {
+      clearTimeout(timer);
+      if (!pop.matches(":popover-open")) pop.showPopover();
+    });
+    wrap.addEventListener("mouseleave", () => {
+      timer = window.setTimeout(() => pop.matches(":popover-open") && pop.hidePopover(), 200);
+    });
+  }
+</script>

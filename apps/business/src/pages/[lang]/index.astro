@@ -4,6 +4,7 @@ import { t, ti, setting } from "@marc/i18n/content";
 import Base from "../../layouts/Base.astro";
 import CalEmbed from "../../components/CalEmbed.astro";
 import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
+import { certMeta, certifications } from "../../lib/certifications.ts";
 import { PAGE, langPaths, slugOf } from "../../lib/i18n.ts";
 
 export const getStaticPaths = langPaths;
@@ -48,6 +49,33 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
       </ul>
     </div>
   </section>
+
+  {certifications.length > 0 && (
+    <section class="border-t border-line" aria-labelledby="certs">
+      <div class="mx-auto max-w-5xl px-6 py-10 sm:py-16">
+        <h2 id="certs" class="m-0 text-[22px] font-semibold sm:text-3xl">{p("certs_title")}</h2>
+        <ul class="mt-5 grid list-none gap-3 p-0 sm:grid-cols-2 sm:gap-4">
+          {certifications.map((c) => {
+            const inner = (
+              <>
+                <span class="font-semibold">{c.name}</span>
+                <span class="font-mono text-xs text-muted">{certMeta(c)}</span>
+              </>
+            );
+            return (
+              <li>
+                {c.url ? (
+                  <a href={c.url} rel="noopener" class="flex min-h-11 h-full flex-col gap-1 rounded-[10px] border border-line px-4 py-3 text-text no-underline hover:border-accent hover:text-text">{inner}</a>
+                ) : (
+                  <div class="flex h-full flex-col gap-1 rounded-[10px] border border-line px-4 py-3">{inner}</div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section class="border-t border-line" aria-labelledby="work">
     <div class="mx-auto max-w-5xl px-6 py-10 sm:py-16">
