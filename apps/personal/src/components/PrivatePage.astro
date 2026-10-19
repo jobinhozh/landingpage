@@ -164,7 +164,7 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   .sport thead th:last-child { text-align: right; }
   .private :global(.pfooter) { margin-top: auto; }
   .private :global(.lang-switch--calm a) { color: var(--on); }
-  .private :global(.lang-switch--calm a[aria-current="true"]) { background: var(--on); color: var(--paper); }
+  .private :global(.lang-switch--calm a[aria-current="true"]:not(.lang-switch__flag)) { background: var(--on); color: var(--paper); }
   .private :global(.pfooter), .private :global(.pfooter a) { color: var(--on); }
 
 </style>
