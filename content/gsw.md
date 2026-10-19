@@ -248,6 +248,18 @@ Bis jetzt 60 Länder: Ägypten, Albanien, Argentinien, Australien, Bahamas, Belg
 ### chip_languages_more
 Schwiizerdütsch, Englisch und Französisch. Ich lern Portugiesisch und Spanisch.
 
+<!-- draft src-hash:260ab774 -->
+### chip_city_more
+Dihei in Züri. Dihei uf de ganze Welt.
+
+<!-- draft src-hash:f4c047db -->
+### chip_marathon
+Marathon
+
+<!-- draft src-hash:2fe40623 -->
+### chip_marathon_more
+Frankfurt 2018
+
 # kids
 
 ## gsw

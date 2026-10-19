@@ -248,6 +248,18 @@ Voyages
 ### chip_languages_more
 Suisse allemand, anglais et français. J'apprends le portugais et l'espagnol.
 
+<!-- auto src-hash:260ab774 -->
+### chip_city_more
+Basé à Zurich. Chez moi partout dans le monde.
+
+<!-- auto src-hash:f4c047db -->
+### chip_marathon
+Marathon
+
+<!-- auto src-hash:2fe40623 -->
+### chip_marathon_more
+Francfort 2018
+
 # kids
 
 ## fr

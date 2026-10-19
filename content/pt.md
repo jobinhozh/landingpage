@@ -248,6 +248,18 @@ Viagens
 ### chip_languages_more
 Alemão suíço, inglês e francês. Estou aprendendo português e espanhol.
 
+<!-- auto src-hash:260ab774 -->
+### chip_city_more
+Moro em Zurique. Em casa no mundo inteiro.
+
+<!-- auto src-hash:f4c047db -->
+### chip_marathon
+Maratona
+
+<!-- auto src-hash:2fe40623 -->
+### chip_marathon_more
+Frankfurt 2018
+
 # kids
 
 ## pt

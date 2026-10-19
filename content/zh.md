@@ -248,6 +248,18 @@ Hyrox
 ### chip_languages_more
 会说瑞士德语、英语和法语，正在学葡萄牙语和西班牙语。
 
+<!-- auto src-hash:260ab774 -->
+### chip_city_more
+住在苏黎世，四海为家。
+
+<!-- auto src-hash:f4c047db -->
+### chip_marathon
+马拉松
+
+<!-- auto src-hash:2fe40623 -->
+### chip_marathon_more
+2018 年法兰克福
+
 # kids
 
 ## zh

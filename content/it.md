@@ -248,6 +248,18 @@ Finora 60 paesi: Albania, Argentina, Australia, Austria, Bahamas, Belgio, Bosnia
 ### chip_languages_more
 Svizzero tedesco, inglese e francese. Sto imparando portoghese e spagnolo.
 
+<!-- auto src-hash:260ab774 -->
+### chip_city_more
+Vivo a Zurigo. A casa in tutto il mondo.
+
+<!-- auto src-hash:f4c047db -->
+### chip_marathon
+Maratona
+
+<!-- auto src-hash:2fe40623 -->
+### chip_marathon_more
+Francoforte 2018
+
 # kids
 
 ## it

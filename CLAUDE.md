@@ -167,7 +167,7 @@ Mir händ zäme gspielt! ...
 ## 9. Personal pages: content and privacy
 
 - **Photo puzzle (private page and business hero):** `@marc/ui/PhotoPuzzle.astro`. The picture looks normal; a tap opens a 3x3 sliding puzzle in a dialog (88 px tiles, always solvable), solved shows the whole picture. Texts `common/puzzle_*`. Business picture: `apps/business/src/assets/profile.<jpg|jpeg|png|webp>` (public, in git); without it the hero has no picture.
-- **private:** Marc, warm personal style. Photo, short intro, chips (Zürich, CrossFit, Hyrox, travel, languages), contact form with "where did we meet". A chip with a `chip_<id>_more` text opens a small card on hover or tap (native popover, 44 px touch target). Country names in the travel card are generated per language with `Intl.DisplayNames`.
+- **private:** Marc, warm personal style. Photo, short intro, chips (Zürich, CrossFit, Hyrox, marathon, travel, languages), contact form with "where did we meet". A chip with a `chip_<id>_more` text opens a small card on hover or tap (native popover, 44 px touch target). Country names in the travel card are generated per language with `Intl.DisplayNames`.
 - **kid-one / kid-two:** comic style. Bangers headings, Comic Neue body, black outlines, halftone dot background, speech bubble, POW burst, drawn avatar, hero card (superpower, favourite animal, food, loves), parent contact form with "good times to meet" chips, button "Send to my dad!".
 - **Phone layout (390x844 baseline):** picture and name on ONE line at the top (round picture 64 to 80 px, name `white-space: nowrap`). Language chips, header, intro or speech bubble and the complete contact form must fit in the first screen without scrolling. Short form fields share a row (2-column grid). Kids' hero card sits below the form.
 - Kids: nickname only, illustrated avatar, never photos, school, age, location or surname.
@@ -224,7 +224,7 @@ Cards PDF: A4 sheets, 10 cards per sheet, 85x55 mm, 3 mm bleed, crop marks, QR a
 
 - Languages: `businessLanguages` from config.
 - Dark technical look (IBM Plex Sans + Mono, one accent colour), see reference canvas.
-- Sections: hero (positioning, Book a call, LinkedIn), focus areas (agent-led development, engineering process, architecture, domain knowledge; keys still `exp_s4/alm/crm/ai`), certifications (`src/data/certifications.json`: name, issuer, optional year and url; also in the CV), selected work (content collection), contact.
+- Sections: hero (positioning, Book a call, LinkedIn), focus areas (agent-led development, engineering process, architecture, domain knowledge; keys still `exp_s4/alm/crm/ai`), certifications (`src/data/certifications.json`: name, issuer, optional year and url, `tags` for the filter buttons SAP / AI / Project management; also in the CV), selected work (`src/data/work.json` holds id and year, industry/title/text are content keys), contact.
 - SEO component (title, description, Open Graph image, canonical, hreflang), sitemap, Cloudflare Web Analytics (cookieless), Cal.com embed for booking, CV PDF generated from content.
 - `public/_redirects` for QR redirects: `/go https://example.com 302`.
 - Impressum and privacy page (Swiss nDSG).

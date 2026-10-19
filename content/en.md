@@ -210,14 +210,35 @@ Eight years in law enforcement. US tax in banking. Further experience in the pub
 ### certs_title
 Certifications
 
+### certs_filter_label
+Filter certifications
+
+### certs_filter_all
+All
+
+### certs_filter_sap
+SAP
+
+### certs_filter_ai
+AI
+
+### certs_filter_pm
+Project management
+
 ### work_title
 Selected work
+
+### work_one_industry
+Law enforcement
 
 ### work_one_title
 Police organisation with 3'000 officers: from SAP ECC to the S/4HANA concept
 
 ### work_one_text
 Led the international architecture team. Contributed to a mobile Flutter app based on personas.
+
+### work_two_industry
+Global bank
 
 ### work_two_title
 US tax analytics for two banks, with fines in the hundreds of millions at stake
@@ -346,6 +367,9 @@ Glad we met. Leave your details and I'll get back to you soon.
 ### chip_city
 Zürich
 
+### chip_city_more
+Based in Zürich. Home worldwide.
+
 ### chip_crossfit
 CrossFit
 
@@ -357,6 +381,12 @@ Hyrox
 
 ### chip_hyrox_more
 Solo in São Paulo 2025, Doubles in St. Gallen 2026
+
+### chip_marathon
+Marathon
+
+### chip_marathon_more
+Frankfurt 2018
 
 ### chip_travel
 Travel

@@ -389,6 +389,34 @@ Foto von {full_name}
 ### certs_title
 Zertifizierungen
 
+<!-- auto src-hash:a17da53a -->
+### certs_filter_label
+Zertifizierungen filtern
+
+<!-- auto src-hash:75afe364 -->
+### certs_filter_all
+Alle
+
+<!-- auto src-hash:14f6a3ab -->
+### certs_filter_sap
+SAP
+
+<!-- auto src-hash:23d5135f -->
+### certs_filter_ai
+KI
+
+<!-- auto src-hash:e73165f1 -->
+### certs_filter_pm
+Projektmanagement
+
+<!-- auto src-hash:6895c985 -->
+### work_one_industry
+Strafverfolgung
+
+<!-- auto src-hash:039c102c -->
+### work_two_industry
+Globale Bank
+
 # private
 
 ## de
@@ -468,6 +496,18 @@ Bisher 60 Länder: Ägypten, Albanien, Argentinien, Australien, Bahamas, Belgien
 <!-- auto src-hash:17e2bbab -->
 ### chip_languages_more
 Schweizerdeutsch, Englisch und Französisch. Ich lerne Portugiesisch und Spanisch.
+
+<!-- auto src-hash:260ab774 -->
+### chip_city_more
+Zuhause in Zürich. Daheim auf der ganzen Welt.
+
+<!-- auto src-hash:f4c047db -->
+### chip_marathon
+Marathon
+
+<!-- auto src-hash:2fe40623 -->
+### chip_marathon_more
+Frankfurt 2018
 
 # kids
 

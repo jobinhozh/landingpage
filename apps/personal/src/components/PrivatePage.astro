@@ -12,7 +12,7 @@ export interface Props { page: PersonalPage; lang: string; sent: boolean; state?
 const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
 // Chips with a `chip_<id>_more` text open a small card on hover (mouse) or tap.
-const chips = ["city", "crossfit", "hyrox", "travel", "languages"].map((id) => ({
+const chips = ["city", "crossfit", "hyrox", "marathon", "travel", "languages"].map((id) => ({
   id,
   label: p(`chip_${id}`),
   more: has(page.id, `chip_${id}_more`, lang) || has(page.id, `chip_${id}_more`, "en") ? p(`chip_${id}_more`) : null,
