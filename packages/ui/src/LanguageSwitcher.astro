@@ -6,7 +6,8 @@
  */
 export interface Props {
   current: string;
-  items: { code: string; chip: string; label: string; href: string; flag?: string }[];
+  /** `sub`: small second line under the chip, e.g. a language level. */
+  items: { code: string; chip: string; label: string; href: string; flag?: string; sub?: string }[];
   label: string;
   variant: "business" | "calm" | "comic";
 }
@@ -17,7 +18,7 @@ const { current, items, label, variant } = Astro.props;
     {items.map((l) => (
       <li>
         <a href={l.href} hreflang={l.code} lang={l.code} aria-current={l.code === current ? "true" : undefined} title={l.label} class:list={{ "lang-switch__flag": Boolean(l.flag) }}>
-          {l.flag ? <><span class="lang-switch__img" aria-hidden="true" set:html={l.flag} /><span class="sr-only">{l.label}</span></> : l.chip}
+          {l.flag ? <><span class="lang-switch__img" aria-hidden="true" set:html={l.flag} /><span class="sr-only">{l.label}</span></> : l.sub ? <span class="lang-switch__two"><span>{l.chip}</span><small>{l.sub}</small></span> : l.chip}
         </a>
       </li>
     ))}
@@ -33,6 +34,8 @@ const { current, items, label, variant } = Astro.props;
   .lang-switch--comic ul { gap: 5px; }
   .lang-switch--comic a { font-size: 12px; font-weight: 700; min-width: 0; padding: 0 8px; color: #111111; background: #FFFFFF; border: 2.5px solid #111111; border-radius: 999px; }
   .lang-switch--comic a[aria-current="true"] { background: var(--c-accent); color: var(--c-accent-text); }
+  .lang-switch__two { display: flex; flex-direction: column; align-items: center; line-height: 1.05; }
+  .lang-switch__two small { font-size: 10px; font-weight: 600; opacity: 0.8; }
   .lang-switch a:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
   /* Flag buttons: 44x44 touch target around a 34x23 flag, 8 fit in 374 px. */
   .lang-switch--comic ul:has(.lang-switch__flag) { gap: 3px; }

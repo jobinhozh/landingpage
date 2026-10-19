@@ -30,6 +30,10 @@ const icons: Record<string, string> = {
 };
 const icon = (id: string) =>
   `<svg class="chip__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[id] ?? ""}</svg>`;
+// ?hide=travel, ?hide=sport or ?hide=travel,sport leaves blocks out (also works on the QR link /s/<token>?hide=…).
+const hidden = new Set((Astro.url.searchParams.get("hide") ?? "").split(",").map((h) => h.trim()));
+const showTravel = !hidden.has("travel");
+const showSport = !hidden.has("sport");
 // Best results per category (sport.json). Empty "best" shows a dash until Marc fills it in.
 const results = sport.map((r) => ({ ...r, label: p(`sport_${r.id}`), best: r.best || "–" }));
 const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
@@ -88,8 +92,10 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
       />
     )}
   </main>
+  {(showTravel || showSport) && (
   <section class="file" aria-labelledby="file-title">
     <h2 id="file-title">{p("card_title")}</h2>
+    {showTravel && (
     <div class="file__panel">
       <h3><Fragment set:html={icon("travel")} />{p("card_travel_value")}</h3>
       <svg class="map" viewBox={`0 0 ${worldMap.width} ${worldMap.height}`} role="img" aria-label={p("map_label")}>
@@ -99,6 +105,8 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
       </svg>
       <p class="map__legend"><span class="map__key"></span>{p("map_legend")}</p>
     </div>
+    )}
+    {showSport && (
     <div class="file__panel">
       <h3><Fragment set:html={icon("hyrox")} />{p("sport_title")}</h3>
       <table class="sport">
@@ -110,13 +118,15 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
         </tbody>
       </table>
     </div>
+    )}
   </section>
+  )}
   <Footer page={page} lang={lang} />
 </div>
 <style>
   /* Graphic novel: ink on warm paper, halftone, one red, a mustard caption box. Comic like the kids' pages, but grown up. */
   .private {
-    --ink: #141414; --paper: #F3EEE4; --red: #C8102E; --mustard: #F2C14E;
+    --ink: #141414; --paper: #F3EEE4; --red: var(--p-accent, #C8102E); --mustard: var(--p-caption, #F2C14E);
     --accent: var(--red);
     max-width: 480px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; box-sizing: border-box;
     color: var(--ink);
@@ -127,7 +137,7 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   .private__hero { display: flex; flex-direction: column; gap: 12px; }
   .private__top { padding: 6px 8px 0; }
   .private__head { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
-  .private__id { display: flex; align-items: center; gap: 14px; --puzzle-surface: #FFF; --puzzle-text: #141414; --puzzle-accent: #C8102E; --puzzle-accent-text: #FFF; }
+  .private__id { display: flex; align-items: center; gap: 14px; --puzzle-surface: #FFF; --puzzle-text: #141414; --puzzle-accent: var(--red); --puzzle-accent-text: #FFF; }
   .private__id :global(.private__photo) {
     display: block; flex: 0 0 72px; width: 72px; height: 72px; border-radius: 999px; object-fit: cover; background: var(--mustard);
     border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); box-sizing: border-box;

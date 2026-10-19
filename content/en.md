@@ -347,6 +347,15 @@ Languages
 
 # private
 
+## settings
+
+level_gsw: native
+level_de: native
+level_en: C2
+level_fr: C1
+level_pt: A2
+level_es: A1
+
 ## en
 
 ### meta_title
@@ -447,6 +456,9 @@ Send
 
 ### card_scan
 Scan to stay in touch
+
+### level_native
+Native
 
 # kids
 

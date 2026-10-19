@@ -41,7 +41,8 @@ export async function handleContact(
   if (!byIp.success || !byToken.success) return { values, errors: {}, formError: msg("error_rate") };
 
   const result = validateContact(form, page.id);
-  const sentUrl = `${pageUrl(page, lang)}?sent=1`;
+  const hide = ctx.url.searchParams.get("hide");
+  const sentUrl = `${pageUrl(page, lang)}?sent=1${hide ? `&hide=${encodeURIComponent(hide)}` : ""}`;
   if (result.bot) return ctx.redirect(sentUrl, 303);
   if (!result.ok) {
     const errors: Record<string, string> = {};

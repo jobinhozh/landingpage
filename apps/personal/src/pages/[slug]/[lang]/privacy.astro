@@ -3,11 +3,17 @@ import { t, tm } from "@marc/i18n/content";
 import Personal from "../../../layouts/Personal.astro";
 import Switcher from "../../../components/Switcher.astro";
 import { notFound } from "../../../lib/http.ts";
-import { langFromSlug, pageBySlug, pageUrl } from "../../../lib/pages.ts";
+import { detectLanguage } from "@marc/i18n";
+import { keptQuery, langFromSlug, pageBySlug, pageLangCodes, pageUrl } from "../../../lib/pages.ts";
 
 const page = pageBySlug(Astro.params.slug);
 const language = langFromSlug(Astro.params.lang);
 if (!page || !language || !Astro.locals.pass) return notFound();
+// A language this page is not published in (e.g. /m/it) goes to the best published one.
+if (!pageLangCodes(page).includes(language.code)) {
+  const code = detectLanguage(Astro.request.headers.get("accept-language"), pageLangCodes(page));
+  return Astro.redirect(`${pageUrl(page, code, "privacy")}${keptQuery(Astro.url)}`, 302);
+}
 const lang = language.code;
 ---
 <Personal lang={lang} title={t(page.id, "privacy_title", lang)} variant={page.style} theme={language.theme} slug={page.slug}>

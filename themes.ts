@@ -22,6 +22,32 @@ export const themes: Record<string, Theme> = {
   china: { bg: "#EE1C25", dot: "#F43E46", bubble: "#FFFF00", accent: "#B7121A", accentText: "#FFFFFF" },
 };
 
+/**
+ * Marc's private page: the grown-up comic keeps paper and ink, only accent (buttons, icons, map) and
+ * caption (narration box, file card) follow the language's flag. Accents pass WCAG AA with white text.
+ */
+export interface PrivateTheme {
+  accent: string;
+  caption: string;
+}
+
+export const privateThemes: Record<string, PrivateTheme> = {
+  switzerland: { accent: "#D52B1E", caption: "#FADBD8" },
+  germany: { accent: "#DD0000", caption: "#FFCE00" },
+  uk: { accent: "#C8102E", caption: "#D6E0F5" },
+  france: { accent: "#0055A4", caption: "#F9D9DC" },
+  brazil: { accent: "#007A33", caption: "#FFDF00" },
+  spain: { accent: "#AA151B", caption: "#F1BF00" },
+  italy: { accent: "#00843F", caption: "#F2C14E" },
+  china: { accent: "#B7121A", caption: "#FFE14D" },
+};
+
+export function privateThemeCss(): string {
+  return Object.entries(privateThemes)
+    .map(([name, t]) => `[data-theme="${name}"]{--p-accent:${t.accent};--p-caption:${t.caption}}`)
+    .join("\n");
+}
+
 /** CSS for every theme, generated from the table above, plus flag drawings for the country look. */
 export function themeCss(): string {
   return Object.entries(themes)

@@ -45,6 +45,8 @@ export const fallback: LangCode = "en";
 
 /** Subset of languages for the business site. */
 export const businessLanguages: readonly LangCode[] = ["en", "de"];
+/** Languages of Marc's private page (the ones he speaks). Levels per language: `level_<code>` settings in content/en.md. */
+export const privateLanguages: readonly LangCode[] = ["gsw", "de", "en", "fr", "pt", "es"];
 
 /** Accept-Language regional tags that map to a different internal code. */
 export const regionalOverrides: Readonly<Record<string, LangCode>> = {
@@ -88,7 +90,9 @@ export function lookupChain(page: string): string[] {
 
 /** Languages a content page is written and translated in. */
 export function pageLanguages(page: string): readonly LangCode[] {
-  return page === "business" ? businessLanguages : languages.map((l) => l.code);
+  if (page === "business") return businessLanguages;
+  if (page === "private") return privateLanguages;
+  return languages.map((l) => l.code);
 }
 
 /** Path segments used by the personal Worker itself. Page slugs must not collide with them. */

@@ -1,13 +1,14 @@
 import type { APIRoute } from "astro";
 import { detectLanguage } from "@marc/i18n";
 import { notFound, redirect } from "../../lib/http.ts";
-import { pageBySlug, pageUrl } from "../../lib/pages.ts";
+import { keptQuery, pageBySlug, pageLangCodes, pageUrl } from "../../lib/pages.ts";
 
 /** /<slug> → /<slug>/<detected language> */
-export const GET: APIRoute = ({ params, request, locals }) => {
+export const GET: APIRoute = ({ params, request, locals, url }) => {
   const page = pageBySlug(params.slug);
   if (!page || !locals.pass) return notFound();
-  return redirect(pageUrl(page, detectLanguage(request.headers.get("accept-language"))), 302, {
+  const code = detectLanguage(request.headers.get("accept-language"), pageLangCodes(page));
+  return redirect(`${pageUrl(page, code)}${keptQuery(url)}`, 302, {
     vary: "accept-language",
   });
 };
