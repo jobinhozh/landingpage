@@ -308,6 +308,10 @@ CrossFit
 ### level_native
 Nativo
 
+<!-- auto src-hash:9dd9203e -->
+### sport_half_marathon
+Meia maratona
+
 # kids
 
 ## pt

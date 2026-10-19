@@ -409,6 +409,9 @@ Hyrox Doubles
 ### sport_crossfit_open
 CrossFit
 
+### sport_half_marathon
+Half marathon
+
 ### chip_city_more
 Based in Zürich. Home worldwide.
 

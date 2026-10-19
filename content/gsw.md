@@ -308,6 +308,10 @@ CrossFit
 ### level_native
 Muetersproch
 
+<!-- draft src-hash:9dd9203e -->
+### sport_half_marathon
+Halbmarathon
+
 # kids
 
 ## gsw

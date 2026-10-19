@@ -34,8 +34,13 @@ const icon = (id: string) =>
 const shown = new Set((Astro.url.searchParams.get("show") ?? "").split(",").map((h) => h.trim()));
 const showTravel = shown.has("travel");
 const showSport = shown.has("sport");
-// Best results per category (sport.json). Empty "best" shows a dash until Marc fills it in.
-const results = sport.map((r) => ({ ...r, label: p(`sport_${r.id}`), best: r.best || "–" }));
+// Best results per category (sport.json): a time in "best" or a placing in "rank". Empty shows a dash.
+// A rank (CrossFit Open) shows as "#98,372" in the page language's number format.
+const results = (sport as { id: string; event: string; year: string; best?: string; rank?: number }[]).map((r) => ({
+  ...r,
+  label: p(`sport_${r.id}`),
+  best: r.rank ? `#${new Intl.NumberFormat(lang === "gsw" ? "de-CH" : lang).format(r.rank)}` : r.best || "–",
+}));
 const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
 const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzle("solved"), shuffle: puzzle("shuffle"), close: puzzle("close"), tile: puzzle("tile") };
 const title = p("title");

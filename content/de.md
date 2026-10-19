@@ -557,6 +557,10 @@ CrossFit
 ### level_native
 Muttersprache
 
+<!-- auto src-hash:9dd9203e -->
+### sport_half_marathon
+Halbmarathon
+
 # kids
 
 ## de

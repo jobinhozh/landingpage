@@ -308,6 +308,10 @@ CrossFit
 ### level_native
 Natif
 
+<!-- auto src-hash:9dd9203e -->
+### sport_half_marathon
+Semi-marathon
+
 # kids
 
 ## fr
