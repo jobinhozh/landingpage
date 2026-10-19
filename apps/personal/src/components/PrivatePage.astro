@@ -17,14 +17,38 @@ const chips = ["city", "crossfit", "hyrox", "marathon", "travel", "languages"].m
   label: p(`chip_${id}`),
   more: has(page.id, `chip_${id}_more`, lang) || has(page.id, `chip_${id}_more`, "en") ? p(`chip_${id}_more`) : null,
 }));
+// Design drafts, preview only: ?look=a (Postcard) or ?look=b (Night flight). Without it the current design shows.
+const lookParam = Astro.url.searchParams.get("look");
+const look = lookParam === "a" || lookParam === "b" ? lookParam : "current";
+// Small line icons per chip (decorative, 16 px, currentColor).
+const icons: Record<string, string> = {
+  city: '<path d="M8 14s5-4.6 5-8.5A5 5 0 0 0 3 5.5C3 9.4 8 14 8 14Z"/><circle cx="8" cy="5.6" r="1.8"/>',
+  crossfit: '<path d="M2 6v4M4.5 4.5v7M11.5 4.5v7M14 6v4M4.5 8h7"/>',
+  hyrox: '<circle cx="8" cy="9" r="5"/><path d="M8 9V6.5M6.5 2h3M12.2 4.8l1-1"/>',
+  marathon: '<path d="M2 11.5h8.5l3.5 1V14H2v-2.5ZM2 11.5 3 6l3 1 1.5-2.5 3 2v5"/>',
+  travel: '<path d="M14 2 2 7l5 1.5L8.5 14 14 2Z"/>',
+  languages: '<path d="M2.5 3.5h11v7H8l-3 2.5v-2.5H2.5v-7Z"/>',
+};
+const icon = (id: string) =>
+  `<svg class="chip__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[id] ?? ""}</svg>`;
 const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
 const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzle("solved"), shuffle: puzzle("shuffle"), close: puzzle("close"), tile: puzzle("tile") };
 const title = p("title");
 // One line at any length (CLAUDE.md §9): width next to the photo divided by the title's average glyph width.
 const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(title.length, 8) * 0.56).toFixed(2)}))`;
 ---
-<div class="private">
+<div class="private" data-look={look}>
+  <div class="private__hero">
   <div class="private__top"><Switcher page={page} lang={lang} /></div>
+  <svg class="private__routes" viewBox="0 0 390 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1"/></pattern></defs>
+    <rect class="routes__dots" width="390" height="300" fill="url(#dots)"/>
+    <path class="routes__arc" d="M40 250 C 120 120, 260 120, 360 60"/>
+    <path class="routes__arc" d="M10 120 C 120 40, 220 60, 300 230"/>
+    <path class="routes__arc" d="M190 290 C 230 190, 330 170, 390 190"/>
+    <circle class="routes__pin" cx="40" cy="250" r="3.5"/><circle class="routes__pin" cx="360" cy="60" r="3.5"/>
+    <circle class="routes__pin" cx="300" cy="230" r="3.5"/><circle class="routes__pin" cx="10" cy="120" r="3.5"/>
+  </svg>
   <header class="private__head">
     <div class="private__id">
       <PhotoPuzzle src={`/${page.slug}/photo`} alt={p("photo_alt")} size={64} class="private__photo" labels={puzzleLabels} />
@@ -35,15 +59,16 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
       {chips.map((c) =>
         c.more ? (
           <li class="chip-wrap" data-chip>
-            <button type="button" class="chip-btn" popovertarget={`chip-${c.id}`}><span class="chip chip--more">{c.label}</span></button>
+            <button type="button" class="chip-btn" popovertarget={`chip-${c.id}`}><span class="chip chip--more"><Fragment set:html={icon(c.id)} />{c.label}</span></button>
             <div id={`chip-${c.id}`} popover class="chip-pop">{c.more}</div>
           </li>
         ) : (
-          <li class="chip-wrap"><span class="chip">{c.label}</span></li>
+          <li class="chip-wrap"><span class="chip"><Fragment set:html={icon(c.id)} />{c.label}</span></li>
         ),
       )}
     </ul>
   </header>
+  </div>
   <main class="private__card">
     {sent ? (
       <section class="private__sent" role="status">
@@ -82,7 +107,7 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   .private__intro { margin: 0; font-size: 16px; line-height: 1.4; color: #3B4954; }
   .private__chips { display: flex; flex-wrap: wrap; gap: 0 6px; margin: -9px 0; padding: 0; list-style: none; }
   .chip-wrap { display: flex; align-items: center; min-height: 44px; }
-  .chip { display: inline-block; padding: 5px 10px; background: #FFF; border-radius: 999px; font-size: 13px; font-weight: 600; color: #1F2A33; }
+  .chip { display: inline-flex; align-items: center; white-space: nowrap; padding: 5px 10px; background: #FFF; border-radius: 999px; font-size: 13px; font-weight: 600; color: #1F2A33; }
   /* The button is the 44 px touch target, the pill inside keeps the small look. */
   .chip-btn { display: flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; font: inherit; cursor: pointer; }
   .chip--more::after { content: "+"; margin-left: 5px; color: #C2410C; font-weight: 800; }
@@ -94,6 +119,36 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
     font-size: 14px; line-height: 1.45; box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
   }
   .private__card { margin: 0 12px; padding: 16px; background: #FFF; border-radius: 18px; }
+  .private__hero { position: relative; display: flex; flex-direction: column; gap: 12px; }
+  .private__top, .private__head, .private__card { position: relative; }
+  .private__routes { display: none; }
+  :global(.chip__icon) { flex: none; margin-right: 5px; }
+  .private[data-look="current"] :global(.chip__icon) { display: none; }
+
+  /* Draft A, Postcard: warm paper, terracotta accent, soft sun behind the photo, stamped card. */
+  .private[data-look="a"] { background: radial-gradient(120% 60% at 0% 0%, #FBE3D3 0%, rgb(251 227 211 / 0%) 55%), #F7F2EA; }
+  .private[data-look="a"] .private__id :global(.private__photo) { width: 76px; height: 76px; flex-basis: 76px; box-shadow: 0 0 0 3px #F7F2EA, 0 0 0 5px #C2410C; }
+  .private[data-look="a"] .private__intro { color: #4A3F38; }
+  .private[data-look="a"] .chip { background: #FFF; border: 1.5px solid #E6D9CC; color: #3A2E27; }
+  .private[data-look="a"] :global(.chip__icon) { color: #C2410C; }
+  .private[data-look="a"] .private__card { border: 1.5px solid #E6D9CC; box-shadow: 0 10px 30px rgb(120 72 40 / 10%); border-top: 6px solid #C2410C; }
+
+  /* Draft B, Night flight: deep ink header with flight routes ("home worldwide"), white card lifting off it. */
+  .private[data-look="b"] .private__hero { background: #12303A; padding-bottom: 40px; margin-bottom: -40px; overflow: hidden; }
+  .private[data-look="b"] .private__routes { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+  .private[data-look="b"] .routes__dots { fill: rgb(255 255 255 / 9%); }
+  .private[data-look="b"] .routes__dots circle { fill: rgb(255 255 255 / 9%); }
+  .private[data-look="b"] .routes__arc { fill: none; stroke: #F4A261; stroke-opacity: 0.45; stroke-width: 1.5; stroke-dasharray: 4 6; }
+  .private[data-look="b"] .routes__pin { fill: #F4A261; }
+  .private[data-look="b"] h1 { color: #FFF; }
+  .private[data-look="b"] .private__intro { color: #D4E2E6; }
+  .private[data-look="b"] .private__id :global(.private__photo) { width: 72px; height: 72px; flex-basis: 72px; box-shadow: 0 0 0 3px #F4A261; }
+  .private[data-look="b"] .chip { background: rgb(255 255 255 / 10%); color: #FFF; border: 1px solid rgb(255 255 255 / 22%); }
+  .private[data-look="b"] .chip--more::after { color: #F4A261; }
+  .private[data-look="b"] .chip-btn:hover .chip, .private[data-look="b"] .chip-btn:focus-visible .chip { box-shadow: 0 0 0 2px #F4A261; }
+  .private[data-look="b"] .private__card { box-shadow: 0 16px 40px rgb(18 48 58 / 22%); }
+  .private[data-look="b"] :global(.lang-switch--calm a) { color: #D4E2E6; }
+  .private[data-look="b"] :global(.lang-switch--calm a[aria-current="true"]) { background: #F4A261; color: #12303A; }
   .private__sent h2 { margin: 0 0 8px; font-size: 24px; font-weight: 800; }
   .private__sent p { margin: 0; font-size: 16px; line-height: 1.45; color: #3B4954; }
   .private :global(.pfooter) { margin-top: auto; }
