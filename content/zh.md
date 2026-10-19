@@ -188,13 +188,9 @@ A block without marker is locked: edit it here and it is never overwritten.
 ### chip_city
 苏黎世
 
-<!-- auto src-hash:abb998f4 -->
+<!-- auto src-hash:0c632e38 -->
 ### chip_languages
-[语言]
-
-<!-- auto src-hash:66cebafe -->
-### chip_interest
-[你喜欢的事]
+语言
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt
@@ -223,6 +219,34 @@ A block without marker is locked: edit it here and it is never overwritten.
 <!-- auto src-hash:2406e63b -->
 ### preview_description
 很高兴认识你！点这里留下你的联系方式，我们保持联系。
+
+<!-- auto src-hash:4f9586ba -->
+### chip_crossfit
+CrossFit
+
+<!-- auto src-hash:fb818b81 -->
+### chip_crossfit_more
+CrossFit Open 2025
+
+<!-- auto src-hash:d384a4c7 -->
+### chip_hyrox
+Hyrox
+
+<!-- auto src-hash:d760ff92 -->
+### chip_hyrox_more
+2025 年圣保罗单人赛，2026 年圣加仑双人赛
+
+<!-- auto src-hash:2c74f119 -->
+### chip_travel
+旅行
+
+<!-- auto src-hash:0757631a -->
+### chip_travel_more
+已去过 60 个国家和地区：阿尔巴尼亚、阿根廷、阿拉伯联合酋长国、埃及、爱尔兰、奥地利、澳大利亚、澳门、巴哈马、巴拿马、巴西、保加利亚、北马其顿、比利时、波斯尼亚和黑塞哥维那、丹麦、德国、法国、梵蒂冈、斐济、芬兰、哥斯达黎加、荷兰、黑山、加拿大、捷克、克罗地亚、库克群岛、立陶宛、列支敦士登、马耳他、美国、摩纳哥、墨西哥、挪威、葡萄牙、瑞典、瑞士、塞尔维亚、塞内加尔、塞浦路斯、斯洛文尼亚、泰国、突尼斯、土耳其、瓦努阿图、乌拉圭、西班牙、希腊、香港、新加坡、新西兰、以色列、意大利、印度、英格兰、英国、直布罗陀、智利、中国
+
+<!-- auto src-hash:17e2bbab -->
+### chip_languages_more
+会说瑞士德语、英语和法语，正在学葡萄牙语和西班牙语。
 
 # kids
 

@@ -409,13 +409,9 @@ Schön, dass wir uns getroffen haben. Hinterlass mir deine Kontaktdaten, ich mel
 ### chip_city
 Zürich
 
-<!-- auto src-hash:abb998f4 -->
+<!-- auto src-hash:0c632e38 -->
 ### chip_languages
-[Sprachen]
-
-<!-- auto src-hash:66cebafe -->
-### chip_interest
-[Etwas, das du liebst]
+Sprachen
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt
@@ -444,6 +440,34 @@ Hallo, ich bin {owner_first_name}
 <!-- auto src-hash:2406e63b -->
 ### preview_description
 Schön, dass wir uns getroffen haben! Tippe hier und hinterlasse deine Kontaktdaten, damit wir in Kontakt bleiben.
+
+<!-- auto src-hash:4f9586ba -->
+### chip_crossfit
+CrossFit
+
+<!-- auto src-hash:fb818b81 -->
+### chip_crossfit_more
+CrossFit Open 2025
+
+<!-- auto src-hash:d384a4c7 -->
+### chip_hyrox
+Hyrox
+
+<!-- auto src-hash:d760ff92 -->
+### chip_hyrox_more
+Solo in São Paulo 2025, Doubles in St. Gallen 2026
+
+<!-- auto src-hash:2c74f119 -->
+### chip_travel
+Reisen
+
+<!-- auto src-hash:0757631a -->
+### chip_travel_more
+Bisher 60 Länder: Ägypten, Albanien, Argentinien, Australien, Bahamas, Belgien, Bosnien und Herzegowina, Brasilien, Bulgarien, Chile, China, Cookinseln, Costa Rica, Dänemark, Deutschland, England, Fidschi, Finnland, Frankreich, Gibraltar, Griechenland, Hongkong, Indien, Irland, Israel, Italien, Kanada, Kroatien, Liechtenstein, Litauen, Macau, Malta, Mexiko, Monaco, Montenegro, Neuseeland, Niederlande, Nordmazedonien, Norwegen, Österreich, Panama, Portugal, Schweden, Schweiz, Senegal, Serbien, Singapur, Slowenien, Spanien, Thailand, Tschechien, Tunesien, Türkei, UK, Uruguay, USA, Vanuatu, Vatikanstadt, Vereinigte Arabische Emirate, Zypern
+
+<!-- auto src-hash:17e2bbab -->
+### chip_languages_more
+Schweizerdeutsch, Englisch und Französisch. Ich lerne Portugiesisch und Spanisch.
 
 # kids
 
