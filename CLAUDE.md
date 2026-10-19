@@ -6,7 +6,7 @@ One private monorepo, two Cloudflare Workers, one content file. Read this fully 
 
 | Site | Purpose | Access |
 |---|---|---|
-| `apps/business` | Marc's professional profile (SAP solutions architect, Zürich) | Public, indexed, own domain |
+| `apps/business` | Marc's professional profile (software engineering leader, Zürich) | Public, indexed, own domain |
 | `apps/personal` | Private page (Marc) + Kid 1 + Kid 2 comic pages. Kids hand QR cards to other kids so their parents can contact Marc and friendships don't get lost | QR token only, neutral `*.workers.dev`, 404 otherwise |
 
 Hard rule: business and personal never link to each other, share no domain, no analytics ID, no visible names.
@@ -224,7 +224,7 @@ Cards PDF: A4 sheets, 10 cards per sheet, 85x55 mm, 3 mm bleed, crop marks, QR a
 
 - Languages: `businessLanguages` from config.
 - Dark technical look (IBM Plex Sans + Mono, one accent colour), see reference canvas.
-- Sections: hero (positioning, Book a call, LinkedIn), expertise (S/4HANA, Cloud ALM, CRM, AI strategy), selected work (content collection), contact.
+- Sections: hero (positioning, Book a call, LinkedIn), focus areas (agent-led development, engineering process, architecture, domain knowledge; keys still `exp_s4/alm/crm/ai`), selected work (content collection), contact.
 - SEO component (title, description, Open Graph image, canonical, hreflang), sitemap, Cloudflare Web Analytics (cookieless), Cal.com embed for booking, CV PDF generated from content.
 - `public/_redirects` for QR redirects: `/go https://example.com 302`.
 - Impressum and privacy page (Swiss nDSG).

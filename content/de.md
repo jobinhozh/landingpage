@@ -172,29 +172,29 @@ Teil
 
 ## de
 
-<!-- auto src-hash:99d56355 -->
+<!-- auto src-hash:5f294931 -->
 ### meta_title
-{full_name} · SAP Solutions Architect, Zürich
+{full_name} · Software Engineering Leader, Zürich
 
-<!-- auto src-hash:28195f84 -->
+<!-- auto src-hash:0c1511cd -->
 ### meta_description
-SAP Solutions Architect in Zürich. S/4HANA, Cloud ALM, CRM und KI-Strategie für Unternehmen, die SAP-Systeme wollen, mit denen Menschen gerne arbeiten.
+Software Engineering Leader in Zürich. 20 Jahre Software für Polizei und Banken. Schwerpunkt KI und agentengestützte Entwicklung.
 
 <!-- auto src-hash:c7af44e6 -->
 ### skip_link
 Zum Inhalt springen
 
-<!-- auto src-hash:79e6ca54 -->
+<!-- auto src-hash:efd48cc4 -->
 ### hero_eyebrow
-SAP Solutions Architect · Zürich
+Software Engineering Leader · Zürich
 
-<!-- auto src-hash:728b0c4e -->
+<!-- auto src-hash:d61ac576 -->
 ### hero_title
-Ich mache SAP-Landschaften zu Systemen, mit denen Menschen gerne arbeiten.
+Ich führe Softwareteams. Jetzt verändere ich, wie sie mit KI arbeiten.
 
-<!-- auto src-hash:a0049ed6 -->
+<!-- auto src-hash:dd7f170c -->
 ### hero_text
-[Ein bis zwei Sätze zu Ihrer Positionierung: wem Sie helfen und welches Ergebnis Ihre Kunden erhalten.]
+Über 20 Jahre Software für Polizei und Banken. Ich führe ein internationales Forward-Deployed-Team aus Engineers und Architekten. Aktuell erprobe ich mit diesem Team agentengestützte Entwicklung.
 
 <!-- auto src-hash:03693615 -->
 ### cta_book
@@ -204,73 +204,73 @@ Termin buchen
 ### cta_linkedin
 LinkedIn
 
-<!-- auto src-hash:00c504bb -->
+<!-- auto src-hash:d2bf5f89 -->
 ### expertise_title
-Wo ich den grössten Mehrwert schaffe
+Schwerpunkte
 
-<!-- auto src-hash:9831a29b -->
+<!-- auto src-hash:82ab1863 -->
 ### exp_s4_title
-S/4HANA
+Agentengestützte Entwicklung
 
-<!-- auto src-hash:9136995f -->
+<!-- auto src-hash:63048881 -->
 ### exp_s4_text
-[Kurzer Nachweis]
+Wie KI-Agenten Rollen, Code-Review und Release in einem Softwareteam verändern.
 
-<!-- auto src-hash:df1259ce -->
+<!-- auto src-hash:ba82af4d -->
 ### exp_alm_title
-Cloud ALM
+Engineering-Prozess
 
-<!-- auto src-hash:9136995f -->
+<!-- auto src-hash:cf4e2c65 -->
 ### exp_alm_text
-[Kurzer Nachweis]
+Planung, Umsetzung, Review und Release. Schritt für Schritt verbessert, Sprint für Sprint.
 
-<!-- auto src-hash:701f5257 -->
+<!-- auto src-hash:590c76e2 -->
 ### exp_crm_title
-CRM
+Architektur
 
-<!-- auto src-hash:9136995f -->
+<!-- auto src-hash:cee63238 -->
 ### exp_crm_text
-[Kurzer Nachweis]
+Zertifizierter SAP Enterprise Architect. Zielarchitekturen und Migrationspfade für komplexe Systemlandschaften.
 
-<!-- auto src-hash:1b6521dc -->
+<!-- auto src-hash:1d235769 -->
 ### exp_ai_title
-KI-Strategie
+Fachwissen
 
-<!-- auto src-hash:9136995f -->
+<!-- auto src-hash:d4593e7b -->
 ### exp_ai_text
-[Kurzer Nachweis]
+Acht Jahre in der Strafverfolgung. US-Steuern im Banking. Weitere Erfahrung im öffentlichen Sektor und in der Lebensversicherung.
 
 <!-- auto src-hash:5a470989 -->
 ### work_title
 Ausgewählte Projekte
 
-<!-- auto src-hash:59825a04 -->
+<!-- auto src-hash:9bd1ebe1 -->
 ### work_one_title
-[Projekttitel mit dem erzielten Ergebnis]
+Polizeiorganisation mit 3'000 Mitarbeitenden: von SAP ECC zum S/4HANA-Konzept
 
-<!-- auto src-hash:c9a20be8 -->
+<!-- auto src-hash:272323ba -->
 ### work_one_text
-[Ein Satz zu Umfang und Ihrer Rolle]
+Leitung des internationalen Architekturteams. Mitarbeit an einer mobilen Flutter-App auf Basis von Personas.
 
-<!-- auto src-hash:59825a04 -->
+<!-- auto src-hash:850b2dcb -->
 ### work_two_title
-[Projekttitel mit dem erzielten Ergebnis]
+US-Steueranalysen für zwei Banken, bei Bussen in dreistelliger Millionenhöhe
 
-<!-- auto src-hash:c9a20be8 -->
+<!-- auto src-hash:c4c32c4a -->
 ### work_two_text
-[Ein Satz zu Umfang und Ihrer Rolle]
+Datenanalyse für die Klassifizierung von US-Personen und US-Steuerformulare. Eine globale Bank, eine Privatbank.
 
-<!-- auto src-hash:7cd71d92 -->
+<!-- auto src-hash:73ac94c3 -->
 ### contact_title
-Lassen Sie uns sprechen
+Kontakt
 
-<!-- auto src-hash:eb61d5dd -->
+<!-- auto src-hash:73df546b -->
 ### contact_text
-Offen für Architektur-Reviews, Transformationsberatung und Vorträge.
+Verfügbar für Engineering-Reviews, KI in Softwareteams und Vorträge.
 
-<!-- auto src-hash:6b59ed41 -->
+<!-- auto src-hash:f8a70733 -->
 ### contact_cta
-30-Minuten-Gespräch buchen
+30-Minuten-Termin buchen
 
 <!-- auto src-hash:8544c9cb -->
 ### cv_link
