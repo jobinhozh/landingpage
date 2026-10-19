@@ -184,10 +184,6 @@ Hola, soy {owner_first_name}.
 ### intro
 Me alegra que nos hayamos conocido. Déjame tus datos y te escribo pronto.
 
-<!-- auto src-hash:d7007f20 -->
-### chip_city
-Zúrich
-
 <!-- auto src-hash:0c632e38 -->
 ### chip_languages
 Idiomas
@@ -247,6 +243,74 @@ Viajes
 <!-- auto src-hash:17e2bbab -->
 ### chip_languages_more
 Alemán suizo, inglés y francés. Estoy aprendiendo portugués y español.
+
+<!-- auto src-hash:260ab774 -->
+### chip_city_more
+Vivo en Zúrich. Me siento en casa en todo el mundo.
+
+<!-- auto src-hash:f4c047db -->
+### chip_marathon
+Maratón
+
+<!-- auto src-hash:2fe40623 -->
+### chip_marathon_more
+Fráncfort 2018
+
+<!-- auto src-hash:0d4f9368 -->
+### card_title
+El expediente de Marc
+
+<!-- auto src-hash:b4c041bd -->
+### card_travel_value
+60 países y contando
+
+<!-- auto src-hash:048d62ff -->
+### map_label
+Mapa del mundo con los 60 países que Marc ha visitado
+
+<!-- auto src-hash:aec35541 -->
+### map_legend
+Ya estuve
+
+<!-- auto src-hash:bbc39b8d -->
+### sport_title
+Deporte
+
+<!-- auto src-hash:afb3e591 -->
+### sport_col_category
+Categoría
+
+<!-- auto src-hash:0ee9a1b8 -->
+### sport_col_event
+Carrera
+
+<!-- auto src-hash:035f1f67 -->
+### sport_col_best
+Mejor marca
+
+<!-- auto src-hash:f4c047db -->
+### sport_marathon
+Maratón
+
+<!-- auto src-hash:5e44060a -->
+### sport_hyrox_solo
+Hyrox individual
+
+<!-- auto src-hash:d754aa61 -->
+### sport_hyrox_doubles
+Hyrox dobles
+
+<!-- auto src-hash:4f9586ba -->
+### sport_crossfit_open
+CrossFit
+
+<!-- auto src-hash:969a712a -->
+### level_native
+Nativo
+
+<!-- auto src-hash:9dd9203e -->
+### sport_half_marathon
+Media maratón
 
 # kids
 

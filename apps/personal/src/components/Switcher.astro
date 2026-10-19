@@ -1,19 +1,30 @@
 ---
 import LanguageSwitcher from "@marc/ui/LanguageSwitcher.astro";
-import { t } from "@marc/i18n/content";
+import { setting, t } from "@marc/i18n/content";
 import type { PersonalPage } from "../../../../site.config.ts";
 import { flagSvg } from "../../../../flags.ts";
-import { allLanguages, pageUrl } from "../lib/pages.ts";
+import { keptQuery, languagesOf, pageUrl } from "../lib/pages.ts";
 
 export interface Props { page: PersonalPage; lang: string; rest?: string }
 const { page, lang, rest = "" } = Astro.props;
 // Kid pages show each language as its country's flag (theme in site.config.ts).
-const items = allLanguages.map((l) => ({
-  code: l.code,
-  chip: l.chip,
-  label: l.label,
-  href: pageUrl(page, l.code, rest),
-  flag: page.style === "comic" ? flagSvg(l.theme, 34, 23) : undefined,
-}));
+// The private page shows Marc's level per language (level_<code> settings, "native" is translated).
+const level = (code: string) => {
+  if (page.style !== "calm") return undefined;
+  const v = setting(page.id, `level_${code}`);
+  return v === "native" ? t(page.id, "level_native", lang) : v || undefined;
+};
+const query = keptQuery(Astro.url);
+const items = languagesOf(page).map((l) => {
+  const lvl = level(l.code);
+  return {
+    code: l.code,
+    chip: l.chip,
+    label: lvl ? `${l.label}, ${lvl}` : l.label,
+    href: `${pageUrl(page, l.code, rest)}${query}`,
+    flag: page.style === "comic" ? flagSvg(l.theme, 34, 23) : undefined,
+    sub: lvl,
+  };
+});
 ---
 <LanguageSwitcher current={lang} items={items} label={t(page.id, "language_label", lang)} variant={page.style} />

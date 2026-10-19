@@ -7,15 +7,39 @@ import type { PersonalPage } from "../../../../site.config.ts";
 import type { FormState } from "../lib/contact.ts";
 import Footer from "./Footer.astro";
 import Switcher from "./Switcher.astro";
+import sport from "../data/sport.json";
+import { worldMap } from "../data/world-map.ts";
 
 export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
 const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
 // Chips with a `chip_<id>_more` text open a small card on hover (mouse) or tap.
-const chips = ["city", "crossfit", "hyrox", "travel", "languages"].map((id) => ({
+const chips = ["crossfit", "hyrox", "marathon", "travel", "languages"].map((id) => ({
   id,
   label: p(`chip_${id}`),
   more: has(page.id, `chip_${id}_more`, lang) || has(page.id, `chip_${id}_more`, "en") ? p(`chip_${id}_more`) : null,
+}));
+// Small line icons per chip (decorative, 16 px, currentColor).
+const icons: Record<string, string> = {
+  city: '<path d="M8 14s5-4.6 5-8.5A5 5 0 0 0 3 5.5C3 9.4 8 14 8 14Z"/><circle cx="8" cy="5.6" r="1.8"/>',
+  crossfit: '<path d="M2 6v4M4.5 4.5v7M11.5 4.5v7M14 6v4M4.5 8h7"/>',
+  hyrox: '<circle cx="8" cy="9" r="5"/><path d="M8 9V6.5M6.5 2h3M12.2 4.8l1-1"/>',
+  marathon: '<path d="M2 11.5h8.5l3.5 1V14H2v-2.5ZM2 11.5 3 6l3 1 1.5-2.5 3 2v5"/>',
+  travel: '<path d="M14 2 2 7l5 1.5L8.5 14 14 2Z"/>',
+  languages: '<path d="M2.5 3.5h11v7H8l-3 2.5v-2.5H2.5v-7Z"/>',
+};
+const icon = (id: string) =>
+  `<svg class="chip__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[id] ?? ""}</svg>`;
+// Hidden by default. ?show=travel, ?show=sport or ?show=travel,sport adds the blocks (also on the QR link /s/<token>?show=…).
+const shown = new Set((Astro.url.searchParams.get("show") ?? "").split(",").map((h) => h.trim()));
+const showTravel = shown.has("travel");
+const showSport = shown.has("sport");
+// Best results per category (sport.json): a time in "best" or a placing in "rank". Empty shows a dash.
+// A rank (CrossFit Open) shows as "#98,372" in the page language's number format.
+const results = (sport as { id: string; event: string; year: string; best?: string; rank?: number }[]).map((r) => ({
+  ...r,
+  label: p(`sport_${r.id}`),
+  best: r.rank ? `#${new Intl.NumberFormat(lang === "gsw" ? "de-CH" : lang).format(r.rank)}` : r.best || "–",
 }));
 const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
 const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzle("solved"), shuffle: puzzle("shuffle"), close: puzzle("close"), tile: puzzle("tile") };
@@ -24,6 +48,7 @@ const title = p("title");
 const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(title.length, 8) * 0.56).toFixed(2)}))`;
 ---
 <div class="private">
+  <div class="private__hero">
   <div class="private__top"><Switcher page={page} lang={lang} /></div>
   <header class="private__head">
     <div class="private__id">
@@ -31,19 +56,21 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
       <h1 style={`font-size: ${titleSize}`}>{title}</h1>
     </div>
     <p class="private__intro" set:html={ti(page.id, "intro", lang)} />
+    <p class="private__base"><Fragment set:html={icon("city")} />{p("chip_city_more")}</p>
     <ul class="private__chips">
       {chips.map((c) =>
         c.more ? (
           <li class="chip-wrap" data-chip>
-            <button type="button" class="chip-btn" popovertarget={`chip-${c.id}`}><span class="chip chip--more">{c.label}</span></button>
+            <button type="button" class="chip-btn" popovertarget={`chip-${c.id}`}><span class="chip chip--more"><Fragment set:html={icon(c.id)} />{c.label}</span></button>
             <div id={`chip-${c.id}`} popover class="chip-pop">{c.more}</div>
           </li>
         ) : (
-          <li class="chip-wrap"><span class="chip">{c.label}</span></li>
+          <li class="chip-wrap"><span class="chip"><Fragment set:html={icon(c.id)} />{c.label}</span></li>
         ),
       )}
     </ul>
   </header>
+  </div>
   <main class="private__card">
     {sent ? (
       <section class="private__sent" role="status">
@@ -70,33 +97,112 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
       />
     )}
   </main>
+  {(showTravel || showSport) && (
+  <section class="file" aria-labelledby="file-title">
+    <h2 id="file-title">{p("card_title")}</h2>
+    {showTravel && (
+    <div class="file__panel">
+      <h3><Fragment set:html={icon("travel")} />{p("card_travel_value")}</h3>
+      <svg class="map" viewBox={`0 0 ${worldMap.width} ${worldMap.height}`} role="img" aria-label={p("map_label")}>
+        <path class="map__land" d={worldMap.land} />
+        <path class="map__visited" d={worldMap.visited} />
+        {worldMap.pins.map(([x, y]) => <circle class="map__pin" cx={x} cy={y} r="1.9" />)}
+      </svg>
+      <p class="map__legend"><span class="map__key"></span>{p("map_legend")}</p>
+    </div>
+    )}
+    {showSport && (
+    <div class="file__panel">
+      <h3><Fragment set:html={icon("hyrox")} />{p("sport_title")}</h3>
+      <table class="sport">
+        <thead><tr><th scope="col">{p("sport_col_category")}</th><th scope="col">{p("sport_col_event")}</th><th scope="col">{p("sport_col_best")}</th></tr></thead>
+        <tbody>
+          {results.map((r) => (
+            <tr><th scope="row">{r.label}</th><td>{r.event} {r.year}</td><td class="sport__best">{r.best}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    )}
+  </section>
+  )}
   <Footer page={page} lang={lang} />
 </div>
 <style>
-  .private { max-width: 480px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; box-sizing: border-box; }
+  /* Graphic novel: ink on warm paper, halftone, one red, a mustard caption box. Comic like the kids' pages, but grown up. */
+  .private {
+    --ink: #141414; --paper: #F3EEE4; --red: var(--p-accent, #C8102E); --mustard: var(--p-caption, #F2C14E);
+    --accent: var(--red);
+    max-width: 480px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; box-sizing: border-box;
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image: radial-gradient(rgb(20 20 20 / 9%) 1.1px, transparent 1.4px);
+    background-size: 9px 9px;
+  }
+  .private__hero { display: flex; flex-direction: column; gap: 12px; }
   .private__top { padding: 6px 8px 0; }
-  .private__head { padding: 0 20px; display: flex; flex-direction: column; gap: 8px; }
-  .private__id { display: flex; align-items: center; gap: 14px; --puzzle-surface: #FFF; --puzzle-text: #1F2A33; --puzzle-accent: #C2410C; --puzzle-accent-text: #FFF; }
-  .private__id :global(.private__photo) { display: block; flex: 0 0 64px; width: 64px; height: 64px; border-radius: 999px; object-fit: cover; background: #C2410C; }
-  .private h1 { margin: 0; line-height: 1; font-weight: 800; letter-spacing: -0.03em; white-space: nowrap; }
-  .private__intro { margin: 0; font-size: 16px; line-height: 1.4; color: #3B4954; }
-  .private__chips { display: flex; flex-wrap: wrap; gap: 0 6px; margin: -9px 0; padding: 0; list-style: none; }
+  .private__head { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+  .private__id { display: flex; align-items: center; gap: 14px; --puzzle-surface: #FFF; --puzzle-text: #141414; --puzzle-accent: var(--red); --puzzle-accent-text: #FFF; }
+  .private__id :global(.private__photo) {
+    display: block; flex: 0 0 72px; width: 72px; height: 72px; border-radius: 999px; object-fit: cover; background: var(--mustard);
+    border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); box-sizing: border-box;
+  }
+  .private h1 { margin: 0; line-height: 0.95; font-family: "Anton", "Bricolage Grotesque", sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; white-space: nowrap; }
+  /* Narration box, as in a comic panel. */
+  .private__intro {
+    margin: 0; padding: 8px 12px; font-size: 15px; line-height: 1.4; font-weight: 600;
+    background: var(--mustard); border: 2.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  }
+  .private__chips { display: flex; flex-wrap: wrap; gap: 0 6px; margin: -6px 0 -9px; padding: 0; list-style: none; }
   .chip-wrap { display: flex; align-items: center; min-height: 44px; }
-  .chip { display: inline-block; padding: 5px 10px; background: #FFF; border-radius: 999px; font-size: 13px; font-weight: 600; color: #1F2A33; }
+  .chip {
+    display: inline-flex; align-items: center; white-space: nowrap; padding: 4px 9px; font-size: 13px; font-weight: 700;
+    background: #FFF; color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; box-shadow: 2px 2px 0 var(--ink);
+  }
+  :global(.chip__icon) { flex: none; margin-right: 5px; color: var(--red); }
   /* The button is the 44 px touch target, the pill inside keeps the small look. */
   .chip-btn { display: flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; font: inherit; cursor: pointer; }
-  .chip--more::after { content: "+"; margin-left: 5px; color: #C2410C; font-weight: 800; }
-  .chip-btn:hover .chip, .chip-btn:focus-visible .chip { box-shadow: 0 0 0 2px #C2410C; }
+  .chip--more::after { content: "+"; margin-left: 5px; color: var(--red); font-weight: 800; }
+  .chip-btn:hover .chip, .chip-btn:focus-visible .chip { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--red); }
   .chip-btn:focus-visible { outline: none; }
+  /* Detail card as a speech bubble. */
   .chip-pop {
     position: fixed; inset: auto; margin: 0; width: max-content; max-width: min(320px, calc(100vw - 32px)); max-height: 50vh; overflow: auto;
-    padding: 12px 14px; border: 0; border-radius: 12px; background: #1F2A33; color: #FFF;
-    font-size: 14px; line-height: 1.45; box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
+    padding: 10px 13px; border: 2.5px solid #141414; border-radius: 14px; background: #FFF; color: #141414;
+    font-size: 14px; line-height: 1.45; font-weight: 600; box-shadow: 4px 4px 0 #141414;
   }
-  .private__card { margin: 0 12px; padding: 16px; background: #FFF; border-radius: 18px; }
-  .private__sent h2 { margin: 0 0 8px; font-size: 24px; font-weight: 800; }
-  .private__sent p { margin: 0; font-size: 16px; line-height: 1.45; color: #3B4954; }
+  .private__card { margin: 0 12px; padding: 16px; background: #FFF; border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+  .private__card :global(.cform__title) { font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; font-size: 24px; }
+  .private .private__card :global(input[type="text"]), .private .private__card :global(textarea) { border: 2px solid var(--ink); border-radius: 6px; }
+  .private .private__card :global(.chip span) { border: 2px solid var(--ink); }
+  .private__card :global(.cform__submit) { border: 2.5px solid var(--ink); border-radius: 6px; box-shadow: 3px 3px 0 var(--ink); text-transform: uppercase; letter-spacing: 0.03em; }
+  .private__sent h2 { margin: 0 0 8px; font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase; font-size: 26px; }
+  .private__sent p { margin: 0; font-size: 16px; line-height: 1.45; }
+
+  .private__base { display: flex; align-items: center; margin: -2px 0 0; font-size: 14px; font-weight: 700; }
+
+  /* The file: Marc's hero card with the travel map and the sport results. */
+  .file { margin: 8px 12px 0; padding: 14px; background: var(--mustard); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); display: flex; flex-direction: column; gap: 12px; }
+  .file h2 { margin: 0; font-family: "Anton", sans-serif; font-weight: 400; font-size: 24px; text-transform: uppercase; letter-spacing: 0.02em; }
+  .file__panel { background: #FFF; border: 2.5px solid var(--ink); padding: 10px 12px; }
+  .file h3 { display: flex; align-items: center; margin: 0 0 8px; font-family: "Anton", sans-serif; font-weight: 400; font-size: 20px; text-transform: uppercase; letter-spacing: 0.01em; }
+  .map { display: block; width: 100%; height: auto; }
+  .map__land { fill: none; stroke: #141414; stroke-opacity: 0.32; stroke-width: 1.8; stroke-linecap: round; }
+  .map__visited { fill: none; stroke: var(--red); stroke-width: 2.2; stroke-linecap: round; }
+  .map__pin { fill: var(--red); stroke: #FFF; stroke-width: 0.6; }
+  .map__legend { display: flex; align-items: center; gap: 6px; margin: 6px 0 0; font-size: 12px; font-weight: 700; }
+  .map__key { width: 10px; height: 10px; border-radius: 999px; background: var(--red); }
+  .sport { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .sport th, .sport td { padding: 7px 4px; text-align: left; border-bottom: 2px solid #141414; vertical-align: top; }
+  .sport thead th { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; border-bottom-width: 3px; }
+  .sport tbody tr:last-child th, .sport tbody tr:last-child td { border-bottom: 0; }
+  .sport tbody th { font-weight: 800; }
+  .sport__best { font-family: "Anton", sans-serif; font-size: 18px; white-space: nowrap; text-align: right !important; }
+  .sport thead th:last-child { text-align: right; }
   .private :global(.pfooter) { margin-top: auto; }
+  .private :global(.lang-switch--calm a[aria-current="true"]) { background: var(--ink); color: #FFF; }
+
+  @media (prefers-reduced-motion: reduce) { .chip-btn:hover .chip { transform: none; } }
 </style>
 <script>
   // Place each card under its chip, and open it on hover for mouse users. Tap and keyboard use the native popover.

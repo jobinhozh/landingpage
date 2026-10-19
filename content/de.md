@@ -389,6 +389,34 @@ Foto von {full_name}
 ### certs_title
 Zertifizierungen
 
+<!-- auto src-hash:a17da53a -->
+### certs_filter_label
+Zertifizierungen filtern
+
+<!-- auto src-hash:75afe364 -->
+### certs_filter_all
+Alle
+
+<!-- auto src-hash:14f6a3ab -->
+### certs_filter_sap
+SAP
+
+<!-- auto src-hash:23d5135f -->
+### certs_filter_ai
+KI
+
+<!-- auto src-hash:e73165f1 -->
+### certs_filter_pm
+Projektmanagement
+
+<!-- auto src-hash:6895c985 -->
+### work_one_industry
+Strafverfolgung
+
+<!-- auto src-hash:039c102c -->
+### work_two_industry
+Globale Bank
+
 # private
 
 ## de
@@ -404,10 +432,6 @@ Hallo, ich bin {owner_first_name}.
 <!-- auto src-hash:09aa4c20 -->
 ### intro
 Schön, dass wir uns getroffen haben. Hinterlass mir deine Kontaktdaten, ich melde mich bald.
-
-<!-- auto src-hash:d7007f20 -->
-### chip_city
-Zürich
 
 <!-- auto src-hash:0c632e38 -->
 ### chip_languages
@@ -468,6 +492,74 @@ Bisher 60 Länder: Ägypten, Albanien, Argentinien, Australien, Bahamas, Belgien
 <!-- auto src-hash:17e2bbab -->
 ### chip_languages_more
 Schweizerdeutsch, Englisch und Französisch. Ich lerne Portugiesisch und Spanisch.
+
+<!-- auto src-hash:260ab774 -->
+### chip_city_more
+Zuhause in Zürich. Daheim auf der ganzen Welt.
+
+<!-- auto src-hash:f4c047db -->
+### chip_marathon
+Marathon
+
+<!-- auto src-hash:2fe40623 -->
+### chip_marathon_more
+Frankfurt 2018
+
+<!-- auto src-hash:0d4f9368 -->
+### card_title
+Marcs Akte
+
+<!-- auto src-hash:b4c041bd -->
+### card_travel_value
+60 Länder und es werden mehr
+
+<!-- auto src-hash:048d62ff -->
+### map_label
+Weltkarte mit den 60 Ländern, die Marc besucht hat
+
+<!-- auto src-hash:aec35541 -->
+### map_legend
+Schon dort gewesen
+
+<!-- auto src-hash:bbc39b8d -->
+### sport_title
+Sport
+
+<!-- auto src-hash:afb3e591 -->
+### sport_col_category
+Kategorie
+
+<!-- auto src-hash:0ee9a1b8 -->
+### sport_col_event
+Rennen
+
+<!-- auto src-hash:035f1f67 -->
+### sport_col_best
+Bestzeit
+
+<!-- auto src-hash:f4c047db -->
+### sport_marathon
+Marathon
+
+<!-- auto src-hash:5e44060a -->
+### sport_hyrox_solo
+Hyrox Solo
+
+<!-- auto src-hash:d754aa61 -->
+### sport_hyrox_doubles
+Hyrox Doubles
+
+<!-- auto src-hash:4f9586ba -->
+### sport_crossfit_open
+CrossFit
+
+<!-- auto src-hash:969a712a -->
+### level_native
+Muttersprache
+
+<!-- auto src-hash:9dd9203e -->
+### sport_half_marathon
+Halbmarathon
 
 # kids
 

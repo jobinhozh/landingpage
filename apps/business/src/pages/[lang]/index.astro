@@ -4,7 +4,7 @@ import { t, ti, setting } from "@marc/i18n/content";
 import Base from "../../layouts/Base.astro";
 import CalEmbed from "../../components/CalEmbed.astro";
 import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
-import { certMeta, certifications } from "../../lib/certifications.ts";
+import { certMeta, certifications, certTags } from "../../lib/certifications.ts";
 import { PAGE, langPaths, slugOf } from "../../lib/i18n.ts";
 
 export const getStaticPaths = langPaths;
@@ -54,7 +54,14 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
     <section class="border-t border-line" aria-labelledby="certs">
       <div class="mx-auto max-w-5xl px-6 py-10 sm:py-16">
         <h2 id="certs" class="m-0 text-[22px] font-semibold sm:text-3xl">{p("certs_title")}</h2>
-        <ul class="mt-5 grid list-none gap-3 p-0 sm:grid-cols-2 sm:gap-4">
+        <div class="cert-filter mt-5 flex flex-wrap gap-2" role="group" aria-label={p("certs_filter_label")} hidden>
+          {["all", ...certTags].map((tag) => (
+            <button type="button" data-filter={tag} aria-pressed={tag === "all" ? "true" : "false"} class="min-h-11 rounded-lg border border-line-strong px-4 font-mono text-sm text-text">
+              {p(`certs_filter_${tag}`)}
+            </button>
+          ))}
+        </div>
+        <ul class="mt-4 grid list-none gap-3 p-0 sm:grid-cols-2 sm:gap-4" data-certs>
           {certifications.map((c) => {
             const inner = (
               <>
@@ -63,7 +70,7 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
               </>
             );
             return (
-              <li>
+              <li data-tags={c.tags.join(" ")}>
                 {c.url ? (
                   <a href={c.url} rel="noopener" class="flex min-h-11 h-full flex-col gap-1 rounded-[10px] border border-line px-4 py-3 text-text no-underline hover:border-accent hover:text-text">{inner}</a>
                 ) : (
@@ -84,7 +91,7 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
         {work.map(({ data }) => {
           const inner = (
             <>
-              <span class="font-mono text-xs text-muted">{data.industry} · {data.year}</span>
+              <span class="font-mono text-xs text-muted">{p(`work_${data.id}_industry`)} · {data.year}</span>
               <h3 class="m-0 text-[17px] font-semibold">{p(`work_${data.id}_title`)}</h3>
               <p class="m-0 text-sm leading-snug text-muted" set:html={ti(PAGE, `work_${data.id}_text`, lang)} />
             </>
@@ -112,6 +119,24 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
     </div>
   </section>
 </Base>
+<script>
+  // Certification filter: progressive enhancement, without JS every certification shows.
+  const filter = document.querySelector<HTMLElement>(".cert-filter");
+  if (filter) {
+    filter.hidden = false;
+    const items = document.querySelectorAll<HTMLElement>("[data-certs] > li");
+    filter.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-filter]");
+      if (!btn) return;
+      const tag = btn.dataset.filter!;
+      for (const b of filter.querySelectorAll("button")) b.setAttribute("aria-pressed", String(b === btn));
+      for (const li of items) li.hidden = tag !== "all" && !li.dataset.tags!.split(" ").includes(tag);
+    });
+  }
+</script>
+
 <style>
+  .cert-filter button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #0E1620; }
+  .cert-filter button:hover { border-color: var(--accent); }
   .hero-photo { --puzzle-surface: #152130; --puzzle-text: #E6ECF2; --puzzle-accent: #5FD4C3; --puzzle-accent-text: #0E1620; }
 </style>

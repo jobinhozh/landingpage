@@ -1,5 +1,12 @@
-import { businessLanguages, contentPages, fallback, languages, pageLanguages } from "../../../site.config.ts";
-import { themes } from "../../../themes.ts";
+import {
+  businessLanguages,
+  contentPages,
+  fallback,
+  languages,
+  pageLanguages,
+  privateLanguages,
+} from "../../../site.config.ts";
+import { privateThemes, themes } from "../../../themes.ts";
 import type { ContentDoc } from "./types.ts";
 
 export interface ValidationResult {
@@ -20,6 +27,16 @@ export function validateConfig(): string[] {
     if (!themes[l.theme]) errors.push(`site.config: language "${l.code}" uses unknown theme "${l.theme}"`);
   }
   if (!codes.includes(fallback)) errors.push(`site.config: fallback "${fallback}" is not in languages`);
+  for (const b of privateLanguages) {
+    if (!codes.includes(b)) errors.push(`site.config: privateLanguages contains unknown code "${b}"`);
+  }
+  for (const code of privateLanguages) {
+    const theme = languages.find((l) => l.code === code)?.theme;
+    if (theme && !privateThemes[theme])
+      errors.push(`themes: private page language "${code}" needs a privateThemes entry for "${theme}"`);
+  }
+  if (!privateLanguages.includes(fallback))
+    errors.push(`site.config: privateLanguages must contain the fallback "${fallback}"`);
   for (const b of businessLanguages) {
     if (!codes.includes(b)) errors.push(`site.config: businessLanguages contains unknown code "${b}"`);
   }

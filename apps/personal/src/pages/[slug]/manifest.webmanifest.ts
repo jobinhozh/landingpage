@@ -3,13 +3,13 @@ import { detectLanguage } from "@marc/i18n";
 import { t } from "@marc/i18n/content";
 import { themes } from "../../../../../themes.ts";
 import { notFound } from "../../lib/http.ts";
-import { allLanguages, pageBySlug } from "../../lib/pages.ts";
+import { allLanguages, pageBySlug, pageLangCodes } from "../../lib/pages.ts";
 
 /** PWA manifest so parents can add the page to their home screen. */
 export const GET: APIRoute = ({ params, request, locals }) => {
   const page = pageBySlug(params.slug);
   if (!page || !locals.pass) return notFound();
-  const lang = detectLanguage(request.headers.get("accept-language"));
+  const lang = detectLanguage(request.headers.get("accept-language"), pageLangCodes(page));
   const theme = themes[allLanguages.find((l) => l.code === lang)?.theme ?? "uk"]!;
   const name = t(page.id, "meta_title", lang);
   const manifest = {

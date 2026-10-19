@@ -6,12 +6,18 @@ import PrivatePage from "../../../components/PrivatePage.astro";
 import Personal from "../../../layouts/Personal.astro";
 import { type FormState, handleContact } from "../../../lib/contact.ts";
 import { notFound } from "../../../lib/http.ts";
-import { langFromSlug, pageBySlug } from "../../../lib/pages.ts";
+import { detectLanguage } from "@marc/i18n";
+import { keptQuery, langFromSlug, pageBySlug, pageLangCodes, pageUrl } from "../../../lib/pages.ts";
 
 // The middleware already checked the pass cookie for this page.
 const page = pageBySlug(Astro.params.slug);
 const language = langFromSlug(Astro.params.lang);
 if (!page || !language || !Astro.locals.pass) return notFound();
+// A language this page is not published in (e.g. /m/it) goes to the best published one.
+if (!pageLangCodes(page).includes(language.code)) {
+  const code = detectLanguage(Astro.request.headers.get("accept-language"), pageLangCodes(page));
+  return Astro.redirect(`${pageUrl(page, code)}${keptQuery(Astro.url)}`, 302);
+}
 const lang = language.code;
 
 let state: FormState | undefined;

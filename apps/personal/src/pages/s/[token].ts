@@ -5,7 +5,7 @@ import { tokenDefaults } from "../../../../../site.config.ts";
 import { passCookie, signPass } from "../../lib/cookie.ts";
 import { recordScan, tokenByValue } from "../../lib/db.ts";
 import { notFound, redirect } from "../../lib/http.ts";
-import { pageById, pageUrl } from "../../lib/pages.ts";
+import { keptQuery, pageById, pageLangCodes, pageUrl } from "../../lib/pages.ts";
 import { isPreviewBot, previewHtml, previewImageKey } from "../../lib/preview.ts";
 import { isTokenActive, TOKEN_RE, tokenExpiry } from "../../lib/token.ts";
 
@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ params, request, locals, url }) => {
   if (isPreviewBot(request.headers.get("user-agent"))) {
     // WhatsApp builds the preview on the sender's phone, so its language fits. Without one, the card's.
     const accept = request.headers.get("accept-language")?.replace(/[\s*]/g, "");
-    const lang = accept ? detectLanguage(accept) : page.cardLanguages[0]!;
+    const lang = accept ? detectLanguage(accept, pageLangCodes(page)) : page.cardLanguages[0]!;
     const image = (await previewImageKey(env.BUCKET, page)) ? `${url.origin}/s/${token}/preview` : null;
     return new Response(previewHtml({ page, lang, url: `${url.origin}/s/${token}`, image }), {
       headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" },
@@ -37,8 +37,9 @@ export const GET: APIRoute = async ({ params, request, locals, url }) => {
   const value = await signPass(env.COOKIE_SIGNING_KEY, { page: page.id, tokenId: row.id, exp });
   locals.cfContext.waitUntil(recordScan(env.DB, row.id));
 
-  const lang = detectLanguage(request.headers.get("accept-language"));
-  return redirect(pageUrl(page, lang), 302, {
+  // ?show=… on the QR link carries over, so a card can show the travel or sport block.
+  const lang = detectLanguage(request.headers.get("accept-language"), pageLangCodes(page));
+  return redirect(`${pageUrl(page, lang)}${keptQuery(url)}`, 302, {
     "set-cookie": passCookie(value, page.slug, exp - Math.floor(Date.now() / 1000)),
     vary: "accept-language",
   });

@@ -210,14 +210,35 @@ Eight years in law enforcement. US tax in banking. Further experience in the pub
 ### certs_title
 Certifications
 
+### certs_filter_label
+Filter certifications
+
+### certs_filter_all
+All
+
+### certs_filter_sap
+SAP
+
+### certs_filter_ai
+AI
+
+### certs_filter_pm
+Project management
+
 ### work_title
 Selected work
+
+### work_one_industry
+Law enforcement
 
 ### work_one_title
 Police organisation with 3'000 officers: from SAP ECC to the S/4HANA concept
 
 ### work_one_text
 Led the international architecture team. Contributed to a mobile Flutter app based on personas.
+
+### work_two_industry
+Global bank
 
 ### work_two_title
 US tax analytics for two banks, with fines in the hundreds of millions at stake
@@ -326,6 +347,15 @@ Languages
 
 # private
 
+## settings
+
+level_gsw: native
+level_de: native
+level_en: C2
+level_fr: C1
+level_pt: A2
+level_es: A1
+
 ## en
 
 ### meta_title
@@ -343,8 +373,47 @@ Hi, I'm {owner_first_name}.
 ### intro
 Glad we met. Leave your details and I'll get back to you soon.
 
-### chip_city
-Zürich
+### card_title
+Marc's file
+
+### card_travel_value
+60 countries and counting
+
+### map_label
+World map with the 60 countries Marc has visited
+
+### map_legend
+Been there
+
+### sport_title
+Sport
+
+### sport_col_category
+Category
+
+### sport_col_event
+Race
+
+### sport_col_best
+Best
+
+### sport_marathon
+Marathon
+
+### sport_hyrox_solo
+Hyrox Solo
+
+### sport_hyrox_doubles
+Hyrox Doubles
+
+### sport_crossfit_open
+CrossFit
+
+### sport_half_marathon
+Half marathon
+
+### chip_city_more
+Based in Zürich. Home worldwide.
 
 ### chip_crossfit
 CrossFit
@@ -357,6 +426,12 @@ Hyrox
 
 ### chip_hyrox_more
 Solo in São Paulo 2025, Doubles in St. Gallen 2026
+
+### chip_marathon
+Marathon
+
+### chip_marathon_more
+Frankfurt 2018
 
 ### chip_travel
 Travel
@@ -384,6 +459,9 @@ Send
 
 ### card_scan
 Scan to stay in touch
+
+### level_native
+Native
 
 # kids
 

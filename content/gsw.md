@@ -184,10 +184,6 @@ Hoi, ich bi {owner_first_name}.
 ### intro
 Schön, dass mir eus troffe händ. Hinterlah mir dini Kontaktdate, ich mälde mich bald.
 
-<!-- draft src-hash:d7007f20 -->
-### chip_city
-Züri
-
 <!-- draft src-hash:0c632e38 -->
 ### chip_languages
 Sproche
@@ -247,6 +243,74 @@ Bis jetzt 60 Länder: Ägypten, Albanien, Argentinien, Australien, Bahamas, Belg
 <!-- draft src-hash:17e2bbab -->
 ### chip_languages_more
 Schwiizerdütsch, Englisch und Französisch. Ich lern Portugiesisch und Spanisch.
+
+<!-- draft src-hash:260ab774 -->
+### chip_city_more
+Dihei in Züri. Dihei uf de ganze Welt.
+
+<!-- draft src-hash:f4c047db -->
+### chip_marathon
+Marathon
+
+<!-- draft src-hash:2fe40623 -->
+### chip_marathon_more
+Frankfurt 2018
+
+<!-- draft src-hash:0d4f9368 -->
+### card_title
+Em Marc sini Akte
+
+<!-- draft src-hash:b4c041bd -->
+### card_travel_value
+60 Länder und es wärded meh
+
+<!-- draft src-hash:048d62ff -->
+### map_label
+Weltcharte mit de 60 Länder, wo de Marc scho gsi isch
+
+<!-- draft src-hash:aec35541 -->
+### map_legend
+Scho det gsi
+
+<!-- draft src-hash:bbc39b8d -->
+### sport_title
+Sport
+
+<!-- draft src-hash:afb3e591 -->
+### sport_col_category
+Kategorie
+
+<!-- draft src-hash:0ee9a1b8 -->
+### sport_col_event
+Rennä
+
+<!-- draft src-hash:035f1f67 -->
+### sport_col_best
+Bestzit
+
+<!-- draft src-hash:f4c047db -->
+### sport_marathon
+Marathon
+
+<!-- draft src-hash:5e44060a -->
+### sport_hyrox_solo
+Hyrox Solo
+
+<!-- draft src-hash:d754aa61 -->
+### sport_hyrox_doubles
+Hyrox Doubles
+
+<!-- draft src-hash:4f9586ba -->
+### sport_crossfit_open
+CrossFit
+
+<!-- draft src-hash:969a712a -->
+### level_native
+Muetersproch
+
+<!-- draft src-hash:9dd9203e -->
+### sport_half_marathon
+Halbmarathon
 
 # kids
 

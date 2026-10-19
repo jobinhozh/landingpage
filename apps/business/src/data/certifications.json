@@ -1,28 +1,83 @@
 [
-  { "name": "AI Agents Fundamentals", "issuer": "Hugging Face", "year": "2026" },
-  { "name": "SAP Certified - SAP Enterprise Architect", "issuer": "SAP", "year": "2026" },
+  {
+    "name": "AI Agents Fundamentals",
+    "issuer": "Hugging Face",
+    "year": "2026",
+    "tags": ["ai"]
+  },
+  {
+    "name": "SAP Certified - SAP Enterprise Architect",
+    "issuer": "SAP",
+    "year": "2026",
+    "tags": ["sap"]
+  },
   {
     "name": "SAP Certified - Solution Transformation Consultant with SAP Cloud ALM",
     "issuer": "SAP",
-    "year": "2026"
+    "year": "2026",
+    "tags": ["sap"]
   },
   {
     "name": "SAP Certified - Positioning SAP Business AI Solutions as part of SAP Business Suite",
     "issuer": "SAP",
-    "year": "2026"
+    "year": "2026",
+    "tags": ["sap", "ai"]
   },
   {
     "name": "SAP Certified Associate - Enterprise Architecture Consultant - SAP LeanIX",
     "issuer": "SAP",
-    "year": "2025"
+    "year": "2025",
+    "tags": ["sap"]
   },
-  { "name": "Academy Accreditation - Generative AI Fundamentals", "issuer": "Databricks", "year": "2025" },
-  { "name": "Academy Accreditation - Databricks Fundamentals", "issuer": "Databricks", "year": "2025" },
-  { "name": "SAP Generative AI Developer", "issuer": "SAP", "year": "2025" },
-  { "name": "SAP Certified Associate - SAP Activate Project Manager", "issuer": "SAP", "year": "2023" },
-  { "name": "HERMES5 Foundation", "issuer": "HERMES" },
-  { "name": "Scrum Master", "issuer": "Scrum Alliance" },
-  { "name": "PRINCE2 Practitioner", "issuer": "PRINCE2" },
-  { "name": "ITIL Foundation Level", "issuer": "ITIL", "year": "2014" },
-  { "name": "CIMA Certificate in Business Accounting", "issuer": "CIMA", "year": "2013" }
+  {
+    "name": "Academy Accreditation - Generative AI Fundamentals",
+    "issuer": "Databricks",
+    "year": "2025",
+    "tags": ["ai"]
+  },
+  {
+    "name": "Academy Accreditation - Databricks Fundamentals",
+    "issuer": "Databricks",
+    "year": "2025",
+    "tags": ["ai"]
+  },
+  {
+    "name": "SAP Generative AI Developer",
+    "issuer": "SAP",
+    "year": "2025",
+    "tags": ["sap", "ai"]
+  },
+  {
+    "name": "SAP Certified Associate - SAP Activate Project Manager",
+    "issuer": "SAP",
+    "year": "2023",
+    "tags": ["sap", "pm"]
+  },
+  {
+    "name": "HERMES5 Foundation",
+    "issuer": "HERMES",
+    "tags": ["pm"]
+  },
+  {
+    "name": "Scrum Master",
+    "issuer": "Scrum Alliance",
+    "tags": ["pm"]
+  },
+  {
+    "name": "PRINCE2 Practitioner",
+    "issuer": "PRINCE2",
+    "tags": ["pm"]
+  },
+  {
+    "name": "ITIL Foundation Level",
+    "issuer": "ITIL",
+    "year": "2014",
+    "tags": []
+  },
+  {
+    "name": "CIMA Certificate in Business Accounting",
+    "issuer": "CIMA",
+    "year": "2013",
+    "tags": []
+  }
 ]

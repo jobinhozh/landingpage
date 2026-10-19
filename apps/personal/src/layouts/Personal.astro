@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { themeCss } from "../../../../themes.ts";
+import { privateThemeCss, themeCss } from "../../../../themes.ts";
 
 export interface Props {
   lang: string;
@@ -13,11 +13,11 @@ const { lang, title, variant, theme, slug } = Astro.props;
 const fonts =
   variant === "comic"
     ? "https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
-    : "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap";
+    : "https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap";
 const themeColor = variant === "comic" ? "#111111" : "#EEF1EF";
 ---
 <!doctype html>
-<html lang={lang} data-theme={variant === "comic" ? theme : undefined} class={`v-${variant}`}>
+<html lang={lang} data-theme={theme} class={`v-${variant}`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -33,15 +33,15 @@ const themeColor = variant === "comic" ? "#111111" : "#EEF1EF";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={fonts} />
-    {variant === "comic" && <style is:inline set:html={themeCss()} />}
+    {variant === "comic" ? <style is:inline set:html={themeCss()} /> : <style is:inline set:html={privateThemeCss()} />}
   </head>
   <body>
     <slot />
   </body>
 </html>
 <style is:global>
-  .v-calm body { background: #EEF1EF; color: #16222B; font-family: "Bricolage Grotesque", system-ui, sans-serif; --accent: #C2410C; }
-  .v-calm a { color: #C2410C; }
+  .v-calm body { background: #F3EEE4; color: #141414; font-family: "Bricolage Grotesque", system-ui, sans-serif; --accent: var(--p-accent, #C8102E); }
+  .v-calm a { color: var(--p-accent, #C8102E); }
   .v-comic body {
     color: #111111;
     font-family: "Comic Neue", "Comic Sans MS", cursive;

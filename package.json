@@ -15,6 +15,7 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "translate": "tsx scripts/translate.ts",
+    "map": "tsx scripts/world-map.ts",
     "token:create": "tsx scripts/tokens.ts create",
     "token:revoke": "tsx scripts/tokens.ts revoke",
     "token:list": "tsx scripts/tokens.ts list",
@@ -23,13 +24,20 @@
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.133.0",
     "@biomejs/biome": "^2.5.15",
+    "@types/d3-geo": "^3.1.1",
+    "@types/geojson": "^7946.0.16",
     "@types/node": "^22.15.0",
     "@types/qrcode": "^1.5.5",
+    "@types/topojson-client": "^3.1.5",
+    "@types/topojson-specification": "^1.0.5",
+    "d3-geo": "3.1.1",
     "pdf-lib": "^1.17.1",
     "qrcode": "^1.5.4",
+    "topojson-client": "3.1.0",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "vitest": "^5.0.3",
+    "world-atlas": "2.0.2",
     "zod": "^4.6.5"
   }
 }

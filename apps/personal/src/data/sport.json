@@ -1,0 +1,7 @@
+[
+  { "id": "hyrox_doubles", "event": "St. Gallen", "year": "2026", "best": "1:25:33" },
+  { "id": "hyrox_solo", "event": "São Paulo", "year": "2025", "best": "2:00:11" },
+  { "id": "crossfit_open", "event": "Open", "year": "2025", "rank": 98372 },
+  { "id": "marathon", "event": "Frankfurt", "year": "2018", "best": "4:55:20" },
+  { "id": "half_marathon", "event": "Uster", "year": "2017", "best": "1:55:19" }
+]
