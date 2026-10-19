@@ -144,6 +144,30 @@ Leider können wir nicht
 ### rsvp_thanks
 Danke für deine Rückmeldung!
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Tippe aufs Bild für ein kleines Puzzle
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Schiebe die Teile an ihren Platz
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+Gelöst! Super 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mischen
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Schliessen
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Teil
+
 # business
 
 ## de
@@ -357,6 +381,10 @@ Sprachen
 ### cv_languages
 [Sprachen und Niveau]
 
+<!-- auto src-hash:043d5aa5 -->
+### photo_alt
+Foto von {full_name}
+
 # private
 
 ## de
@@ -404,6 +432,14 @@ Senden
 <!-- auto src-hash:dd22305a -->
 ### card_scan
 Scannen und in Kontakt bleiben
+
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Hallo, ich bin {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+Schön, dass wir uns getroffen haben! Tippe hier und hinterlasse deine Kontaktdaten, damit wir in Kontakt bleiben.
 
 # kids
 
@@ -484,6 +520,14 @@ Scann mich!
 <!-- auto src-hash:c1925651 -->
 ### card_line
 Lass uns wieder spielen!
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name} will wieder spielen!
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+Wir haben zusammen gespielt. Tippe hier und schreib meinem Papa, damit wir uns wiedersehen.
 
 # kid-one
 

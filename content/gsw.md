@@ -144,6 +144,30 @@ Leider chömed mir nöd
 ### rsvp_thanks
 Merci für dini Rückmäldig!
 
+<!-- draft src-hash:17f44597 -->
+### puzzle_open
+Tipp ufs Bild für es chliises Puzzle
+
+<!-- draft src-hash:00581f7c -->
+### puzzle_hint
+Schieb d Teili a ihre Platz
+
+<!-- draft src-hash:e4e281e8 -->
+### puzzle_solved
+Glöst! Mega 🎉
+
+<!-- draft src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mische
+
+<!-- draft src-hash:cd86acc3 -->
+### puzzle_close
+Schliesse
+
+<!-- draft src-hash:ad755325 -->
+### puzzle_tile
+Teili
+
 # private
 
 ## gsw
@@ -191,6 +215,14 @@ Schicke
 <!-- draft src-hash:dd22305a -->
 ### card_scan
 Scanne und in Kontakt bliibe
+
+<!-- draft src-hash:0c455417 -->
+### preview_title
+Hoi, ich bi {owner_first_name}
+
+<!-- draft src-hash:2406e63b -->
+### preview_description
+Schön, hämmer üs troffe! Tipp da und hinterlass dini Kontaktdate, dass mir in Kontakt bliibed.
 
 # kids
 
@@ -271,6 +303,14 @@ Scann mich!
 <!-- draft src-hash:c1925651 -->
 ### card_line
 Mir spieled wieder zäme!
+
+<!-- draft src-hash:e98f5750 -->
+### preview_title
+{hero_name} wott wieder spiele!
+
+<!-- draft src-hash:fbbc8b5e -->
+### preview_description
+Mir händ zäme gspielt. Tipp da und schriib mim Papi, dass mir üs wieder gsehnd.
 
 # kid-one
 

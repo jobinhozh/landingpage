@@ -15,6 +15,24 @@ owner_first_name: Marc
 
 ## en
 
+### puzzle_open
+Tap the picture for a little puzzle
+
+### puzzle_hint
+Slide the pieces back into place
+
+### puzzle_solved
+Solved! Nice one 🎉
+
+### puzzle_shuffle
+Shuffle
+
+### puzzle_close
+Close
+
+### puzzle_tile
+Piece
+
 ### form_name
 Your name
 
@@ -134,6 +152,9 @@ impressum_address: [Street and number], [Postcode] Zürich, Switzerland
 impressum_email: [contact email for the Impressum]
 
 ## en
+
+### photo_alt
+Photo of {full_name}
 
 ### meta_title
 {full_name} · SAP Solutions Architect, Zürich
@@ -307,6 +328,12 @@ Languages
 ### meta_title
 Hi, I'm {owner_first_name}
 
+### preview_title
+Hi, I'm {owner_first_name}
+
+### preview_description
+Glad we met! Tap to leave your details, so we can stay in touch.
+
 ### title
 Hi, I'm {owner_first_name}.
 
@@ -343,6 +370,12 @@ Scan to stay in touch
 
 ### meta_title
 {hero_name}
+
+### preview_title
+{hero_name} wants to play again!
+
+### preview_description
+We played together. Tap to send my dad a message, so we can meet again.
 
 ### avatar_alt
 Drawing of {hero_name}

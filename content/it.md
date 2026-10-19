@@ -144,6 +144,30 @@ Purtroppo non possiamo
 ### rsvp_thanks
 Grazie per averci risposto!
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Tocca la foto per un piccolo puzzle
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Fai scorrere i pezzi al loro posto
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+Risolto! Bravo 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mescola
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Chiudi
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Pezzo
+
 # private
 
 ## it
@@ -191,6 +215,14 @@ Invia
 <!-- auto src-hash:dd22305a -->
 ### card_scan
 Scansiona per restare in contatto
+
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Ciao, sono {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+Che bello averti conosciuto! Tocca qui e lascia i tuoi contatti, così restiamo in contatto.
 
 # kids
 
@@ -271,6 +303,14 @@ Scansionami!
 <!-- auto src-hash:c1925651 -->
 ### card_line
 Giochiamo ancora!
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name} vuole giocare ancora!
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+Abbiamo giocato insieme. Tocca qui e scrivi al mio papà, così ci rivediamo.
 
 # kid-one
 

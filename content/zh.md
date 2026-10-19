@@ -144,6 +144,30 @@ A block without marker is locked: edit it here and it is never overwritten.
 ### rsvp_thanks
 谢谢你告诉我们！
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+点一下照片，玩个小拼图
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+把拼块滑回原位
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+完成啦！真棒 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+打乱
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+关闭
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+拼块
+
 # private
 
 ## zh
@@ -191,6 +215,14 @@ A block without marker is locked: edit it here and it is never overwritten.
 <!-- auto src-hash:dd22305a -->
 ### card_scan
 扫码保持联系
+
+<!-- auto src-hash:0c455417 -->
+### preview_title
+你好，我是{owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+很高兴认识你！点这里留下你的联系方式，我们保持联系。
 
 # kids
 
@@ -271,6 +303,14 @@ A block without marker is locked: edit it here and it is never overwritten.
 <!-- auto src-hash:c1925651 -->
 ### card_line
 我们再一起玩吧！
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name}还想一起玩！
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+我们一起玩过。点这里给我爸爸发消息，我们就能再见面啦。
 
 # kid-one
 

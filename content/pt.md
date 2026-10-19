@@ -144,6 +144,30 @@ Infelizmente não vamos poder ir
 ### rsvp_thanks
 Obrigado por avisar!
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Toque na foto para um pequeno quebra-cabeça
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Deslize as peças para o lugar
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+Resolvido! Muito bem 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Embaralhar
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Fechar
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Peça
+
 # private
 
 ## pt
@@ -191,6 +215,14 @@ Enviar
 <!-- auto src-hash:dd22305a -->
 ### card_scan
 Escaneie para manter contato
+
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Oi, eu sou o {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+Que bom te conhecer! Toque aqui e deixe seus contatos para a gente manter contato.
 
 # kids
 
@@ -271,6 +303,14 @@ Me escaneie!
 <!-- auto src-hash:c1925651 -->
 ### card_line
 Vamos brincar de novo!
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name} quer brincar de novo!
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+A gente brincou junto. Toque aqui e mande uma mensagem pro meu pai, pra gente se ver de novo.
 
 # kid-one
 

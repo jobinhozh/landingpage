@@ -1,5 +1,6 @@
 ---
 import ContactForm from "@marc/ui/ContactForm.astro";
+import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
 import { t, ti } from "@marc/i18n/content";
 import { env } from "cloudflare:workers";
 import type { PersonalPage } from "../../../../site.config.ts";
@@ -10,6 +11,8 @@ import Switcher from "./Switcher.astro";
 export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
 const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
+const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
+const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzle("solved"), shuffle: puzzle("shuffle"), close: puzzle("close"), tile: puzzle("tile") };
 const title = p("title");
 // One line at any length (CLAUDE.md §9): width next to the photo divided by the title's average glyph width.
 const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(title.length, 8) * 0.56).toFixed(2)}))`;
@@ -18,7 +21,7 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   <div class="private__top"><Switcher page={page} lang={lang} /></div>
   <header class="private__head">
     <div class="private__id">
-      <img src={`/${page.slug}/photo`} alt={p("photo_alt")} width="64" height="64" class="private__photo" />
+      <PhotoPuzzle src={`/${page.slug}/photo`} alt={p("photo_alt")} size={64} class="private__photo" labels={puzzleLabels} />
       <h1 style={`font-size: ${titleSize}`}>{title}</h1>
     </div>
     <p class="private__intro" set:html={ti(page.id, "intro", lang)} />
@@ -60,8 +63,8 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   .private { max-width: 480px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; box-sizing: border-box; }
   .private__top { padding: 6px 8px 0; }
   .private__head { padding: 0 20px; display: flex; flex-direction: column; gap: 8px; }
-  .private__id { display: flex; align-items: center; gap: 14px; }
-  .private__photo { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 999px; object-fit: cover; background: #C2410C; }
+  .private__id { display: flex; align-items: center; gap: 14px; --puzzle-surface: #FFF; --puzzle-text: #1F2A33; --puzzle-accent: #C2410C; --puzzle-accent-text: #FFF; }
+  .private__id :global(.private__photo) { display: block; flex: 0 0 64px; width: 64px; height: 64px; border-radius: 999px; object-fit: cover; background: #C2410C; }
   .private h1 { margin: 0; line-height: 1; font-weight: 800; letter-spacing: -0.03em; white-space: nowrap; }
   .private__intro { margin: 0; font-size: 16px; line-height: 1.4; color: #3B4954; }
   .private__chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }

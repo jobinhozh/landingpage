@@ -144,6 +144,30 @@ Désolés, nous ne pourrons pas venir
 ### rsvp_thanks
 Merci de nous avoir répondu !
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Touche la photo pour un petit puzzle
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Fais glisser les pièces à leur place
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+Résolu ! Bravo 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mélanger
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Fermer
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Pièce
+
 # private
 
 ## fr
@@ -191,6 +215,14 @@ Envoyer
 <!-- auto src-hash:dd22305a -->
 ### card_scan
 Scanne pour rester en contact
+
+<!-- auto src-hash:0c455417 -->
+### preview_title
+Salut, moi c'est {owner_first_name}
+
+<!-- auto src-hash:2406e63b -->
+### preview_description
+Ravi de t'avoir rencontré ! Touche ici pour laisser tes coordonnées et rester en contact.
 
 # kids
 
@@ -271,6 +303,14 @@ Scanne-moi !
 <!-- auto src-hash:c1925651 -->
 ### card_line
 On rejoue ensemble ?
+
+<!-- auto src-hash:e98f5750 -->
+### preview_title
+{hero_name} veut rejouer !
+
+<!-- auto src-hash:fbbc8b5e -->
+### preview_description
+On a joué ensemble. Touche ici pour écrire à mon papa, comme ça on se revoit.
 
 # kid-one
 

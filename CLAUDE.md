@@ -158,6 +158,7 @@ Mir händ zäme gspielt! ...
 - Tokens expire after 12 months by default. Revoked or expired → 404.
 - `noindex` via `X-Robots-Tag` header on every response. Never list paths in `robots.txt`. Excluded from any sitemap.
 - PWA manifest so parents can add the page to their home screen.
+- Link previews (WhatsApp, iMessage, Telegram …): `/s/<token>` answers known preview crawlers with an Open Graph card (`preview_title`, `preview_description`, image = the uploaded drawing or photo via `/s/<token>/preview`) instead of the redirect. No cookie, no scan count. Invalid tokens stay 404.
 - Implementation: tokens are stored in D1 in plain form (cards must be reprintable for a batch). The cookie `__Secure-pass` is `<tokenId>.<exp>.<HMAC>` with `Path=/<slug>`, and every request re-checks that the token is still active.
 - Page slugs (`site.config.ts`): private `/m`, kid-one `/k1`, kid-two `/k2`. URLs: `/<slug>/<lang-slug>`, `/<slug>/<lang-slug>/privacy`.
 - Marc's photo is served from R2 key `media/photo.<webp|png|jpg>` behind the cookie (never in git, never at a public URL).
@@ -165,6 +166,7 @@ Mir händ zäme gspielt! ...
 
 ## 9. Personal pages: content and privacy
 
+- **Photo puzzle (private page and business hero):** `@marc/ui/PhotoPuzzle.astro`. The picture looks normal; a tap opens a 3x3 sliding puzzle in a dialog (88 px tiles, always solvable), solved shows the whole picture. Texts `common/puzzle_*`. Business picture: `apps/business/src/assets/profile.<jpg|jpeg|png|webp>` (public, in git); without it the hero has no picture.
 - **private:** Marc, warm personal style. Photo, short intro, chips (Zürich, languages, interests), contact form with "where did we meet".
 - **kid-one / kid-two:** comic style. Bangers headings, Comic Neue body, black outlines, halftone dot background, speech bubble, POW burst, drawn avatar, hero card (superpower, favourite animal, food, loves), parent contact form with "good times to meet" chips, button "Send to my dad!".
 - **Phone layout (390x844 baseline):** picture and name on ONE line at the top (round picture 64 to 80 px, name `white-space: nowrap`). Language chips, header, intro or speech bubble and the complete contact form must fit in the first screen without scrolling. Short form fields share a row (2-column grid). Kids' hero card sits below the form.
@@ -213,6 +215,8 @@ npm run token:revoke -- --page <page> --batch <label>
 npm run token:list
 npm run cards:pdf -- --batch <label> [--page <page>]
 ```
+
+Without a local setup: GitHub Actions → **QR cards** → Run workflow (page, batch, expiry). It creates or reuses the token (`--reuse`) and offers the card PDF plus a QR PNG as a download for 1 day. Tokens are masked in the logs.
 
 Cards PDF: A4 sheets, 10 cards per sheet, 85x55 mm, 3 mm bleed, crop marks, QR at least 20 mm with quiet zone, comic style per kid, calm style for private, "Scan me" text in the page's default languages.
 
