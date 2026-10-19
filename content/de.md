@@ -515,7 +515,7 @@ CrossFit
 
 <!-- auto src-hash:969a712a -->
 ### level_native
-Muttersprache
+Mutterspr.
 
 <!-- auto src-hash:9dd9203e -->
 ### sport_half_marathon
