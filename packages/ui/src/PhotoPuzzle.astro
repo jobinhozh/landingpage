@@ -1,0 +1,156 @@
+---
+/**
+ * Profile picture with a gimmick: tap it and it opens as a 3x3 sliding puzzle (one empty slot).
+ * The puzzle lives in a <dialog> with 88 px tiles, since tiles on the small avatar would be too
+ * small to tap. Shuffled by random legal moves, so it is always solvable.
+ * Colours come from the page: --puzzle-surface, --puzzle-text, --puzzle-accent.
+ */
+export interface Props {
+  src: string;
+  alt: string;
+  size: number;
+  class?: string;
+  labels: { open: string; hint: string; solved: string; shuffle: string; close: string; tile: string };
+}
+const { src, alt, size, class: cls = "", labels } = Astro.props;
+---
+<div class="puzzle" data-puzzle data-src={src} data-tile-label={labels.tile}>
+  <button type="button" class="puzzle__open" aria-haspopup="dialog" aria-label={`${alt}. ${labels.open}`} title={labels.open}>
+    <img src={src} alt="" width={size} height={size} class={cls} decoding="async" />
+  </button>
+  <dialog class="puzzle__dialog" aria-label={labels.open}>
+    <p class="puzzle__status" aria-live="polite" data-status data-hint={labels.hint} data-solved={labels.solved}>{labels.hint}</p>
+    <div class="puzzle__board" data-board></div>
+    <div class="puzzle__actions">
+      <button type="button" class="puzzle__btn" data-shuffle>{labels.shuffle}</button>
+      <button type="button" class="puzzle__btn puzzle__btn--main" data-close>{labels.close}</button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  const N = 3;
+  const SOLVED = [...Array(N * N).keys()];
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-puzzle]")) {
+    const dialog = root.querySelector("dialog")!;
+    const board = root.querySelector<HTMLElement>("[data-board]")!;
+    const status = root.querySelector<HTMLElement>("[data-status]")!;
+    const src = root.dataset.src!;
+    const tileLabel = root.dataset.tileLabel!;
+    // order[cell] = piece shown in that cell; piece N*N-1 is the empty slot.
+    let order = [...SOLVED];
+
+    const empty = () => order.indexOf(N * N - 1);
+    const neighbours = (i: number) =>
+      [i - N, i + N, i % N ? i - 1 : -1, (i + 1) % N ? i + 1 : -1].filter((j) => j >= 0 && j < N * N);
+    const solved = () => order.every((p, i) => p === i);
+
+    function shuffle() {
+      order = [...SOLVED];
+      let prev = -1;
+      for (let k = 0; k < 60 || solved(); k++) {
+        const e = empty();
+        const options = neighbours(e).filter((j) => j !== prev);
+        const j = options[Math.floor(Math.random() * options.length)]!;
+        [order[e], order[j]] = [order[j]!, order[e]!];
+        prev = e;
+      }
+      status.textContent = status.dataset.hint!;
+      render();
+    }
+
+    function render() {
+      const done = solved();
+      board.classList.toggle("is-solved", done);
+      if (done) {
+        // One whole image instead of nine tiles, so no seams.
+        const whole = document.createElement("div");
+        whole.className = "puzzle__whole";
+        whole.style.backgroundImage = `url("${src}")`;
+        board.replaceChildren(whole);
+        return;
+      }
+      board.replaceChildren(
+        ...order.map((piece, cell) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "puzzle__tile";
+          const isEmpty = piece === N * N - 1;
+          if (isEmpty) {
+            b.classList.add("is-empty");
+            b.tabIndex = -1;
+            b.setAttribute("aria-hidden", "true");
+          } else {
+            const x = (piece % N) * 50;
+            const y = Math.floor(piece / N) * 50;
+            b.style.backgroundImage = `url("${src}")`;
+            b.style.backgroundPosition = `${x}% ${y}%`;
+            b.setAttribute("aria-label", `${tileLabel} ${piece + 1}`);
+          }
+          b.disabled = !neighbours(cell).includes(empty());
+          b.addEventListener("click", () => move(cell));
+          return b;
+        }),
+      );
+    }
+
+    function move(cell: number) {
+      const e = empty();
+      if (!neighbours(cell).includes(e)) return;
+      [order[e], order[cell]] = [order[cell]!, order[e]!];
+      if (solved()) status.textContent = status.dataset.solved!;
+      render();
+      board.querySelector<HTMLButtonElement>(`.puzzle__tile:nth-child(${e + 1})`)?.focus();
+    }
+
+    root.querySelector(".puzzle__open")!.addEventListener("click", () => {
+      shuffle();
+      dialog.showModal();
+    });
+    root.querySelector("[data-shuffle]")!.addEventListener("click", shuffle);
+    root.querySelector("[data-close]")!.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (ev) => {
+      if (ev.target === dialog) dialog.close();
+    });
+  }
+</script>
+
+<style is:global>
+  .puzzle { display: contents; }
+  .puzzle__open {
+    flex: none; padding: 0; border: 0; background: none; border-radius: 999px; cursor: pointer;
+    min-width: 44px; min-height: 44px; line-height: 0;
+  }
+  .puzzle__open:focus-visible { outline: 3px solid var(--puzzle-accent, currentColor); outline-offset: 3px; }
+  .puzzle__dialog {
+    margin: auto; border: 0; border-radius: 16px; padding: 20px; width: min(320px, calc(100vw - 32px));
+    background: var(--puzzle-surface, #fff); color: var(--puzzle-text, #111);
+    box-shadow: 0 20px 60px rgb(0 0 0 / 35%);
+  }
+  .puzzle__dialog::backdrop { background: rgb(0 0 0 / 55%); }
+  .puzzle__status { margin: 0 0 14px; font-weight: 600; text-align: center; min-height: 1.4em; }
+  .puzzle__board {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; aspect-ratio: 1;
+    border-radius: 10px; overflow: hidden; background: var(--puzzle-accent, #888);
+  }
+  .puzzle__whole { grid-area: 1 / 1 / 4 / 4; background-size: cover; background-position: center; animation: puzzle-pop 0.4s ease; }
+  @keyframes puzzle-pop { from { transform: scale(0.94); opacity: 0.6; } }
+  .puzzle__tile {
+    border: 0; padding: 0; min-height: 44px; aspect-ratio: 1; cursor: pointer;
+    background-size: 300% 300%; background-color: var(--puzzle-surface, #fff);
+  }
+  .puzzle__tile:disabled { cursor: default; }
+  .puzzle__tile:not(:disabled):hover { filter: brightness(1.08); }
+  .puzzle__tile:focus-visible { outline: 3px solid var(--puzzle-text, #111); outline-offset: -3px; }
+  .puzzle__tile.is-empty { background: var(--puzzle-surface, #fff); box-shadow: inset 0 2px 8px rgb(0 0 0 / 35%); }
+  .puzzle__actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+  .puzzle__btn {
+    min-height: 44px; padding: 0 18px; border-radius: 10px; font: inherit; font-weight: 600; cursor: pointer;
+    border: 2px solid var(--puzzle-accent, #888); background: transparent; color: var(--puzzle-text, #111);
+  }
+  .puzzle__btn--main { background: var(--puzzle-accent, #888); color: var(--puzzle-accent-text, #fff); }
+  @media (prefers-reduced-motion: reduce) {
+    .puzzle__whole { animation: none; }
+  }
+</style>

@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { t, ti, setting } from "@marc/i18n/content";
 import Base from "../../layouts/Base.astro";
 import CalEmbed from "../../components/CalEmbed.astro";
+import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
 import { PAGE, langPaths, slugOf } from "../../lib/i18n.ts";
 
 export const getStaticPaths = langPaths;
@@ -10,9 +11,20 @@ const { code: lang } = Astro.props as { code: string };
 const work = await getCollection("work");
 const expertise = ["s4", "alm", "crm", "ai"];
 const p = (key: string) => t(PAGE, key, lang);
+// Profile picture: drop one file into src/assets/ (profile.jpg, .jpeg, .png or .webp). Without one the hero has no picture.
+const photo = Object.values(
+  import.meta.glob<string>("../../assets/profile.{jpg,jpeg,png,webp}", { eager: true, query: "?url", import: "default" }),
+)[0];
+const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
+const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzle("solved"), shuffle: puzzle("shuffle"), close: puzzle("close"), tile: puzzle("tile") };
 ---
 <Base lang={lang} title={p("meta_title")} description={p("meta_description")} path="">
   <section class="mx-auto max-w-5xl px-6 pb-10 pt-12 sm:pb-20 sm:pt-24">
+    {photo && (
+      <div class="hero-photo mb-6">
+        <PhotoPuzzle src={photo} alt={p("photo_alt")} size={96} class="block size-24 rounded-full border-2 border-line-strong object-cover" labels={puzzleLabels} />
+      </div>
+    )}
     <p class="m-0 font-mono text-[13px] tracking-[0.08em] text-accent uppercase">{p("hero_eyebrow")}</p>
     <h1 class="mt-5 mb-0 max-w-3xl text-[40px] leading-[1.08] font-bold tracking-[-0.02em] sm:text-6xl">{p("hero_title")}</h1>
     <p class="mt-5 mb-0 max-w-2xl text-[17px] leading-relaxed text-soft sm:text-lg" set:html={ti(PAGE, "hero_text", lang)} />
@@ -72,3 +84,6 @@ const p = (key: string) => t(PAGE, key, lang);
     </div>
   </section>
 </Base>
+<style>
+  .hero-photo { --puzzle-surface: #152130; --puzzle-text: #E6ECF2; --puzzle-accent: #5FD4C3; --puzzle-accent-text: #0E1620; }
+</style>

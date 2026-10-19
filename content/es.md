@@ -144,6 +144,30 @@ Lo sentimos, no podemos ir
 ### rsvp_thanks
 ¡Gracias por avisarnos!
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Toca la foto para un pequeño puzle
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Desliza las piezas a su sitio
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+¡Resuelto! Genial 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mezclar
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Cerrar
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Pieza
+
 # private
 
 ## es

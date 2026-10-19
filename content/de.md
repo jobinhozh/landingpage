@@ -144,6 +144,30 @@ Leider können wir nicht
 ### rsvp_thanks
 Danke für deine Rückmeldung!
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Tippe aufs Bild für ein kleines Puzzle
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Schiebe die Teile an ihren Platz
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+Gelöst! Super 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mischen
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Schliessen
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Teil
+
 # business
 
 ## de
@@ -356,6 +380,10 @@ Sprachen
 <!-- auto src-hash:4e010d2a -->
 ### cv_languages
 [Sprachen und Niveau]
+
+<!-- auto src-hash:043d5aa5 -->
+### photo_alt
+Foto von {full_name}
 
 # private
 

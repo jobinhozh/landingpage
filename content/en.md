@@ -15,6 +15,24 @@ owner_first_name: Marc
 
 ## en
 
+### puzzle_open
+Tap the picture for a little puzzle
+
+### puzzle_hint
+Slide the pieces back into place
+
+### puzzle_solved
+Solved! Nice one 🎉
+
+### puzzle_shuffle
+Shuffle
+
+### puzzle_close
+Close
+
+### puzzle_tile
+Piece
+
 ### form_name
 Your name
 
@@ -134,6 +152,9 @@ impressum_address: [Street and number], [Postcode] Zürich, Switzerland
 impressum_email: [contact email for the Impressum]
 
 ## en
+
+### photo_alt
+Photo of {full_name}
 
 ### meta_title
 {full_name} · SAP Solutions Architect, Zürich

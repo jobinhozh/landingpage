@@ -144,6 +144,30 @@ A block without marker is locked: edit it here and it is never overwritten.
 ### rsvp_thanks
 谢谢你告诉我们！
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+点一下照片，玩个小拼图
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+把拼块滑回原位
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+完成啦！真棒 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+打乱
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+关闭
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+拼块
+
 # private
 
 ## zh

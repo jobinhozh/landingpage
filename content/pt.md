@@ -144,6 +144,30 @@ Infelizmente não vamos poder ir
 ### rsvp_thanks
 Obrigado por avisar!
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Toque na foto para um pequeno quebra-cabeça
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Deslize as peças para o lugar
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+Resolvido! Muito bem 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Embaralhar
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Fechar
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Peça
+
 # private
 
 ## pt

@@ -144,6 +144,30 @@ Leider chömed mir nöd
 ### rsvp_thanks
 Merci für dini Rückmäldig!
 
+<!-- draft src-hash:17f44597 -->
+### puzzle_open
+Tipp ufs Bild für es chliises Puzzle
+
+<!-- draft src-hash:00581f7c -->
+### puzzle_hint
+Schieb d Teili a ihre Platz
+
+<!-- draft src-hash:e4e281e8 -->
+### puzzle_solved
+Glöst! Mega 🎉
+
+<!-- draft src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mische
+
+<!-- draft src-hash:cd86acc3 -->
+### puzzle_close
+Schliesse
+
+<!-- draft src-hash:ad755325 -->
+### puzzle_tile
+Teili
+
 # private
 
 ## gsw

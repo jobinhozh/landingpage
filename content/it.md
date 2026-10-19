@@ -144,6 +144,30 @@ Purtroppo non possiamo
 ### rsvp_thanks
 Grazie per averci risposto!
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Tocca la foto per un piccolo puzzle
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Fai scorrere i pezzi al loro posto
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+Risolto! Bravo 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mescola
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Chiudi
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Pezzo
+
 # private
 
 ## it

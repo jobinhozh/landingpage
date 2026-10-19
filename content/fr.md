@@ -144,6 +144,30 @@ Désolés, nous ne pourrons pas venir
 ### rsvp_thanks
 Merci de nous avoir répondu !
 
+<!-- auto src-hash:17f44597 -->
+### puzzle_open
+Touche la photo pour un petit puzzle
+
+<!-- auto src-hash:00581f7c -->
+### puzzle_hint
+Fais glisser les pièces à leur place
+
+<!-- auto src-hash:e4e281e8 -->
+### puzzle_solved
+Résolu ! Bravo 🎉
+
+<!-- auto src-hash:92e2b8ee -->
+### puzzle_shuffle
+Mélanger
+
+<!-- auto src-hash:cd86acc3 -->
+### puzzle_close
+Fermer
+
+<!-- auto src-hash:ad755325 -->
+### puzzle_tile
+Pièce
+
 # private
 
 ## fr
