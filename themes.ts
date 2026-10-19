@@ -23,28 +23,35 @@ export const themes: Record<string, Theme> = {
 };
 
 /**
- * Marc's private page: the grown-up comic keeps paper and ink, only accent (buttons, icons, map) and
- * caption (narration box, file card) follow the language's flag. Accents pass WCAG AA with white text.
+ * Marc's private page: the grown-up comic on the flag's colour. bg + dot = page background with halftone,
+ * on = text placed directly on bg (white or ink, whichever passes WCAG AA), accent = buttons, icons and map,
+ * caption = narration box and file card. Cards and form stay white with ink outlines.
  */
 export interface PrivateTheme {
+  bg: string;
+  dot: string;
+  on: string;
   accent: string;
   caption: string;
 }
 
 export const privateThemes: Record<string, PrivateTheme> = {
-  switzerland: { accent: "#D52B1E", caption: "#FADBD8" },
-  germany: { accent: "#DD0000", caption: "#FFCE00" },
-  uk: { accent: "#C8102E", caption: "#D6E0F5" },
-  france: { accent: "#0055A4", caption: "#F9D9DC" },
-  brazil: { accent: "#007A33", caption: "#FFDF00" },
-  spain: { accent: "#AA151B", caption: "#F1BF00" },
-  italy: { accent: "#00843F", caption: "#F2C14E" },
-  china: { accent: "#B7121A", caption: "#FFE14D" },
+  switzerland: { bg: "#DA291C", dot: "#E8493D", on: "#FFFFFF", accent: "#D52B1E", caption: "#FFFFFF" },
+  germany: { bg: "#FFCE00", dot: "#F2B800", on: "#141414", accent: "#DD0000", caption: "#FFFFFF" },
+  uk: { bg: "#012169", dot: "#16357E", on: "#FFFFFF", accent: "#C8102E", caption: "#D6E0F5" },
+  france: { bg: "#0055A4", dot: "#1968B5", on: "#FFFFFF", accent: "#CE2B37", caption: "#FFFFFF" },
+  brazil: { bg: "#009C3B", dot: "#00B347", on: "#141414", accent: "#002776", caption: "#FFDF00" },
+  spain: { bg: "#AA151B", dot: "#BE2A2F", on: "#FFFFFF", accent: "#AA151B", caption: "#F1BF00" },
+  italy: { bg: "#009246", dot: "#12A556", on: "#141414", accent: "#CE2B37", caption: "#FFFFFF" },
+  china: { bg: "#EE1C25", dot: "#F43E46", on: "#141414", accent: "#B7121A", caption: "#FFFF00" },
 };
 
 export function privateThemeCss(): string {
   return Object.entries(privateThemes)
-    .map(([name, t]) => `[data-theme="${name}"]{--p-accent:${t.accent};--p-caption:${t.caption}}`)
+    .map(
+      ([name, t]) =>
+        `[data-theme="${name}"]{--p-bg:${t.bg};--p-dot:${t.dot};--p-on:${t.on};--p-accent:${t.accent};--p-caption:${t.caption}}`,
+    )
     .join("\n");
 }
 

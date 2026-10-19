@@ -101,7 +101,7 @@ Flag colors per language in `themes.ts`, applied via CSS custom properties on `<
 - Flag colors for backgrounds, bursts, buttons, borders only. Body text stays dark on light panels.
 - All text passes WCAG AA.
 - Kids' pages: comic style is identical across themes, only the palette and the flag change. Country look: a flag ribbon across the top, a flag strip on top of the form, and the language switcher shows each language as its country's flag (34x23 inside a 44x44 button, language name as accessible label). Flags are drawn in `flags.ts` (one builder per theme; every language's theme needs one, a test checks it).
-- Private page: grown-up graphic novel (warm paper #F3EEE4 with halftone, ink #141414, Anton headings). Accent and caption colour follow the selected language (`privateThemes` in `themes.ts`, e.g. DE red + gold, FR blue + pale red, PT green + yellow), accents pass WCAG AA with white text. Business: dark technical (see reference canvas), no flag themes.
+- Private page: grown-up graphic novel on the flag colour of the selected language (`privateThemes` in `themes.ts`: page `bg` with halftone `dot`, `on` = white or ink text directly on bg, `accent` for buttons/icons/map, `caption` for narration box and file card; e.g. CH red, DE gold, EN navy, FR blue, PT green, ES dark red). White panels with ink outlines, Anton headings. All pairs pass WCAG AA. Business: dark technical (see reference canvas), no flag themes.
 
 ## 6. Content: one Markdown file per language
 
