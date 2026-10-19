@@ -364,6 +364,12 @@ Hi, I'm {owner_first_name}.
 ### intro
 Glad we met. Leave your details and I'll get back to you soon.
 
+### card_title
+Marc's file
+
+### card_travel_value
+60 countries and counting
+
 ### chip_city
 Zürich
 

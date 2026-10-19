@@ -101,7 +101,7 @@ Flag colors per language in `themes.ts`, applied via CSS custom properties on `<
 - Flag colors for backgrounds, bursts, buttons, borders only. Body text stays dark on light panels.
 - All text passes WCAG AA.
 - Kids' pages: comic style is identical across themes, only the palette and the flag change. Country look: a flag ribbon across the top, a flag strip on top of the form, and the language switcher shows each language as its country's flag (34x23 inside a 44x44 button, language name as accessible label). Flags are drawn in `flags.ts` (one builder per theme; every language's theme needs one, a test checks it).
-- Private page and business site do NOT use flag themes (own calm palettes, see reference canvas).
+- Private page and business site do NOT use flag themes. Private page: grown-up graphic novel (warm paper #F3EEE4 with halftone, ink #141414, red #C8102E, mustard caption box #F2C14E, Anton headings). Business: dark technical (see reference canvas).
 
 ## 6. Content: one Markdown file per language
 
@@ -167,7 +167,7 @@ Mir händ zäme gspielt! ...
 ## 9. Personal pages: content and privacy
 
 - **Photo puzzle (private page and business hero):** `@marc/ui/PhotoPuzzle.astro`. The picture looks normal; a tap opens a 3x3 sliding puzzle in a dialog (88 px tiles, always solvable), solved shows the whole picture. Texts `common/puzzle_*`. Business picture: `apps/business/src/assets/profile.<jpg|jpeg|png|webp>` (public, in git); without it the hero has no picture.
-- **private:** Marc, warm personal style. Photo, short intro, chips (Zürich, CrossFit, Hyrox, marathon, travel, languages), contact form with "where did we meet". A chip with a `chip_<id>_more` text opens a small card on hover or tap (native popover, 44 px touch target). Country names in the travel card are generated per language with `Intl.DisplayNames`.
+- **private:** Marc, comic style for adults (graphic novel). Photo, intro as a narration box, chips (Zürich, CrossFit, Hyrox, marathon, travel, languages), contact form with "where did we meet". A chip with a `chip_<id>_more` text opens a small card on hover or tap (native popover, 44 px touch target). Country names in the travel card are generated per language with `Intl.DisplayNames`. Below the form a hero card ("Marc's file", `card_*` keys) shows the same facts as a grid.
 - **kid-one / kid-two:** comic style. Bangers headings, Comic Neue body, black outlines, halftone dot background, speech bubble, POW burst, drawn avatar, hero card (superpower, favourite animal, food, loves), parent contact form with "good times to meet" chips, button "Send to my dad!".
 - **Phone layout (390x844 baseline):** picture and name on ONE line at the top (round picture 64 to 80 px, name `white-space: nowrap`). Language chips, header, intro or speech bubble and the complete contact form must fit in the first screen without scrolling. Short form fields share a row (2-column grid). Kids' hero card sits below the form.
 - Kids: nickname only, illustrated avatar, never photos, school, age, location or surname.

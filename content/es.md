@@ -260,6 +260,14 @@ Maratón
 ### chip_marathon_more
 Fráncfort 2018
 
+<!-- auto src-hash:0d4f9368 -->
+### card_title
+El expediente de Marc
+
+<!-- auto src-hash:b4c041bd -->
+### card_travel_value
+60 países y contando
+
 # kids
 
 ## es
