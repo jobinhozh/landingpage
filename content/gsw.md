@@ -228,9 +228,9 @@ Em Marc sini Akte
 ### map_label
 Weltcharte mit de 60 Länder, wo de Marc scho gsi isch
 
-<!-- draft src-hash:aec35541 -->
+<!-- draft src-hash:038f2fed -->
 ### map_legend
-Scho det gsi
+Bsuecht
 
 <!-- draft src-hash:bbc39b8d -->
 ### sport_title

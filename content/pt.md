@@ -228,9 +228,9 @@ O dossiê do Marc
 ### map_label
 Mapa-múndi com os 60 países que o Marc visitou
 
-<!-- auto src-hash:aec35541 -->
+<!-- auto src-hash:038f2fed -->
 ### map_legend
-Já estive lá
+Visitado
 
 <!-- auto src-hash:bbc39b8d -->
 ### sport_title

@@ -477,9 +477,9 @@ Marcs Akte
 ### map_label
 Weltkarte mit den 60 Ländern, die Marc besucht hat
 
-<!-- auto src-hash:aec35541 -->
+<!-- auto src-hash:038f2fed -->
 ### map_legend
-Schon dort gewesen
+Besucht
 
 <!-- auto src-hash:bbc39b8d -->
 ### sport_title

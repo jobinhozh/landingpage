@@ -228,9 +228,9 @@ El expediente de Marc
 ### map_label
 Mapa del mundo con los 60 países que Marc ha visitado
 
-<!-- auto src-hash:aec35541 -->
+<!-- auto src-hash:038f2fed -->
 ### map_legend
-Ya estuve
+Visitado
 
 <!-- auto src-hash:bbc39b8d -->
 ### sport_title

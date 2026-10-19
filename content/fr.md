@@ -228,9 +228,9 @@ Le dossier de Marc
 ### map_label
 Carte du monde avec les 60 pays visités par Marc
 
-<!-- auto src-hash:aec35541 -->
+<!-- auto src-hash:038f2fed -->
 ### map_legend
-Déjà visité
+Visité
 
 <!-- auto src-hash:bbc39b8d -->
 ### sport_title

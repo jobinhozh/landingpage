@@ -383,7 +383,7 @@ Marc's file
 World map with the 60 countries Marc has visited
 
 ### map_legend
-Been there
+Visited
 
 ### sport_title
 Sport
