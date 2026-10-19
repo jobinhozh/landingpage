@@ -415,36 +415,6 @@ Half marathon
 ### chip_city_more
 Based in Zürich. Home worldwide.
 
-### chip_crossfit
-CrossFit
-
-### chip_crossfit_more
-CrossFit Open 2025
-
-### chip_hyrox
-Hyrox
-
-### chip_hyrox_more
-Solo in São Paulo 2025, Doubles in St. Gallen 2026
-
-### chip_marathon
-Marathon
-
-### chip_marathon_more
-Frankfurt 2018
-
-### chip_travel
-Travel
-
-### chip_travel_more
-60 countries so far: Albania, Argentina, Australia, Austria, Bahamas, Belgium, Bosnia and Herzegovina, Brazil, Bulgaria, Canada, Chile, China, Cook Islands, Costa Rica, Croatia, Cyprus, Czech Republic, Denmark, Egypt, England, Fiji, Finland, France, Germany, Gibraltar, Greece, Hong Kong, India, Ireland, Israel, Italy, Liechtenstein, Lithuania, Macao, Malta, Mexico, Monaco, Montenegro, Netherlands, New Zealand, North Macedonia, Norway, Panama, Portugal, Senegal, Serbia, Singapore, Slovenia, Spain, Sweden, Switzerland, Thailand, Tunisia, Turkey, United Arab Emirates, United Kingdom, United States, Uruguay, Vanuatu, Vatican City
-
-### chip_languages
-Languages
-
-### chip_languages_more
-Swiss German, English and French. Learning Portuguese and Spanish.
-
 ### photo_alt
 Photo of {owner_first_name}
 

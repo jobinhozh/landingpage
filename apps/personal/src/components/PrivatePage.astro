@@ -1,7 +1,7 @@
 ---
 import ContactForm from "@marc/ui/ContactForm.astro";
 import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
-import { has, t, ti } from "@marc/i18n/content";
+import { t, ti } from "@marc/i18n/content";
 import { env } from "cloudflare:workers";
 import type { PersonalPage } from "../../../../site.config.ts";
 import type { FormState } from "../lib/contact.ts";
@@ -13,20 +13,11 @@ import { worldMap } from "../data/world-map.ts";
 export interface Props { page: PersonalPage; lang: string; sent: boolean; state?: FormState }
 const { page, lang, sent, state } = Astro.props;
 const p = (k: string) => t(page.id, k, lang);
-// Chips with a `chip_<id>_more` text open a small card on hover (mouse) or tap.
-const chips = ["crossfit", "hyrox", "marathon", "travel", "languages"].map((id) => ({
-  id,
-  label: p(`chip_${id}`),
-  more: has(page.id, `chip_${id}_more`, lang) || has(page.id, `chip_${id}_more`, "en") ? p(`chip_${id}_more`) : null,
-}));
-// Small line icons per chip (decorative, 16 px, currentColor).
+// Small line icons (decorative, 16 px, currentColor).
 const icons: Record<string, string> = {
   city: '<path d="M8 14s5-4.6 5-8.5A5 5 0 0 0 3 5.5C3 9.4 8 14 8 14Z"/><circle cx="8" cy="5.6" r="1.8"/>',
-  crossfit: '<path d="M2 6v4M4.5 4.5v7M11.5 4.5v7M14 6v4M4.5 8h7"/>',
   hyrox: '<circle cx="8" cy="9" r="5"/><path d="M8 9V6.5M6.5 2h3M12.2 4.8l1-1"/>',
-  marathon: '<path d="M2 11.5h8.5l3.5 1V14H2v-2.5ZM2 11.5 3 6l3 1 1.5-2.5 3 2v5"/>',
   travel: '<path d="M14 2 2 7l5 1.5L8.5 14 14 2Z"/>',
-  languages: '<path d="M2.5 3.5h11v7H8l-3 2.5v-2.5H2.5v-7Z"/>',
 };
 const icon = (id: string) =>
   `<svg class="chip__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[id] ?? ""}</svg>`;
@@ -57,18 +48,6 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
     </div>
     <p class="private__intro" set:html={ti(page.id, "intro", lang)} />
     <p class="private__base"><Fragment set:html={icon("city")} />{p("chip_city_more")}</p>
-    <ul class="private__chips">
-      {chips.map((c) =>
-        c.more ? (
-          <li class="chip-wrap" data-chip>
-            <button type="button" class="chip-btn" popovertarget={`chip-${c.id}`}><span class="chip chip--more"><Fragment set:html={icon(c.id)} />{c.label}</span></button>
-            <div id={`chip-${c.id}`} popover class="chip-pop">{c.more}</div>
-          </li>
-        ) : (
-          <li class="chip-wrap"><span class="chip"><Fragment set:html={icon(c.id)} />{c.label}</span></li>
-        ),
-      )}
-    </ul>
   </header>
   </div>
   <main class="private__card">
@@ -153,24 +132,7 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
     margin: 0; padding: 8px 12px; font-size: 15px; line-height: 1.4; font-weight: 600;
     background: var(--mustard); border: 2.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
   }
-  .private__chips { display: flex; flex-wrap: wrap; gap: 0 6px; margin: -6px 0 -9px; padding: 0; list-style: none; }
-  .chip-wrap { display: flex; align-items: center; min-height: 44px; }
-  .chip {
-    display: inline-flex; align-items: center; white-space: nowrap; padding: 4px 9px; font-size: 13px; font-weight: 700;
-    background: #FFF; color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; box-shadow: 2px 2px 0 var(--ink);
-  }
   :global(.chip__icon) { flex: none; margin-right: 5px; color: var(--red); }
-  /* The button is the 44 px touch target, the pill inside keeps the small look. */
-  .chip-btn { display: flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; font: inherit; cursor: pointer; }
-  .chip--more::after { content: "+"; margin-left: 5px; color: var(--red); font-weight: 800; }
-  .chip-btn:hover .chip, .chip-btn:focus-visible .chip { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--red); }
-  .chip-btn:focus-visible { outline: none; }
-  /* Detail card as a speech bubble. */
-  .chip-pop {
-    position: fixed; inset: auto; margin: 0; width: max-content; max-width: min(320px, calc(100vw - 32px)); max-height: 50vh; overflow: auto;
-    padding: 10px 13px; border: 2.5px solid #141414; border-radius: 14px; background: #FFF; color: #141414;
-    font-size: 14px; line-height: 1.45; font-weight: 600; box-shadow: 4px 4px 0 #141414;
-  }
   .private__card { margin: 0 12px; padding: 16px; background: #FFF; border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
   .private__card :global(.cform__title) { font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; font-size: 24px; }
   .private .private__card :global(input[type="text"]), .private .private__card :global(textarea) { border: 2px solid var(--ink); border-radius: 6px; }
@@ -202,28 +164,4 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   .private :global(.pfooter) { margin-top: auto; }
   .private :global(.lang-switch--calm a[aria-current="true"]) { background: var(--ink); color: #FFF; }
 
-  @media (prefers-reduced-motion: reduce) { .chip-btn:hover .chip { transform: none; } }
 </style>
-<script>
-  // Place each card under its chip, and open it on hover for mouse users. Tap and keyboard use the native popover.
-  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
-  for (const wrap of document.querySelectorAll<HTMLElement>("[data-chip]")) {
-    const btn = wrap.querySelector("button")!;
-    const pop = wrap.querySelector<HTMLElement>("[popover]")!;
-    pop.addEventListener("beforetoggle", (e) => {
-      if ((e as ToggleEvent).newState !== "open") return;
-      const r = btn.getBoundingClientRect();
-      pop.style.top = `${r.bottom + 4}px`;
-      pop.style.left = `${Math.max(16, Math.min(r.left, innerWidth - Math.min(320, innerWidth - 32) - 16))}px`;
-    });
-    if (!fine) continue;
-    let timer = 0;
-    wrap.addEventListener("mouseenter", () => {
-      clearTimeout(timer);
-      if (!pop.matches(":popover-open")) pop.showPopover();
-    });
-    wrap.addEventListener("mouseleave", () => {
-      timer = window.setTimeout(() => pop.matches(":popover-open") && pop.hidePopover(), 200);
-    });
-  }
-</script>

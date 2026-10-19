@@ -184,10 +184,6 @@ Hoi, ich bi {owner_first_name}.
 ### intro
 Schön, dass mir eus troffe händ. Hinterlah mir dini Kontaktdate, ich mälde mich bald.
 
-<!-- draft src-hash:0c632e38 -->
-### chip_languages
-Sproche
-
 <!-- draft src-hash:5641d3e8 -->
 ### photo_alt
 Foti vo {owner_first_name}
@@ -216,45 +212,9 @@ Hoi, ich bi {owner_first_name}
 ### preview_description
 Schön, hämmer üs troffe! Tipp da und hinterlass dini Kontaktdate, dass mir in Kontakt bliibed.
 
-<!-- draft src-hash:4f9586ba -->
-### chip_crossfit
-CrossFit
-
-<!-- draft src-hash:fb818b81 -->
-### chip_crossfit_more
-CrossFit Open 2025
-
-<!-- draft src-hash:d384a4c7 -->
-### chip_hyrox
-Hyrox
-
-<!-- draft src-hash:d760ff92 -->
-### chip_hyrox_more
-Solo in São Paulo 2025, Doubles in St. Galle 2026
-
-<!-- draft src-hash:2c74f119 -->
-### chip_travel
-Reise
-
-<!-- draft src-hash:0757631a -->
-### chip_travel_more
-Bis jetzt 60 Länder: Ägypten, Albanien, Argentinien, Australien, Bahamas, Belgien, Bosnien und Herzegowina, Brasilien, Bulgarien, Chile, China, Cookinseln, Costa Rica, Dänemark, Deutschland, England, Fidschi, Finnland, Frankreich, Gibraltar, Griechenland, Hongkong, Indien, Irland, Israel, Italien, Kanada, Kroatien, Liechtenstein, Litauen, Macau, Malta, Mexiko, Monaco, Montenegro, Neuseeland, Niederlande, Nordmazedonien, Norwegen, Österreich, Panama, Portugal, Schweden, Schweiz, Senegal, Serbien, Singapur, Slowenien, Spanien, Thailand, Tschechien, Tunesien, Türkei, UK, Uruguay, USA, Vanuatu, Vatikanstadt, Vereinigte Arabische Emirate, Zypern
-
-<!-- draft src-hash:17e2bbab -->
-### chip_languages_more
-Schwiizerdütsch, Englisch und Französisch. Ich lern Portugiesisch und Spanisch.
-
 <!-- draft src-hash:260ab774 -->
 ### chip_city_more
 Dihei in Züri. Dihei uf de ganze Welt.
-
-<!-- draft src-hash:f4c047db -->
-### chip_marathon
-Marathon
-
-<!-- draft src-hash:2fe40623 -->
-### chip_marathon_more
-Frankfurt 2018
 
 <!-- draft src-hash:0d4f9368 -->
 ### card_title

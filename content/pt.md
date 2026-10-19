@@ -184,10 +184,6 @@ Oi, eu sou {owner_first_name}.
 ### intro
 Que bom que a gente se conheceu. Deixe seus contatos e eu respondo logo.
 
-<!-- auto src-hash:0c632e38 -->
-### chip_languages
-Idiomas
-
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt
 Foto de {owner_first_name}
@@ -216,45 +212,9 @@ Oi, eu sou o {owner_first_name}
 ### preview_description
 Que bom te conhecer! Toque aqui e deixe seus contatos para a gente manter contato.
 
-<!-- auto src-hash:4f9586ba -->
-### chip_crossfit
-CrossFit
-
-<!-- auto src-hash:fb818b81 -->
-### chip_crossfit_more
-CrossFit Open 2025
-
-<!-- auto src-hash:d384a4c7 -->
-### chip_hyrox
-Hyrox
-
-<!-- auto src-hash:d760ff92 -->
-### chip_hyrox_more
-Solo em São Paulo 2025, duplas em St. Gallen 2026
-
-<!-- auto src-hash:2c74f119 -->
-### chip_travel
-Viagens
-
-<!-- auto src-hash:0757631a -->
-### chip_travel_more
-60 países até agora: Albânia, Alemanha, Argentina, Austrália, Áustria, Bahamas, Bélgica, Bósnia e Herzegovina, Brasil, Bulgária, Canadá, Chile, China, Chipre, Cidade do Vaticano, Costa Rica, Croácia, Dinamarca, Egito, Emirados Árabes Unidos, Eslovênia, Espanha, EUA, Fiji, Finlândia, França, Gibraltar, Grécia, Hong Kong, Ilhas Cook, Índia, Inglaterra, Irlanda, Israel, Itália, Liechtenstein, Lituânia, Macau, Macedônia do Norte, Malta, México, Mônaco, Montenegro, Noruega, Nova Zelândia, Países Baixos, Panamá, Portugal, Reino Unido, Senegal, Sérvia, Singapura, Suécia, Suíça, Tailândia, Tchéquia, Tunísia, Turquia, Uruguai, Vanuatu
-
-<!-- auto src-hash:17e2bbab -->
-### chip_languages_more
-Alemão suíço, inglês e francês. Estou aprendendo português e espanhol.
-
 <!-- auto src-hash:260ab774 -->
 ### chip_city_more
 Moro em Zurique. Em casa no mundo inteiro.
-
-<!-- auto src-hash:f4c047db -->
-### chip_marathon
-Maratona
-
-<!-- auto src-hash:2fe40623 -->
-### chip_marathon_more
-Frankfurt 2018
 
 <!-- auto src-hash:0d4f9368 -->
 ### card_title
