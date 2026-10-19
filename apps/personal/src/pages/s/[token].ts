@@ -37,7 +37,7 @@ export const GET: APIRoute = async ({ params, request, locals, url }) => {
   const value = await signPass(env.COOKIE_SIGNING_KEY, { page: page.id, tokenId: row.id, exp });
   locals.cfContext.waitUntil(recordScan(env.DB, row.id));
 
-  // ?hide=… on the QR link carries over, so a card can hide the travel or sport block.
+  // ?show=… on the QR link carries over, so a card can show the travel or sport block.
   const lang = detectLanguage(request.headers.get("accept-language"), pageLangCodes(page));
   return redirect(`${pageUrl(page, lang)}${keptQuery(url)}`, 302, {
     "set-cookie": passCookie(value, page.slug, exp - Math.floor(Date.now() / 1000)),

@@ -31,8 +31,8 @@ export function languagesOf(page: PersonalPage) {
 
 export const pageLangCodes = (page: PersonalPage): string[] => languagesOf(page).map((l) => l.code);
 
-/** Query parameters that survive language switches and redirects (e.g. ?hide=sport). */
+/** Query parameters that survive language switches and redirects (e.g. ?show=sport). */
 export function keptQuery(url: URL): string {
-  const hide = url.searchParams.get("hide");
-  return hide ? `?hide=${encodeURIComponent(hide)}` : "";
+  const show = url.searchParams.get("show");
+  return show ? `?show=${encodeURIComponent(show)}` : "";
 }

@@ -30,10 +30,10 @@ const icons: Record<string, string> = {
 };
 const icon = (id: string) =>
   `<svg class="chip__icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[id] ?? ""}</svg>`;
-// ?hide=travel, ?hide=sport or ?hide=travel,sport leaves blocks out (also works on the QR link /s/<token>?hide=…).
-const hidden = new Set((Astro.url.searchParams.get("hide") ?? "").split(",").map((h) => h.trim()));
-const showTravel = !hidden.has("travel");
-const showSport = !hidden.has("sport");
+// Hidden by default. ?show=travel, ?show=sport or ?show=travel,sport adds the blocks (also on the QR link /s/<token>?show=…).
+const shown = new Set((Astro.url.searchParams.get("show") ?? "").split(",").map((h) => h.trim()));
+const showTravel = shown.has("travel");
+const showSport = shown.has("sport");
 // Best results per category (sport.json). Empty "best" shows a dash until Marc fills it in.
 const results = sport.map((r) => ({ ...r, label: p(`sport_${r.id}`), best: r.best || "–" }));
 const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
