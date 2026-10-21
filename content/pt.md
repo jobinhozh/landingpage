@@ -180,9 +180,9 @@ Oi, eu sou {owner_first_name}
 ### title
 Oi, eu sou {owner_first_name}.
 
-<!-- auto src-hash:09aa4c20 -->
+<!-- auto src-hash:4fcd3b58 -->
 ### intro
-Que bom que a gente se conheceu. Deixe seus contatos e eu respondo logo.
+Que bom que a gente se conheceu! Deixe seus contatos e eu respondo. Mais rápido que meu tempo na maratona, prometo.
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt

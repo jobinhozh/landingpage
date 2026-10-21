@@ -180,9 +180,9 @@ Hoi, ich bi {owner_first_name}
 ### title
 Hoi, ich bi {owner_first_name}.
 
-<!-- draft src-hash:09aa4c20 -->
+<!-- draft src-hash:4fcd3b58 -->
 ### intro
-Schön, dass mir eus troffe händ. Hinterlah mir dini Kontaktdate, ich mälde mich bald.
+Schön, dass mir eus troffe händ! Hinterlah mir dini Kontaktdate, ich mälde mich. Schnäller als mini Marathonziit, versproche.
 
 <!-- draft src-hash:5641d3e8 -->
 ### photo_alt

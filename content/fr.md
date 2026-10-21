@@ -180,9 +180,9 @@ Salut, moi c’est {owner_first_name}
 ### title
 Salut, moi c’est {owner_first_name}.
 
-<!-- auto src-hash:09aa4c20 -->
+<!-- auto src-hash:4fcd3b58 -->
 ### intro
-Content qu’on se soit rencontrés. Laisse-moi tes coordonnées, je te réponds vite.
+Content qu’on se soit rencontrés ! Laisse-moi tes coordonnées, je te réponds. Plus vite que mon temps au marathon, promis.
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt
