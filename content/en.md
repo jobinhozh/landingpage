@@ -172,7 +172,7 @@ Software Engineering Leader · Zürich
 I lead software teams. Now I am changing how they work with AI.
 
 ### hero_text
-20+ years of software for police and banks. I lead an international forward-deployed team of engineers and architects. Currently I am testing agent-led development with this team.
+20+ years in software development. I lead an international forward-deployed team of software engineers and architects who build software with our clients. My focus is the development process and how agent-led development changes it.
 
 ### cta_book
 Book a call
@@ -193,7 +193,7 @@ How AI agents change roles, code review and release in a software team.
 Engineering process
 
 ### exp_alm_text
-Planning, build, review and release. Improved step by step, sprint after sprint.
+Planning, building, reviewing and releasing software, with a process that keeps improving.
 
 ### exp_crm_title
 Architecture
@@ -232,10 +232,10 @@ Selected work
 Law enforcement
 
 ### work_one_title
-Police organisation with 3'000 officers: from SAP ECC to the S/4HANA concept
+Case management for 3'000 police officers, in use around the clock
 
 ### work_one_text
-Led the international architecture team. Contributed to a mobile Flutter app based on personas.
+Led the development team for a custom case management solution based on SAP ICM. Later led the international architecture team for the S/4HANA migration concept.
 
 ### work_two_industry
 Global bank
@@ -245,6 +245,15 @@ US tax analytics for two banks, with fines in the hundreds of millions at stake
 
 ### work_two_text
 Data analysis for US person classification and US tax forms. One global bank, one private bank.
+
+### work_three_industry
+Consulting
+
+### work_three_title
+Senior agent builder and coach for business AI agents
+
+### work_three_text
+Train and coordinate the agent builders who build business AI agents on the internal AI platform of a global consulting firm.
 
 ### contact_title
 Contact

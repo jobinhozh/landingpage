@@ -6,10 +6,13 @@ import CalEmbed from "../../components/CalEmbed.astro";
 import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
 import { certMeta, certifications, certTags } from "../../lib/certifications.ts";
 import { PAGE, langPaths } from "../../lib/i18n.ts";
+import workData from "../../data/work.json";
 
 export const getStaticPaths = langPaths;
 const { code: lang } = Astro.props as { code: string };
-const work = await getCollection("work");
+// Collections come back in id order, so restore the order of work.json.
+const workOrder = workData.map((w) => w.id);
+const work = (await getCollection("work")).sort((a, b) => workOrder.indexOf(a.data.id) - workOrder.indexOf(b.data.id));
 const expertise = ["s4", "alm", "crm", "ai"];
 const p = (key: string) => t(PAGE, key, lang);
 // Profile picture: drop one file into src/assets/ (profile.jpg, .jpeg, .png or .webp). Without one the hero has no picture.

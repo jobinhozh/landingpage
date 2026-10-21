@@ -192,9 +192,9 @@ Software Engineering Leader · Zürich
 ### hero_title
 Ich führe Softwareteams. Jetzt verändere ich, wie sie mit KI arbeiten.
 
-<!-- auto src-hash:dd7f170c -->
+<!-- auto src-hash:2570ee2c -->
 ### hero_text
-Über 20 Jahre Software für Polizei und Banken. Ich führe ein internationales Forward-Deployed-Team aus Engineers und Architekten. Aktuell erprobe ich mit diesem Team agentengestützte Entwicklung.
+Über 20 Jahre in der Softwareentwicklung. Ich führe ein internationales Forward-Deployed-Team aus Software Engineers und Architekten, das gemeinsam mit unseren Kunden Software baut. Mein Schwerpunkt ist der Entwicklungsprozess und wie agentengestützte Entwicklung ihn verändert.
 
 <!-- auto src-hash:03693615 -->
 ### cta_book
@@ -220,9 +220,9 @@ Wie KI-Agenten Rollen, Code-Review und Release in einem Softwareteam verändern.
 ### exp_alm_title
 Engineering-Prozess
 
-<!-- auto src-hash:cf4e2c65 -->
+<!-- auto src-hash:4245fbf0 -->
 ### exp_alm_text
-Planung, Umsetzung, Review und Release. Schritt für Schritt verbessert, Sprint für Sprint.
+Software planen, bauen, prüfen und ausliefern, mit einem Prozess, der sich laufend verbessert.
 
 <!-- auto src-hash:590c76e2 -->
 ### exp_crm_title
@@ -244,13 +244,13 @@ Acht Jahre in der Strafverfolgung. US-Steuern im Banking. Weitere Erfahrung im �
 ### work_title
 Ausgewählte Projekte
 
-<!-- auto src-hash:9bd1ebe1 -->
+<!-- auto src-hash:0befee74 -->
 ### work_one_title
-Polizeiorganisation mit 3'000 Mitarbeitenden: von SAP ECC zum S/4HANA-Konzept
+Fallbearbeitung für 3'000 Polizistinnen und Polizisten, rund um die Uhr im Einsatz
 
-<!-- auto src-hash:272323ba -->
+<!-- auto src-hash:5c59fb0d -->
 ### work_one_text
-Leitung des internationalen Architekturteams. Mitarbeit an einer mobilen Flutter-App auf Basis von Personas.
+Leitung des Entwicklungsteams für eine massgeschneiderte Fallbearbeitungslösung auf Basis von SAP ICM. Später Leitung des internationalen Architekturteams für das S/4HANA-Migrationskonzept.
 
 <!-- auto src-hash:850b2dcb -->
 ### work_two_title
@@ -416,6 +416,18 @@ Strafverfolgung
 <!-- auto src-hash:039c102c -->
 ### work_two_industry
 Globale Bank
+
+<!-- auto src-hash:d10d8059 -->
+### work_three_industry
+Beratung
+
+<!-- auto src-hash:967e6213 -->
+### work_three_title
+Senior Agent Builder und Coach für Business-KI-Agenten
+
+<!-- auto src-hash:92d00855 -->
+### work_three_text
+Ich schule und koordiniere die Agent Builder, die auf der internen KI-Plattform eines globalen Beratungsunternehmens Business-KI-Agenten entwickeln.
 
 # private
 
