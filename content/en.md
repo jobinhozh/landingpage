@@ -146,7 +146,7 @@ Thanks for letting us know!
 
 brand: marc_jobin
 full_name: Marc Jobin
-linkedin_url: https://www.linkedin.com/in/[handle]
+linkedin_url: https://www.linkedin.com/in/marc-jobin
 cal_link: [cal-handle]/30min
 impressum_address: [Street and number], [Postcode] Zürich, Switzerland
 impressum_email: [contact email for the Impressum]
