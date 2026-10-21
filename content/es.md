@@ -180,9 +180,9 @@ Hola, soy {owner_first_name}
 ### title
 Hola, soy {owner_first_name}.
 
-<!-- auto src-hash:4fcd3b58 -->
+<!-- auto src-hash:678d9e84 -->
 ### intro
-¡Qué bien que nos conocimos! Déjame tus datos y te escribo. Más rápido que mi tiempo en el maratón, lo prometo.
+Así que escaneaste la tarjeta. Buena elección. Déjame tus datos y te escribo pronto.
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt

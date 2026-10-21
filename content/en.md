@@ -380,7 +380,7 @@ Glad we met! Tap to leave your details, so we can stay in touch.
 Hi, I'm {owner_first_name}.
 
 ### intro
-Glad we met! Leave your details and I'll get back to you. Faster than my marathon time, promise.
+So you scanned the card. Good choice. Leave your details and I'll get back to you soon.
 
 ### card_title
 Marc's file

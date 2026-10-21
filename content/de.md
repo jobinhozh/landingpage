@@ -441,9 +441,9 @@ Hallo, ich bin {owner_first_name}
 ### title
 Hallo, ich bin {owner_first_name}.
 
-<!-- auto src-hash:4fcd3b58 -->
+<!-- auto src-hash:678d9e84 -->
 ### intro
-Schön, dass wir uns getroffen haben! Hinterlass mir deine Kontaktdaten, ich melde mich. Schneller als meine Marathonzeit, versprochen.
+Du hast die Karte also gescannt. Gute Wahl. Hinterlass mir deine Kontaktdaten, ich melde mich bald.
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt
