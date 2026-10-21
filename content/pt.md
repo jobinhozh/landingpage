@@ -180,9 +180,9 @@ Oi, eu sou {owner_first_name}
 ### title
 Oi, eu sou {owner_first_name}.
 
-<!-- auto src-hash:09aa4c20 -->
+<!-- auto src-hash:678d9e84 -->
 ### intro
-Que bom que a gente se conheceu. Deixe seus contatos e eu respondo logo.
+Então você escaneou o cartão. Boa escolha. Deixe seus contatos e eu respondo logo.
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt

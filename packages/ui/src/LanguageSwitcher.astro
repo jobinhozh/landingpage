@@ -48,8 +48,8 @@ const { current, items, label, variant } = Astro.props;
   .lang-switch--comic a.lang-switch__flag:not([aria-current="true"]) .lang-switch__img { opacity: 0.88; }
   .lang-switch--comic a.lang-switch__flag:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 0; }
   /* Calm (private page): flag with the level underneath. */
-  .lang-switch--calm ul:has(.lang-switch__flag) { gap: 2px; }
-  .lang-switch--calm a.lang-switch__flag { flex-direction: column; gap: 3px; min-width: 52px; padding: 4px 4px 2px; border-radius: 6px; }
+  .lang-switch--calm ul:has(.lang-switch__flag) { gap: 2px; align-items: flex-start; }
+  .lang-switch--calm a.lang-switch__flag { flex-direction: column; justify-content: flex-start; gap: 3px; min-width: 52px; padding: 4px 4px 2px; border-radius: 6px; }
   .lang-switch--calm .lang-switch__img { border-width: 2px; }
   .lang-switch--calm .lang-switch__img :global(svg) { width: 30px; height: 20px; }
   .lang-switch__sub { font-size: 10px; font-weight: 700; line-height: 1; white-space: nowrap; }

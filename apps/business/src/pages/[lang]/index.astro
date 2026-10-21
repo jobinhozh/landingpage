@@ -15,6 +15,11 @@ const workOrder = workData.map((w) => w.id);
 const work = (await getCollection("work")).sort((a, b) => workOrder.indexOf(a.data.id) - workOrder.indexOf(b.data.id));
 const expertise = ["s4", "alm", "crm", "ai"];
 const p = (key: string) => t(PAGE, key, lang);
+// Headline: the first sentence in ink, the rest in the accent colour.
+const heroTitle = p("hero_title");
+const heroCut = heroTitle.indexOf(". ");
+const heroLead = heroCut > 0 ? heroTitle.slice(0, heroCut + 1) : heroTitle;
+const heroRest = heroCut > 0 ? heroTitle.slice(heroCut + 2) : "";
 // Profile picture: drop one file into src/assets/ (profile.jpg, .jpeg, .png or .webp). Without one the hero has no picture.
 const photo = Object.values(
   import.meta.glob<string>("../../assets/profile.{jpg,jpeg,png,webp}", { eager: true, query: "?url", import: "default" }),
@@ -25,7 +30,7 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
 <Base lang={lang} title={p("meta_title")} description={p("meta_description")} path="">
   <section class="mx-auto max-w-6xl px-5 pt-10 pb-12 sm:px-8 sm:pt-20 sm:pb-20">
     <p class="m-0 font-mono text-[13px] tracking-[0.06em] text-muted uppercase">{p("hero_eyebrow")}</p>
-    <h1 class="hero-title mt-6 mb-0 font-serif font-normal">{p("hero_title")}</h1>
+    <h1 class="hero-title mt-6 mb-0 font-serif font-normal">{heroLead}{heroRest && <>{" "}<span class="text-accent">{heroRest}</span></>}</h1>
     <div class="mt-10 grid gap-8 border-t border-rule pt-6 md:mt-14 md:grid-cols-12">
       <div class="flex items-start gap-5 md:col-span-4">
         {photo && (
@@ -164,8 +169,8 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
 </script>
 
 <style>
-  /* The one focal point: a large serif headline. 48 px on a phone, up to 120 px on desktop. */
-  .hero-title { font-size: clamp(3rem, 8.4vw, 7.5rem); line-height: 0.98; letter-spacing: -0.025em; max-width: 14ch; text-wrap: balance; }
+  /* The one focal point: a large serif headline. 40 px on a phone, up to 72 px on desktop. */
+  .hero-title { font-size: clamp(2.5rem, 5.6vw, 4.5rem); line-height: 1.04; letter-spacing: -0.02em; max-width: 20ch; text-wrap: balance; }
   .cert-filter button { cursor: pointer; }
   .cert-filter button[aria-pressed="true"] { background: #141414; color: #F4F1EA; }
   .cert-filter button:hover { border-color: var(--accent); }

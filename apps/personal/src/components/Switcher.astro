@@ -8,12 +8,14 @@ import { keptQuery, languagesOf, pageUrl } from "../lib/pages.ts";
 export interface Props { page: PersonalPage; lang: string; rest?: string }
 const { page, lang, rest = "" } = Astro.props;
 // Each language shows as its country's flag (theme in site.config.ts).
-// The private page shows Marc's level per language (level_<code> settings, "native" is translated).
+// The private page shows Marc's level per language (level_<code> settings). Native languages show
+// no level under the flag, only in the accessible label ("native" is translated via level_native).
 const level = (code: string) => {
   if (page.style !== "calm") return undefined;
   const v = setting(page.id, `level_${code}`);
   return v === "native" ? t(page.id, "level_native", lang) : v || undefined;
 };
+const shownLevel = (code: string) => (setting(page.id, `level_${code}`) === "native" ? undefined : level(code));
 const query = keptQuery(Astro.url);
 const items = languagesOf(page).map((l) => {
   const lvl = level(l.code);
@@ -24,7 +26,7 @@ const items = languagesOf(page).map((l) => {
     href: `${pageUrl(page, l.code, rest)}${query}`,
     // Flags on every personal page: kids 34x23, the private page a bit smaller with the level underneath.
     flag: page.style === "comic" ? flagSvg(l.theme, 34, 23) : flagSvg(l.theme, 30, 20),
-    sub: lvl,
+    sub: shownLevel(l.code),
   };
 });
 ---

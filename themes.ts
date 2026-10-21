@@ -15,9 +15,9 @@ export const themes: Record<string, Theme> = {
   brazil: { bg: "#009C3B", dot: "#00B347", bubble: "#FFDF00", accent: "#002776", accentText: "#FFFFFF" },
   switzerland: { bg: "#DA291C", dot: "#E8493D", bubble: "#FFFFFF", accent: "#111111", accentText: "#FFFFFF" },
   germany: { bg: "#FFCE00", dot: "#F2B800", bubble: "#FFFFFF", accent: "#DD0000", accentText: "#FFFFFF" },
-  france: { bg: "#0055A4", dot: "#1968B5", bubble: "#FFFFFF", accent: "#CE2B37", accentText: "#FFFFFF" },
+  france: { bg: "#0055A4", dot: "#0B5EAE", bubble: "#FFFFFF", accent: "#CE2B37", accentText: "#FFFFFF" },
   italy: { bg: "#009246", dot: "#12A556", bubble: "#FFFFFF", accent: "#CE2B37", accentText: "#FFFFFF" },
-  uk: { bg: "#012169", dot: "#16357E", bubble: "#FFFFFF", accent: "#C8102E", accentText: "#FFFFFF" },
+  uk: { bg: "#012169", dot: "#0A2A74", bubble: "#FFFFFF", accent: "#C8102E", accentText: "#FFFFFF" },
   spain: { bg: "#AA151B", dot: "#BE2A2F", bubble: "#F1BF00", accent: "#AA151B", accentText: "#FFFFFF" },
   china: { bg: "#EE1C25", dot: "#F43E46", bubble: "#FFFF00", accent: "#B7121A", accentText: "#FFFFFF" },
 };
@@ -38,8 +38,8 @@ export interface PrivateTheme {
 export const privateThemes: Record<string, PrivateTheme> = {
   switzerland: { bg: "#DA291C", dot: "#E8493D", on: "#FFFFFF", accent: "#D52B1E", caption: "#FFFFFF" },
   germany: { bg: "#FFCE00", dot: "#F2B800", on: "#141414", accent: "#DD0000", caption: "#FFFFFF" },
-  uk: { bg: "#012169", dot: "#16357E", on: "#FFFFFF", accent: "#C8102E", caption: "#D6E0F5" },
-  france: { bg: "#0055A4", dot: "#1968B5", on: "#FFFFFF", accent: "#CE2B37", caption: "#FFFFFF" },
+  uk: { bg: "#012169", dot: "#0A2A74", on: "#FFFFFF", accent: "#C8102E", caption: "#D6E0F5" },
+  france: { bg: "#0055A4", dot: "#0B5EAE", on: "#FFFFFF", accent: "#CE2B37", caption: "#FFFFFF" },
   brazil: { bg: "#009C3B", dot: "#00B347", on: "#141414", accent: "#002776", caption: "#FFDF00" },
   spain: { bg: "#AA151B", dot: "#BE2A2F", on: "#FFFFFF", accent: "#AA151B", caption: "#F1BF00" },
   italy: { bg: "#009246", dot: "#12A556", on: "#141414", accent: "#CE2B37", caption: "#FFFFFF" },
@@ -50,7 +50,8 @@ export function privateThemeCss(): string {
   return Object.entries(privateThemes)
     .map(
       ([name, t]) =>
-        `[data-theme="${name}"]{--p-bg:${t.bg};--p-dot:${t.dot};--p-on:${t.on};--p-accent:${t.accent};--p-caption:${t.caption}}`,
+        // White text on a flag colour gets a soft shadow, so it stays crisp over the halftone dots.
+        `[data-theme="${name}"]{--p-bg:${t.bg};--p-dot:${t.dot};--p-on:${t.on};--p-accent:${t.accent};--p-caption:${t.caption};--p-on-shadow:${t.on === "#FFFFFF" ? "0 1px 2px rgb(0 0 0 / 45%)" : "none"}}`,
     )
     .join("\n");
 }

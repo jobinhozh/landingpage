@@ -180,9 +180,9 @@ Hoi, ich bi {owner_first_name}
 ### title
 Hoi, ich bi {owner_first_name}.
 
-<!-- draft src-hash:09aa4c20 -->
+<!-- draft src-hash:678d9e84 -->
 ### intro
-Schön, dass mir eus troffe händ. Hinterlah mir dini Kontaktdate, ich mälde mich bald.
+Du häsch also d Charte gscannt. Gueti Wahl. Hinterlah mir dini Kontaktdate, ich mälde mich bald.
 
 <!-- draft src-hash:5641d3e8 -->
 ### photo_alt
