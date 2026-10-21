@@ -225,7 +225,7 @@ Cards PDF: A4 sheets, 10 cards per sheet, 85x55 mm, 3 mm bleed, crop marks, QR a
 - Languages: `businessLanguages` from config.
 - Light editorial look: Newsreader serif for headings, Plus Jakarta Sans for body, IBM Plex Mono only for small metadata. Three colours (paper, ink, signal red), 1px rules instead of cards and shadows, no rounded corners. One focal point: the serif hero headline (48 to 120 px). Sections are rows with a numbered label column on the left. Contact sits on an ink band.
 - Sections: hero (positioning, Book a call, LinkedIn), focus areas (agent-led development, engineering process, architecture, domain knowledge; keys still `exp_s4/alm/crm/ai`), certifications (`src/data/certifications.json`: name, issuer, optional year and url, `tags` for the filter buttons SAP / AI / Project management; also in the CV), selected work (`src/data/work.json` holds the id, industry/title/text are content keys, no years shown), contact.
-- SEO component (title, description, Open Graph image, canonical, hreflang), sitemap, Cloudflare Web Analytics (cookieless), Cal.com embed for booking, CV PDF generated from content.
+- SEO component (title, description, Open Graph image, canonical, hreflang), sitemap, Cloudflare Web Analytics (cookieless), Cal.com embed for booking. CV PDF generator (`src/lib/cv.ts`) is kept but not published for now: the route is `_cv.pdf.ts` and the page has no CV link.
 - `public/_redirects` for QR redirects: `/go https://example.com 302`.
 - Impressum and privacy page (Swiss nDSG).
 - Responsive: phone and desktop.

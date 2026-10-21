@@ -5,7 +5,7 @@ import Base from "../../layouts/Base.astro";
 import CalEmbed from "../../components/CalEmbed.astro";
 import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
 import { certMeta, certifications, certTags } from "../../lib/certifications.ts";
-import { PAGE, langPaths, slugOf } from "../../lib/i18n.ts";
+import { PAGE, langPaths } from "../../lib/i18n.ts";
 
 export const getStaticPaths = langPaths;
 const { code: lang } = Astro.props as { code: string };
@@ -134,7 +134,6 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
       <div class="contact md:col-span-9">
         <p class="mt-0 mb-8 max-w-3xl font-serif text-3xl leading-tight sm:text-5xl" set:html={ti(PAGE, "contact_text", lang)} />
         <CalEmbed calLink={setting(PAGE, "cal_link")} label={p("contact_cta")} />
-        <p class="mt-6 mb-0"><a href={`/${slugOf(lang)}/cv.pdf`} class="inline-flex min-h-11 items-center font-mono text-sm text-paper hover:text-paper">{p("cv_link")}</a></p>
       </div>
     </div>
   </section>
