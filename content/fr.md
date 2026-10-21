@@ -184,10 +184,6 @@ Salut, moi c’est {owner_first_name}.
 ### intro
 Content qu’on se soit rencontrés. Laisse-moi tes coordonnées, je te réponds vite.
 
-<!-- auto src-hash:0c632e38 -->
-### chip_languages
-Langues
-
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt
 Photo de {owner_first_name}
@@ -216,45 +212,9 @@ Salut, moi c'est {owner_first_name}
 ### preview_description
 Ravi de t'avoir rencontré ! Touche ici pour laisser tes coordonnées et rester en contact.
 
-<!-- auto src-hash:4f9586ba -->
-### chip_crossfit
-CrossFit
-
-<!-- auto src-hash:fb818b81 -->
-### chip_crossfit_more
-CrossFit Open 2025
-
-<!-- auto src-hash:d384a4c7 -->
-### chip_hyrox
-Hyrox
-
-<!-- auto src-hash:d760ff92 -->
-### chip_hyrox_more
-En solo à São Paulo 2025, en double à Saint-Gall 2026
-
-<!-- auto src-hash:2c74f119 -->
-### chip_travel
-Voyages
-
-<!-- auto src-hash:0757631a -->
-### chip_travel_more
-60 pays jusqu'ici : Albanie, Allemagne, Angleterre, Argentine, Australie, Autriche, Bahamas, Belgique, Bosnie-Herzégovine, Brésil, Bulgarie, Canada, Chili, Chine, Chypre, Costa Rica, Croatie, Danemark, É.-U., Égypte, Émirats arabes unis, Espagne, État de la Cité du Vatican, Fidji, Finlande, France, Gibraltar, Grèce, Hong Kong, Îles Cook, Inde, Irlande, Israël, Italie, Liechtenstein, Lituanie, Macao, Macédoine du Nord, Malte, Mexique, Monaco, Monténégro, Norvège, Nouvelle-Zélande, Panama, Pays-Bas, Portugal, R.-U., Sénégal, Serbie, Singapour, Slovénie, Suède, Suisse, Tchéquie, Thaïlande, Tunisie, Turquie, Uruguay, Vanuatu
-
-<!-- auto src-hash:17e2bbab -->
-### chip_languages_more
-Suisse allemand, anglais et français. J'apprends le portugais et l'espagnol.
-
 <!-- auto src-hash:260ab774 -->
 ### chip_city_more
 Basé à Zurich. Chez moi partout dans le monde.
-
-<!-- auto src-hash:f4c047db -->
-### chip_marathon
-Marathon
-
-<!-- auto src-hash:2fe40623 -->
-### chip_marathon_more
-Francfort 2018
 
 <!-- auto src-hash:0d4f9368 -->
 ### card_title
@@ -268,9 +228,9 @@ Le dossier de Marc
 ### map_label
 Carte du monde avec les 60 pays visités par Marc
 
-<!-- auto src-hash:aec35541 -->
+<!-- auto src-hash:038f2fed -->
 ### map_legend
-Déjà visité
+Visité
 
 <!-- auto src-hash:bbc39b8d -->
 ### sport_title

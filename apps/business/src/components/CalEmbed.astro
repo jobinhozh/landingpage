@@ -7,7 +7,7 @@ export interface Props { calLink: string; label: string }
 const { calLink, label } = Astro.props;
 ---
 <div class="cal-embed" data-cal-link={calLink}>
-  <a href={`https://cal.com/${calLink}`} rel="noopener" class="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-accent px-6 text-base font-semibold text-ink no-underline hover:text-ink sm:w-auto">{label}</a>
+  <a href={`https://cal.com/${calLink}`} rel="noopener" class="inline-flex min-h-12 w-full items-center justify-center bg-ink px-6 text-base font-semibold text-paper no-underline hover:bg-accent hover:text-paper sm:w-auto">{label}</a>
   <div class="cal-embed__frame" hidden></div>
 </div>
 <script>
@@ -34,7 +34,7 @@ const { calLink, label } = Astro.props;
       frame.hidden = false;
       frame.id = "cal-inline";
       cal("init", { origin: "https://cal.com" });
-      cal("inline", { elementOrSelector: "#cal-inline", calLink: host.dataset.calLink, config: { theme: "dark" } });
+      cal("inline", { elementOrSelector: "#cal-inline", calLink: host.dataset.calLink, config: { theme: "light" } });
     };
     const io = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
@@ -46,6 +46,6 @@ const { calLink, label } = Astro.props;
   }
 </script>
 <style>
-  .cal-embed__frame { margin-top: 20px; min-height: 0; overflow: hidden; border-radius: 10px; }
+  .cal-embed__frame { margin-top: 20px; min-height: 0; overflow: hidden; border: 1px solid #141414; }
   .cal-embed__frame:not(:empty) { min-height: 520px; }
 </style>

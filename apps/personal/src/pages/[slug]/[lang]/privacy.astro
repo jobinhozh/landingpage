@@ -28,6 +28,10 @@ const lang = language.code;
 </Personal>
 <style>
   .legal { max-width: 640px; margin: 0 auto; padding: 6px 8px 24px; }
+  /* Private page: switcher sits on the flag colour (privateThemes). */
+  .legal--calm :global(.lang-switch--calm a) { color: var(--p-on, #3B4954); }
+  .legal--calm :global(.lang-switch--calm a[aria-current="true"]:not(.lang-switch__flag)) { background: var(--p-on, #16222B); color: var(--p-bg, #FFF); }
+  .legal--calm article { border: 3px solid #141414; border-radius: 0; box-shadow: 6px 6px 0 #141414; }
   .legal article { margin-top: 12px; padding: 18px; background: #FFF; color: #16222B; border-radius: 16px; line-height: 1.55; font-size: 16px; }
   .legal--comic article { border: 3px solid #111; border-radius: 0; box-shadow: 4px 4px 0 #111; }
   .legal h1 { margin: 0 0 12px; font-size: 28px; }

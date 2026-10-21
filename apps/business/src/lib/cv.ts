@@ -6,9 +6,9 @@ import { PAGE } from "./i18n.ts";
 
 const A4: [number, number] = [595.28, 841.89];
 const MARGIN = 56;
-const INK = rgb(0.055, 0.086, 0.125);
-const ACCENT = rgb(0.06, 0.5, 0.45);
-const MUTED = rgb(0.33, 0.38, 0.43);
+const INK = rgb(0.078, 0.078, 0.078);
+const ACCENT = rgb(0.72, 0.196, 0.102);
+const MUTED = rgb(0.34, 0.325, 0.3);
 
 /** pdf-lib standard fonts are WinAnsi only. Replace what they cannot encode. */
 function safe(text: string): string {

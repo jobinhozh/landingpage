@@ -5,11 +5,14 @@ import Base from "../../layouts/Base.astro";
 import CalEmbed from "../../components/CalEmbed.astro";
 import PhotoPuzzle from "@marc/ui/PhotoPuzzle.astro";
 import { certMeta, certifications, certTags } from "../../lib/certifications.ts";
-import { PAGE, langPaths, slugOf } from "../../lib/i18n.ts";
+import { PAGE, langPaths } from "../../lib/i18n.ts";
+import workData from "../../data/work.json";
 
 export const getStaticPaths = langPaths;
 const { code: lang } = Astro.props as { code: string };
-const work = await getCollection("work");
+// Collections come back in id order, so restore the order of work.json.
+const workOrder = workData.map((w) => w.id);
+const work = (await getCollection("work")).sort((a, b) => workOrder.indexOf(a.data.id) - workOrder.indexOf(b.data.id));
 const expertise = ["s4", "alm", "crm", "ai"];
 const p = (key: string) => t(PAGE, key, lang);
 // Profile picture: drop one file into src/assets/ (profile.jpg, .jpeg, .png or .webp). Without one the hero has no picture.
@@ -20,89 +23,104 @@ const puzzle = (k: string) => t("common", `puzzle_${k}`, lang);
 const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzle("solved"), shuffle: puzzle("shuffle"), close: puzzle("close"), tile: puzzle("tile") };
 ---
 <Base lang={lang} title={p("meta_title")} description={p("meta_description")} path="">
-  <section class="mx-auto max-w-5xl px-6 pb-10 pt-12 sm:pb-20 sm:pt-24">
-    {photo && (
-      <div class="hero-photo mb-6">
-        <PhotoPuzzle src={photo} alt={p("photo_alt")} size={96} class="block size-24 rounded-full border-2 border-line-strong object-cover" labels={puzzleLabels} />
+  <section class="mx-auto max-w-6xl px-5 pt-10 pb-12 sm:px-8 sm:pt-20 sm:pb-20">
+    <p class="m-0 font-mono text-[13px] tracking-[0.06em] text-muted uppercase">{p("hero_eyebrow")}</p>
+    <h1 class="hero-title mt-6 mb-0 font-serif font-normal">{p("hero_title")}</h1>
+    <div class="mt-10 grid gap-8 border-t border-rule pt-6 md:mt-14 md:grid-cols-12">
+      <div class="flex items-start gap-5 md:col-span-4">
+        {photo && (
+          <div class="hero-photo">
+            <PhotoPuzzle src={photo} alt={p("photo_alt")} size={112} class="block size-28 border border-rule object-cover grayscale-[35%]" labels={puzzleLabels} />
+          </div>
+        )}
+        <p class="m-0 font-serif text-2xl leading-tight">{setting(PAGE, "full_name")}</p>
       </div>
-    )}
-    <p class="m-0 font-mono text-[13px] tracking-[0.08em] text-accent uppercase">{p("hero_eyebrow")}</p>
-    <h1 class="mt-5 mb-0 max-w-3xl text-[40px] leading-[1.08] font-bold tracking-[-0.02em] sm:text-6xl">{p("hero_title")}</h1>
-    <p class="mt-5 mb-0 max-w-2xl text-[17px] leading-relaxed text-soft sm:text-lg" set:html={ti(PAGE, "hero_text", lang)} />
-    <div class="flex flex-wrap gap-3 pt-7">
-      <a href="#contact" class="inline-flex min-h-12 items-center rounded-lg bg-accent px-6 text-base font-semibold text-ink no-underline hover:text-ink">{p("cta_book")}</a>
-      <a href={setting(PAGE, "linkedin_url")} rel="noopener me" class="inline-flex min-h-12 items-center rounded-lg border border-line-strong px-6 text-base font-medium text-text no-underline hover:border-accent hover:text-text">{p("cta_linkedin")}</a>
+      <div class="md:col-span-8">
+        <p class="m-0 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl" set:html={ti(PAGE, "hero_text", lang)} />
+        <div class="flex flex-wrap gap-3 pt-7">
+          <a href="#contact" class="inline-flex min-h-12 items-center bg-ink px-6 text-base font-semibold text-paper no-underline hover:bg-accent hover:text-paper">{p("cta_book")}</a>
+          <a href={setting(PAGE, "linkedin_url")} rel="noopener me" class="inline-flex min-h-12 items-center border border-rule px-6 text-base font-medium no-underline">{p("cta_linkedin")}</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="border-t border-line" aria-labelledby="expertise">
-    <div class="mx-auto max-w-5xl px-6 py-10 sm:py-16">
-      <h2 id="expertise" class="m-0 text-[22px] font-semibold sm:text-3xl">{p("expertise_title")}</h2>
-      <ul class="mt-5 grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-4 sm:gap-4">
+  <section class="border-t border-rule" aria-labelledby="expertise">
+    <div class="mx-auto grid max-w-6xl gap-6 px-5 py-12 sm:px-8 md:grid-cols-12 md:py-20">
+      <header class="md:col-span-3">
+        <span class="font-mono text-xs text-accent" aria-hidden="true">01</span>
+        <h2 id="expertise" class="mt-2 mb-0 font-serif text-3xl font-normal sm:text-4xl">{p("expertise_title")}</h2>
+      </header>
+      <ol class="m-0 list-none border-t border-rule p-0 md:col-span-9">
         {expertise.map((id, i) => (
-          <li class="flex flex-col gap-2 rounded-[10px] border border-line bg-panel p-4">
-            <span class="font-mono text-xs text-accent" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-            <h3 class="m-0 text-base font-semibold">{p(`exp_${id}_title`)}</h3>
-            <p class="m-0 text-sm leading-snug text-muted" set:html={ti(PAGE, `exp_${id}_text`, lang)} />
+          <li class="grid gap-x-6 gap-y-1 border-b border-rule py-5 sm:grid-cols-[2.5rem_14rem_1fr]">
+            <span class="font-mono text-xs leading-8 text-muted" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="m-0 font-serif text-2xl leading-tight font-normal">{p(`exp_${id}_title`)}</h3>
+            <p class="m-0 text-[15px] leading-relaxed text-muted sm:pt-1" set:html={ti(PAGE, `exp_${id}_text`, lang)} />
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   </section>
 
   {certifications.length > 0 && (
-    <section class="border-t border-line" aria-labelledby="certs">
-      <div class="mx-auto max-w-5xl px-6 py-10 sm:py-16">
-        <h2 id="certs" class="m-0 text-[22px] font-semibold sm:text-3xl">{p("certs_title")}</h2>
-        <div class="cert-filter mt-5 flex flex-wrap gap-2" role="group" aria-label={p("certs_filter_label")} hidden>
-          {["all", ...certTags].map((tag) => (
-            <button type="button" data-filter={tag} aria-pressed={tag === "all" ? "true" : "false"} class="min-h-11 rounded-lg border border-line-strong px-4 font-mono text-sm text-text">
-              {p(`certs_filter_${tag}`)}
-            </button>
-          ))}
+    <section class="border-t border-rule" aria-labelledby="certs">
+      <div class="mx-auto grid max-w-6xl gap-6 px-5 py-12 sm:px-8 md:grid-cols-12 md:py-20">
+        <header class="md:col-span-3">
+          <span class="font-mono text-xs text-accent" aria-hidden="true">02</span>
+          <h2 id="certs" class="mt-2 mb-0 font-serif text-3xl font-normal sm:text-4xl">{p("certs_title")}</h2>
+          <p class="mt-2 mb-0 font-mono text-xs text-muted"><span data-cert-count>{certifications.length}</span> / {certifications.length}</p>
+        </header>
+        <div class="md:col-span-9">
+          <div class="cert-filter mb-5 flex flex-wrap gap-2" role="group" aria-label={p("certs_filter_label")} hidden>
+            {["all", ...certTags].map((tag) => (
+              <button type="button" data-filter={tag} aria-pressed={tag === "all" ? "true" : "false"} class="min-h-11 border border-rule bg-transparent px-4 font-mono text-[13px] text-ink">
+                {p(`certs_filter_${tag}`)}
+              </button>
+            ))}
+          </div>
+          <ul class="m-0 list-none border-t border-rule p-0" data-certs>
+            {certifications.map((c) => {
+              const inner = (
+                <>
+                  <span class="font-medium">{c.name}</span>
+                  <span class="font-mono text-xs whitespace-nowrap text-muted">{certMeta(c)}</span>
+                </>
+              );
+              const row = "flex min-h-11 flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-rule py-3";
+              return (
+                <li data-tags={c.tags.join(" ")}>
+                  {c.url ? <a href={c.url} rel="noopener" class={`${row} no-underline`}>{inner}</a> : <div class={row}>{inner}</div>}
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <ul class="mt-4 grid list-none gap-3 p-0 sm:grid-cols-2 sm:gap-4" data-certs>
-          {certifications.map((c) => {
-            const inner = (
-              <>
-                <span class="font-semibold">{c.name}</span>
-                <span class="font-mono text-xs text-muted">{certMeta(c)}</span>
-              </>
-            );
-            return (
-              <li data-tags={c.tags.join(" ")}>
-                {c.url ? (
-                  <a href={c.url} rel="noopener" class="flex min-h-11 h-full flex-col gap-1 rounded-[10px] border border-line px-4 py-3 text-text no-underline hover:border-accent hover:text-text">{inner}</a>
-                ) : (
-                  <div class="flex h-full flex-col gap-1 rounded-[10px] border border-line px-4 py-3">{inner}</div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </section>
   )}
 
-  <section class="border-t border-line" aria-labelledby="work">
-    <div class="mx-auto max-w-5xl px-6 py-10 sm:py-16">
-      <h2 id="work" class="m-0 text-[22px] font-semibold sm:text-3xl">{p("work_title")}</h2>
-      <ul class="mt-5 grid list-none gap-4 p-0 sm:grid-cols-2">
+  <section class="border-t border-rule" aria-labelledby="work">
+    <div class="mx-auto grid max-w-6xl gap-6 px-5 py-12 sm:px-8 md:grid-cols-12 md:py-20">
+      <header class="md:col-span-3">
+        <span class="font-mono text-xs text-accent" aria-hidden="true">{certifications.length > 0 ? "03" : "02"}</span>
+        <h2 id="work" class="mt-2 mb-0 font-serif text-3xl font-normal sm:text-4xl">{p("work_title")}</h2>
+      </header>
+      <ul class="m-0 list-none border-t border-rule p-0 md:col-span-9">
         {work.map(({ data }) => {
           const inner = (
             <>
-              <span class="font-mono text-xs text-muted">{p(`work_${data.id}_industry`)} · {data.year}</span>
-              <h3 class="m-0 text-[17px] font-semibold">{p(`work_${data.id}_title`)}</h3>
-              <p class="m-0 text-sm leading-snug text-muted" set:html={ti(PAGE, `work_${data.id}_text`, lang)} />
+              <span class="font-mono text-xs tracking-[0.06em] text-accent uppercase sm:pt-2">{p(`work_${data.id}_industry`)}</span>
+              <div>
+                <h3 class="m-0 font-serif text-2xl leading-snug font-normal sm:text-[28px]">{p(`work_${data.id}_title`)}</h3>
+                <p class="mt-3 mb-0 max-w-2xl text-[15px] leading-relaxed text-muted" set:html={ti(PAGE, `work_${data.id}_text`, lang)} />
+              </div>
             </>
           );
+          const row = "grid gap-4 border-b border-rule py-7 sm:grid-cols-[11rem_1fr] sm:gap-8";
           return (
             <li>
-              {data.url ? (
-                <a href={data.url} rel="noopener" class="flex h-full flex-col gap-1.5 rounded-[10px] border border-line p-[18px] text-text no-underline hover:border-accent hover:text-text">{inner}</a>
-              ) : (
-                <div class="flex h-full flex-col gap-1.5 rounded-[10px] border border-line p-[18px]">{inner}</div>
-              )}
+              {data.url ? <a href={data.url} rel="noopener" class={`${row} no-underline`}>{inner}</a> : <div class={row}>{inner}</div>}
             </li>
           );
         })}
@@ -110,12 +128,16 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
     </div>
   </section>
 
-  <section id="contact" class="border-t border-line" aria-labelledby="contact-title">
-    <div class="mx-auto max-w-5xl px-6 py-10 sm:py-16">
-      <h2 id="contact-title" class="m-0 text-[22px] font-semibold sm:text-3xl">{p("contact_title")}</h2>
-      <p class="mt-3 mb-5 text-[15px] leading-normal text-muted" set:html={ti(PAGE, "contact_text", lang)} />
-      <CalEmbed calLink={setting(PAGE, "cal_link")} label={p("contact_cta")} />
-      <p class="mt-5 mb-0"><a href={`/${slugOf(lang)}/cv.pdf`} class="inline-flex min-h-11 items-center font-mono text-sm">{p("cv_link")}</a></p>
+  <section id="contact" class="border-t border-rule bg-ink text-paper" aria-labelledby="contact-title">
+    <div class="mx-auto grid max-w-6xl gap-6 px-5 py-14 sm:px-8 md:grid-cols-12 md:py-24">
+      <header class="md:col-span-3">
+        <span class="font-mono text-xs text-paper/70" aria-hidden="true">{certifications.length > 0 ? "04" : "03"}</span>
+        <h2 id="contact-title" class="mt-2 mb-0 font-serif text-3xl font-normal sm:text-4xl">{p("contact_title")}</h2>
+      </header>
+      <div class="contact md:col-span-9">
+        <p class="mt-0 mb-8 max-w-3xl font-serif text-3xl leading-tight sm:text-5xl" set:html={ti(PAGE, "contact_text", lang)} />
+        <CalEmbed calLink={setting(PAGE, "cal_link")} label={p("contact_cta")} />
+      </div>
     </div>
   </section>
 </Base>
@@ -130,13 +152,26 @@ const puzzleLabels = { open: puzzle("open"), hint: puzzle("hint"), solved: puzzl
       if (!btn) return;
       const tag = btn.dataset.filter!;
       for (const b of filter.querySelectorAll("button")) b.setAttribute("aria-pressed", String(b === btn));
-      for (const li of items) li.hidden = tag !== "all" && !li.dataset.tags!.split(" ").includes(tag);
+      let shown = 0;
+      for (const li of items) {
+        li.hidden = tag !== "all" && !li.dataset.tags!.split(" ").includes(tag);
+        if (!li.hidden) shown++;
+      }
+      const count = document.querySelector("[data-cert-count]");
+      if (count) count.textContent = String(shown);
     });
   }
 </script>
 
 <style>
-  .cert-filter button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #0E1620; }
+  /* The one focal point: a large serif headline. 48 px on a phone, up to 120 px on desktop. */
+  .hero-title { font-size: clamp(3rem, 8.4vw, 7.5rem); line-height: 0.98; letter-spacing: -0.025em; max-width: 14ch; text-wrap: balance; }
+  .cert-filter button { cursor: pointer; }
+  .cert-filter button[aria-pressed="true"] { background: #141414; color: #F4F1EA; }
   .cert-filter button:hover { border-color: var(--accent); }
-  .hero-photo { --puzzle-surface: #152130; --puzzle-text: #E6ECF2; --puzzle-accent: #5FD4C3; --puzzle-accent-text: #0E1620; }
+  .hero-photo { --puzzle-surface: #F4F1EA; --puzzle-text: #141414; --puzzle-accent: #141414; --puzzle-accent-text: #F4F1EA; }
+  /* Contact sits on ink, so its CTA flips to paper. */
+  .contact :global(.cal-embed > a) { background: #F4F1EA; color: #141414; }
+  .contact :global(.cal-embed > a:hover) { background: #B8321A; color: #FFFFFF; }
+  .contact :global(.cal-embed__frame) { background: #F4F1EA; }
 </style>

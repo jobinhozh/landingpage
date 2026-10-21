@@ -146,7 +146,7 @@ Thanks for letting us know!
 
 brand: marc_jobin
 full_name: Marc Jobin
-linkedin_url: https://www.linkedin.com/in/[handle]
+linkedin_url: https://www.linkedin.com/in/marc-jobin
 cal_link: [cal-handle]/30min
 impressum_address: [Street and number], [Postcode] Zürich, Switzerland
 impressum_email: [contact email for the Impressum]
@@ -172,7 +172,7 @@ Software Engineering Leader · Zürich
 I lead software teams. Now I am changing how they work with AI.
 
 ### hero_text
-20+ years of software for police and banks. I lead an international forward-deployed team of engineers and architects. Currently I am testing agent-led development with this team.
+20+ years in software development. I lead an international forward-deployed team of software engineers and architects who build software with our clients. My focus is the development process and how agent-led development changes it.
 
 ### cta_book
 Book a call
@@ -193,7 +193,7 @@ How AI agents change roles, code review and release in a software team.
 Engineering process
 
 ### exp_alm_text
-Planning, build, review and release. Improved step by step, sprint after sprint.
+Planning, building, reviewing and releasing software, with a process that keeps improving.
 
 ### exp_crm_title
 Architecture
@@ -232,10 +232,10 @@ Selected work
 Law enforcement
 
 ### work_one_title
-Police organisation with 3'000 officers: from SAP ECC to the S/4HANA concept
+Case management for 3'000 police officers, in use around the clock
 
 ### work_one_text
-Led the international architecture team. Contributed to a mobile Flutter app based on personas.
+Led the development team for a custom case management solution based on SAP ICM. Later led the international architecture team for the S/4HANA migration concept.
 
 ### work_two_industry
 Global bank
@@ -245,6 +245,15 @@ US tax analytics for two banks, with fines in the hundreds of millions at stake
 
 ### work_two_text
 Data analysis for US person classification and US tax forms. One global bank, one private bank.
+
+### work_three_industry
+Consulting
+
+### work_three_title
+Senior agent builder and coach for business AI agents
+
+### work_three_text
+Train and coordinate the agent builders who build business AI agents on the internal AI platform of a global consulting firm.
 
 ### contact_title
 Contact
@@ -383,7 +392,7 @@ Marc's file
 World map with the 60 countries Marc has visited
 
 ### map_legend
-Been there
+Visited
 
 ### sport_title
 Sport
@@ -414,36 +423,6 @@ Half marathon
 
 ### chip_city_more
 Based in Zürich. Home worldwide.
-
-### chip_crossfit
-CrossFit
-
-### chip_crossfit_more
-CrossFit Open 2025
-
-### chip_hyrox
-Hyrox
-
-### chip_hyrox_more
-Solo in São Paulo 2025, Doubles in St. Gallen 2026
-
-### chip_marathon
-Marathon
-
-### chip_marathon_more
-Frankfurt 2018
-
-### chip_travel
-Travel
-
-### chip_travel_more
-60 countries so far: Albania, Argentina, Australia, Austria, Bahamas, Belgium, Bosnia and Herzegovina, Brazil, Bulgaria, Canada, Chile, China, Cook Islands, Costa Rica, Croatia, Cyprus, Czech Republic, Denmark, Egypt, England, Fiji, Finland, France, Germany, Gibraltar, Greece, Hong Kong, India, Ireland, Israel, Italy, Liechtenstein, Lithuania, Macao, Malta, Mexico, Monaco, Montenegro, Netherlands, New Zealand, North Macedonia, Norway, Panama, Portugal, Senegal, Serbia, Singapore, Slovenia, Spain, Sweden, Switzerland, Thailand, Tunisia, Turkey, United Arab Emirates, United Kingdom, United States, Uruguay, Vanuatu, Vatican City
-
-### chip_languages
-Languages
-
-### chip_languages_more
-Swiss German, English and French. Learning Portuguese and Spanish.
 
 ### photo_alt
 Photo of {owner_first_name}

@@ -10,7 +10,6 @@ const work = defineCollection({
   loader: file("src/data/work.json"),
   schema: z.object({
     id: z.string().regex(/^[a-z0-9]+$/),
-    year: z.string(),
     url: z.url().optional(),
   }),
 });

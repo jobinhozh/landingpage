@@ -1,3 +1,4 @@
+// Disabled for now: the leading underscore keeps Astro from building /<lang>/cv.pdf. Rename to cv.pdf.ts and restore the cv_link in index.astro to bring it back.
 import type { APIRoute } from "astro";
 import { renderCv } from "../../lib/cv.ts";
 import { langPaths } from "../../lib/i18n.ts";

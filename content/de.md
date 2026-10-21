@@ -192,9 +192,9 @@ Software Engineering Leader · Zürich
 ### hero_title
 Ich führe Softwareteams. Jetzt verändere ich, wie sie mit KI arbeiten.
 
-<!-- auto src-hash:dd7f170c -->
+<!-- auto src-hash:2570ee2c -->
 ### hero_text
-Über 20 Jahre Software für Polizei und Banken. Ich führe ein internationales Forward-Deployed-Team aus Engineers und Architekten. Aktuell erprobe ich mit diesem Team agentengestützte Entwicklung.
+Über 20 Jahre in der Softwareentwicklung. Ich führe ein internationales Forward-Deployed-Team aus Software Engineers und Architekten, das gemeinsam mit unseren Kunden Software baut. Mein Schwerpunkt ist der Entwicklungsprozess und wie agentengestützte Entwicklung ihn verändert.
 
 <!-- auto src-hash:03693615 -->
 ### cta_book
@@ -220,9 +220,9 @@ Wie KI-Agenten Rollen, Code-Review und Release in einem Softwareteam verändern.
 ### exp_alm_title
 Engineering-Prozess
 
-<!-- auto src-hash:cf4e2c65 -->
+<!-- auto src-hash:4245fbf0 -->
 ### exp_alm_text
-Planung, Umsetzung, Review und Release. Schritt für Schritt verbessert, Sprint für Sprint.
+Software planen, bauen, prüfen und ausliefern, mit einem Prozess, der sich laufend verbessert.
 
 <!-- auto src-hash:590c76e2 -->
 ### exp_crm_title
@@ -244,13 +244,13 @@ Acht Jahre in der Strafverfolgung. US-Steuern im Banking. Weitere Erfahrung im �
 ### work_title
 Ausgewählte Projekte
 
-<!-- auto src-hash:9bd1ebe1 -->
+<!-- auto src-hash:0befee74 -->
 ### work_one_title
-Polizeiorganisation mit 3'000 Mitarbeitenden: von SAP ECC zum S/4HANA-Konzept
+Fallbearbeitung für 3'000 Polizistinnen und Polizisten, rund um die Uhr im Einsatz
 
-<!-- auto src-hash:272323ba -->
+<!-- auto src-hash:5c59fb0d -->
 ### work_one_text
-Leitung des internationalen Architekturteams. Mitarbeit an einer mobilen Flutter-App auf Basis von Personas.
+Leitung des Entwicklungsteams für eine massgeschneiderte Fallbearbeitungslösung auf Basis von SAP ICM. Später Leitung des internationalen Architekturteams für das S/4HANA-Migrationskonzept.
 
 <!-- auto src-hash:850b2dcb -->
 ### work_two_title
@@ -417,6 +417,18 @@ Strafverfolgung
 ### work_two_industry
 Globale Bank
 
+<!-- auto src-hash:d10d8059 -->
+### work_three_industry
+Beratung
+
+<!-- auto src-hash:967e6213 -->
+### work_three_title
+Senior Agent Builder und Coach für Business-KI-Agenten
+
+<!-- auto src-hash:92d00855 -->
+### work_three_text
+Ich schule und koordiniere die Agent Builder, die auf der internen KI-Plattform eines globalen Beratungsunternehmens Business-KI-Agenten entwickeln.
+
 # private
 
 ## de
@@ -432,10 +444,6 @@ Hallo, ich bin {owner_first_name}.
 <!-- auto src-hash:09aa4c20 -->
 ### intro
 Schön, dass wir uns getroffen haben. Hinterlass mir deine Kontaktdaten, ich melde mich bald.
-
-<!-- auto src-hash:0c632e38 -->
-### chip_languages
-Sprachen
 
 <!-- auto src-hash:5641d3e8 -->
 ### photo_alt
@@ -465,45 +473,9 @@ Hallo, ich bin {owner_first_name}
 ### preview_description
 Schön, dass wir uns getroffen haben! Tippe hier und hinterlasse deine Kontaktdaten, damit wir in Kontakt bleiben.
 
-<!-- auto src-hash:4f9586ba -->
-### chip_crossfit
-CrossFit
-
-<!-- auto src-hash:fb818b81 -->
-### chip_crossfit_more
-CrossFit Open 2025
-
-<!-- auto src-hash:d384a4c7 -->
-### chip_hyrox
-Hyrox
-
-<!-- auto src-hash:d760ff92 -->
-### chip_hyrox_more
-Solo in São Paulo 2025, Doubles in St. Gallen 2026
-
-<!-- auto src-hash:2c74f119 -->
-### chip_travel
-Reisen
-
-<!-- auto src-hash:0757631a -->
-### chip_travel_more
-Bisher 60 Länder: Ägypten, Albanien, Argentinien, Australien, Bahamas, Belgien, Bosnien und Herzegowina, Brasilien, Bulgarien, Chile, China, Cookinseln, Costa Rica, Dänemark, Deutschland, England, Fidschi, Finnland, Frankreich, Gibraltar, Griechenland, Hongkong, Indien, Irland, Israel, Italien, Kanada, Kroatien, Liechtenstein, Litauen, Macau, Malta, Mexiko, Monaco, Montenegro, Neuseeland, Niederlande, Nordmazedonien, Norwegen, Österreich, Panama, Portugal, Schweden, Schweiz, Senegal, Serbien, Singapur, Slowenien, Spanien, Thailand, Tschechien, Tunesien, Türkei, UK, Uruguay, USA, Vanuatu, Vatikanstadt, Vereinigte Arabische Emirate, Zypern
-
-<!-- auto src-hash:17e2bbab -->
-### chip_languages_more
-Schweizerdeutsch, Englisch und Französisch. Ich lerne Portugiesisch und Spanisch.
-
 <!-- auto src-hash:260ab774 -->
 ### chip_city_more
 Zuhause in Zürich. Daheim auf der ganzen Welt.
-
-<!-- auto src-hash:f4c047db -->
-### chip_marathon
-Marathon
-
-<!-- auto src-hash:2fe40623 -->
-### chip_marathon_more
-Frankfurt 2018
 
 <!-- auto src-hash:0d4f9368 -->
 ### card_title
@@ -517,9 +489,9 @@ Marcs Akte
 ### map_label
 Weltkarte mit den 60 Ländern, die Marc besucht hat
 
-<!-- auto src-hash:aec35541 -->
+<!-- auto src-hash:038f2fed -->
 ### map_legend
-Schon dort gewesen
+Besucht
 
 <!-- auto src-hash:bbc39b8d -->
 ### sport_title
@@ -555,7 +527,7 @@ CrossFit
 
 <!-- auto src-hash:969a712a -->
 ### level_native
-Muttersprache
+Mutterspr.
 
 <!-- auto src-hash:9dd9203e -->
 ### sport_half_marathon

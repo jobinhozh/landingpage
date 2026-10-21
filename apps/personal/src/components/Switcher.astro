@@ -7,7 +7,7 @@ import { keptQuery, languagesOf, pageUrl } from "../lib/pages.ts";
 
 export interface Props { page: PersonalPage; lang: string; rest?: string }
 const { page, lang, rest = "" } = Astro.props;
-// Kid pages show each language as its country's flag (theme in site.config.ts).
+// Each language shows as its country's flag (theme in site.config.ts).
 // The private page shows Marc's level per language (level_<code> settings, "native" is translated).
 const level = (code: string) => {
   if (page.style !== "calm") return undefined;
@@ -22,7 +22,8 @@ const items = languagesOf(page).map((l) => {
     chip: l.chip,
     label: lvl ? `${l.label}, ${lvl}` : l.label,
     href: `${pageUrl(page, l.code, rest)}${query}`,
-    flag: page.style === "comic" ? flagSvg(l.theme, 34, 23) : undefined,
+    // Flags on every personal page: kids 34x23, the private page a bit smaller with the level underneath.
+    flag: page.style === "comic" ? flagSvg(l.theme, 34, 23) : flagSvg(l.theme, 30, 20),
     sub: lvl,
   };
 });
