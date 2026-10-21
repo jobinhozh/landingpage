@@ -8,9 +8,9 @@ const { lang, kind } = Astro.props;
 const title = t(PAGE, `${kind}_title`, lang);
 ---
 <Base lang={lang} title={`${title} · ${t(PAGE, "meta_title", lang)}`} description={t(PAGE, "meta_description", lang)} path={`${kind}/`}>
-  <article class="mx-auto max-w-3xl px-6 py-12">
-    <h1 class="m-0 mb-6 text-3xl font-bold">{title}</h1>
-    <div class="prose-dark" set:html={tm(PAGE, `${kind}_body`, lang)} />
+  <article class="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-20">
+    <h1 class="m-0 mb-8 font-serif text-5xl font-normal leading-none tracking-[-0.02em]">{title}</h1>
+    <div class="prose-paper" set:html={tm(PAGE, `${kind}_body`, lang)} />
     <p><a href={`/${slugOf(lang)}/`} class="inline-flex min-h-11 items-center">{t(PAGE, "back_home", lang)}</a></p>
   </article>
 </Base>

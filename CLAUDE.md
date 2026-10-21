@@ -101,7 +101,7 @@ Flag colors per language in `themes.ts`, applied via CSS custom properties on `<
 - Flag colors for backgrounds, bursts, buttons, borders only. Body text stays dark on light panels.
 - All text passes WCAG AA.
 - Kids' pages: comic style is identical across themes, only the palette and the flag change. Country look: a flag ribbon across the top, a flag strip on top of the form, and the language switcher shows each language as its country's flag (34x23 inside a 44x44 button, language name as accessible label). Flags are drawn in `flags.ts` (one builder per theme; every language's theme needs one, a test checks it).
-- Private page: grown-up graphic novel on the flag colour of the selected language (`privateThemes` in `themes.ts`: page `bg` with halftone `dot`, `on` = white or ink text directly on bg, `accent` for buttons/icons/map, `caption` for narration box and file card; e.g. CH red, DE gold, EN navy, FR blue, PT green, ES dark red). White panels with ink outlines, Anton headings. All pairs pass WCAG AA. Business: dark technical (see reference canvas), no flag themes.
+- Private page: grown-up graphic novel on the flag colour of the selected language (`privateThemes` in `themes.ts`: page `bg` with halftone `dot`, `on` = white or ink text directly on bg, `accent` for buttons/icons/map, `caption` for narration box and file card; e.g. CH red, DE gold, EN navy, FR blue, PT green, ES dark red). White panels with ink outlines, Anton headings. All pairs pass WCAG AA. Business: light editorial (paper #F4F1EA, ink #141414, one signal red #B8321A, faint 1px grid), no flag themes.
 
 ## 6. Content: one Markdown file per language
 
@@ -223,7 +223,7 @@ Cards PDF: A4 sheets, 10 cards per sheet, 85x55 mm, 3 mm bleed, crop marks, QR a
 ## 14. Business site
 
 - Languages: `businessLanguages` from config.
-- Dark technical look (IBM Plex Sans + Mono, one accent colour), see reference canvas.
+- Light editorial look: Newsreader serif for headings, Plus Jakarta Sans for body, IBM Plex Mono only for small metadata. Three colours (paper, ink, signal red), 1px rules instead of cards and shadows, no rounded corners. One focal point: the serif hero headline (48 to 120 px). Sections are rows with a numbered label column on the left. Contact sits on an ink band.
 - Sections: hero (positioning, Book a call, LinkedIn), focus areas (agent-led development, engineering process, architecture, domain knowledge; keys still `exp_s4/alm/crm/ai`), certifications (`src/data/certifications.json`: name, issuer, optional year and url, `tags` for the filter buttons SAP / AI / Project management; also in the CV), selected work (`src/data/work.json` holds id and year, industry/title/text are content keys), contact.
 - SEO component (title, description, Open Graph image, canonical, hreflang), sitemap, Cloudflare Web Analytics (cookieless), Cal.com embed for booking, CV PDF generated from content.
 - `public/_redirects` for QR redirects: `/go https://example.com 302`.

@@ -1,27 +1,37 @@
 @import "tailwindcss";
 
+/* Editorial look: paper, ink, one signal red. Serif display, geometric sans body, mono for metadata only. */
 @theme {
-  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", "Helvetica Neue", Helvetica, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --color-ink: #0E1620;
-  --color-panel: #152130;
-  --color-line: #22303F;
-  --color-line-strong: #3A4B5D;
-  --color-text: #E6ECF2;
-  --color-muted: #A9B6C3;
-  --color-soft: #B4C1CE;
-  --color-faint: #8A97A4;
-  --color-accent: #5FD4C3;
+  --color-paper: #F4F1EA;
+  --color-ink: #141414;
+  --color-accent: #B8321A;
+  --color-muted: #57534C;
+  --color-faint: #6B665E;
+  --color-rule: #141414;
 }
 
 @layer base {
-  :root { --accent: #5FD4C3; color-scheme: dark; }
-  html { background: var(--color-ink); color: var(--color-text); font-family: var(--font-sans); -webkit-text-size-adjust: 100%; }
+  :root { --accent: #B8321A; color-scheme: light; }
+  html {
+    background-color: var(--color-paper);
+    /* Faint 1px grid, like engineering paper. */
+    background-image:
+      linear-gradient(to right, rgb(20 20 20 / 5%) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(20 20 20 / 5%) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
   body { margin: 0; }
-  a { color: #7FE3D4; }
-  a:hover { color: #B5F1E8; }
-  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-  .prose-dark p { margin: 0 0 1em; line-height: 1.6; color: var(--color-soft); }
-  .prose-dark strong { color: var(--color-text); }
-  .prose-dark ul { padding-left: 1.2em; color: var(--color-soft); line-height: 1.6; }
+  a { color: var(--color-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  ::selection { background: var(--color-ink); color: var(--color-paper); }
+  .prose-paper p { margin: 0 0 1em; line-height: 1.65; color: var(--color-muted); }
+  .prose-paper strong { color: var(--color-ink); }
+  .prose-paper ul { padding-left: 1.2em; color: var(--color-muted); line-height: 1.65; }
 }
