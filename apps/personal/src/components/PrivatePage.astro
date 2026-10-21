@@ -166,5 +166,8 @@ const titleSize = `min(34px, calc((min(100vw, 480px) - 118px) / ${(Math.max(titl
   .private :global(.lang-switch--calm a) { color: var(--on); }
   .private :global(.lang-switch--calm a[aria-current="true"]:not(.lang-switch__flag)) { background: var(--on); color: var(--paper); }
   .private :global(.pfooter), .private :global(.pfooter a) { color: var(--on); }
+  /* Text sitting directly on the flag colour: bolder and with a soft shadow on dark flags. */
+  .private :global(.pfooter) { font-weight: 600; }
+  .private :global(.pfooter), .private__base, .private h1, .private :global(.lang-switch__sub) { text-shadow: var(--p-on-shadow, none); }
 
 </style>
