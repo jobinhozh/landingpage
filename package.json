@@ -36,7 +36,7 @@
     "topojson-client": "3.1.0",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.3",
+    "vitest": "^5.0.5",
     "world-atlas": "2.0.2",
     "zod": "^4.6.5"
   }
